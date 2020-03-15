@@ -86,8 +86,8 @@
               </div>
             </div> -->
             <!-- Message End -->
-          <!-- </a>
-          <div class="dropdown-divider"></div>
+          <!-- </a> -->
+          <!-- <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item"> -->
             <!-- Message Start -->
             <!-- <div class="media">
@@ -102,8 +102,8 @@
               </div>
             </div> -->
             <!-- Message End -->
-          <!-- </a>
-          <div class="dropdown-divider"></div>
+          <!-- </a> -->
+          <!-- <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
       </li> -->
@@ -215,8 +215,8 @@
             </ul>
           </li>
           <!-- <li class="nav-header">EXAMPLES</li> -->
-          <li class="nav-item">
-            <a href="<?php echo site_url()?>/welcome/surat" class="nav-link">
+          <li class="nav-item ">
+            <a href="<?php echo site_url()?>/welcome/surat/" class="nav-link">
               <i class="nav-icon far fa-envelope"></i>
               <p>
                 SK
@@ -224,8 +224,8 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="<?php echo site_url()?>/welcome/inbox" class="nav-link">
+          <li class="nav-item ">
+            <a href="<?php echo site_url()?>/welcome/inbox/" class="nav-link">
               <i class="nav-icon far fa-envelope"></i>
               <p>
                 Surat Masuk
@@ -235,14 +235,15 @@
           </li>
           <li class="nav-item">
             <a href="<?php echo site_url()?>/welcome/outbox" class="nav-link">
-              <i class="nav-icon fas fa-envelope"></i>
+              <i class="nav-icon far fa-envelope"></i>
               <p>
                 Surat Keluar
+                <!-- <i class="fas fa-angle-left right"></i> -->
               </p>
             </a>
-            </li>
+          </li>
           <li class="nav-item">
-            <a href="<?php echo site_url()?>/welcome/agenda" class="nav-link">
+            <a href="<?php echo site_url()?>/welcome/account" class="nav-link">
               <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
                 Rapat
@@ -270,12 +271,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>SK</h1>
+            <h1>Surat Masuk</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="<?php echo site_url()?>/welcome/logedin_user">Home</a></li>
-              <li class="breadcrumb-item active">SK</li>
+              <li class="breadcrumb-item active">DataTables</li>
             </ol>
           </div>
         </div>
