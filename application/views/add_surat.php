@@ -393,6 +393,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <!-- page script -->
 <script>
   $(function () {
@@ -409,6 +411,9 @@
 
   $(document).ready(function() {
     var dataDosen;
+    <?php if($this->session->flashdata('statusInsert')=='sukses') :?>
+      swal("Sukses", "Data tersimpan sayang :)", "success");
+    <?php endif ?>
     $.get( "http://localhost/menpro/index.php/welcome/getPegawai", function( data ) {
       dataDosen = data;
       console.log(dataDosen);

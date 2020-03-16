@@ -92,8 +92,9 @@ class Welcome extends CI_Controller {
 
           public function generateWord(){
                $Temp = json_encode($this->input->post());
+               $this->surat->insertSurat('1',$Temp,'Kontol');
+               $this->session->set_flashdata('statusInsert','sukses' );
                redirect('welcome/add_surat');
-               // $this->surat->insertSurat('1',$Temp,'Kontol');
           }
           public function pegawai()
           {
