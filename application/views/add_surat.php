@@ -13,6 +13,9 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo base_url('plugins/datatables-bs4/css/dataTables.bootstrap4.css')?>">
+  
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('dist/css/adminlte.min.css')?>">
   <!-- Google Font: Source Sans Pro -->
@@ -293,12 +296,28 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form">
+              <form role="form" method="POST" action="<?php echo base_url()?>/welcome/generateWord">
                 <div class="card-body">
+              <?php foreach ($templateSK as $key=>$Input):
+                if($Input->type =='text'):?>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">No. Surat</label>
-                    <input type="text" class="form-control" >
+                    <label for="exampleInputEmail1"><?=$Input->label?></label>
+                    <input type="text" class="form-control" name="<?=$key?>"> 
                   </div>
+                  <?php elseif ($Input->type =='array'):?>
+
+                    <div class="form-group">
+                    <label for="exampleInputEmail1"><?=$Input->label?></label>
+                    <select class="data-dosen form-control" name="<?=$key?>[]" multiple="multiple"></select>
+                  </div>
+                  
+                  <?php elseif ($Input->type =='longText'):?>
+                  <div class="form-group">
+                  <label for="exampleInputEmail1"><?=$Input->label?></label>
+                    <textarea type="text" class="form-control" rows="3" name="<?=$key?>"></textarea>
+                  </div>
+                  <?php endif?>
+              <?php endforeach ?>
                   <!-- <div class="form-group">
                     <label for="exampleInputPassword1">Tanggal Buat</label>
                     <input type="text" class="form-control">
@@ -306,24 +325,7 @@
                 <!-- </div> -->
                   <!-- /.card-body -->
                 <!-- </div> -->
-                <div class="form-group">
-                        <label>Kategori</label>
-                        <select class="form-control">
-                          <option>Mengajar</option>  
-                          <option>Menguji</option>
-                          <!-- <option>Single</option> -->
-                        </select>
-
-                      </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Tujuan</label>
-                    <input type="text" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Isi Surat</label>
-                    <textarea type="text" class="form-control" rows="3">
-                    </textarea>
-                  </div>
+                  
                 <!--<div class="form-group">
                   <input type="text" class="form-control">
                 </div> -->
@@ -388,6 +390,9 @@
 <script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('dist/js/demo.js')?>"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
 <!-- page script -->
 <script>
   $(function () {
@@ -401,6 +406,19 @@
       "autoWidth": false,
     });
   });
+
+  $(document).ready(function() {
+    var dataDosen;
+    $.get( "http://localhost/menpro/index.php/welcome/getPegawai", function( data ) {
+      dataDosen = data;
+      console.log(dataDosen);
+      $('.data-dosen').select2({
+      data : dataDosen
+});
+      });
+});
+
 </script>
+
 </body>
 </html>

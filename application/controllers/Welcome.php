@@ -83,6 +83,18 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
           }
+
+          public function getPegawai(){
+               header('Content-Type: application/json');
+               $data = json_encode($this->surat->listPegawai(),true);
+               echo $data;
+          }
+
+          public function generateWord(){
+               $Temp = json_encode($this->input->post());
+               redirect('welcome/add_surat');
+               // $this->surat->insertSurat('1',$Temp,'Kontol');
+          }
           public function pegawai()
           {
                $this->load->model('main_models');
@@ -115,7 +127,8 @@ class Welcome extends CI_Controller {
           $this->load->view('add_departmen');
      }
      public function add_surat(){
-          $this->load->view('add_surat');
+          $data['templateSK'] = json_decode($this->surat->get_properties_surat('1')->Input);
+          $this->load->view('add_surat',$data);
      }
      public function mom(){
           $this->load->view('mom');
