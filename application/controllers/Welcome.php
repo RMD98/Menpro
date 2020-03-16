@@ -105,10 +105,6 @@ class Welcome extends CI_Controller {
           $this->load->view('add_departmen');
      }
      public function add_surat(){
-          // $this->get_properties_surat('1');
-          $x = $this->surat->get_template_sk($this->session->userdata('status'));
-          print_r($x);
-          die;
           $this->load->view('add_surat');
      }
      public function mom(){
