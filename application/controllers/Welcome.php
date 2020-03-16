@@ -51,11 +51,27 @@ class Welcome extends CI_Controller {
           if($this->session->userdata('status') == 'admin') {
                $this->load->view('temp/sidebar');
           } 
-          elseif($this->session->userdata('status') == 'Unit') 
+          elseif($this->session->userdata('status') == 'rektor') 
           {
                $this->load->view('temp/sidebar_unit');
           }
           elseif($this->session->userdata('status') == 'dosen') 
+          {
+               $this->load->view('temp/sidebar_dosen');
+          }
+          elseif($this->session->userdata('status') == 'fakultas') 
+          {
+               $this->load->view('temp/sidebar_unit');
+          }
+          elseif($this->session->userdata('status') == 'jurusan') 
+          {
+               $this->load->view('temp/sidebar_unit');
+          }
+          elseif($this->session->userdata('status') == 'lppm') 
+          {
+               $this->load->view('temp/sidebar_unit');
+          }
+          elseif($this->session->userdata('status') == 'ekspedisi') 
           {
                $this->load->view('temp/sidebar_dosen');
           }
@@ -109,8 +125,14 @@ class Welcome extends CI_Controller {
           public function inbox(){
                $this->load->view('inbox');
           }
+          public function outbox(){
+               $this->load->view('outbox');
+          }
+          public function ekspedisi(){
+               $this->load->view('ekspedisi');
+          }
 	public function surat(){
-          $data['listSK'] = $this->surat->get_template_sk('dosen');
+          $data['listSK'] = $this->surat->get_template_sk($this->session->userdata('status'));
           // print_r($data);
           $this->load->view('surat',$data);
 	}
@@ -164,7 +186,7 @@ class Welcome extends CI_Controller {
                           'status'       => $login_data['Status']
                      );  
                      $this->session->set_userdata($session_data);  
-                     redirect(site_url().'/welcome/logedin',$session_data);
+                     redirect(site_url().'/welcome/surat',$session_data);
                 }  
                //  elseif($login_data['Status'] == 'dosen')  
                //  {  
@@ -193,15 +215,9 @@ class Welcome extends CI_Controller {
                 else  
                 {  
                      $this->session->set_flashdata('error', 'Invalid Username and Password');  
-                     redirect(site_url() . '/welcome/logedin');  
+                     redirect(site_url() . '/welcome/');  
                     }  
                }  
-               else  
-               {  
-                    //false  
-                    // $this->index();  
-                    $this->session->set_flashdata('error', 'Invalid Username and Password');  
-                    redirect(site_url() . '/welcome/logedin');  
-           }  
+               
       }
 }

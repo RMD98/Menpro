@@ -21,9 +21,9 @@
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <!-- <nav class="main-header navbar navbar-expand navbar-white navbar-light"> -->
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
+    <!-- <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
@@ -33,10 +33,10 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
       </li>
-    </ul>
+    </ul> -->
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
+    <!-- <form class="form-inline ml-3">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
@@ -45,20 +45,20 @@
           </button>
         </div>
       </div>
-    </form>
+    </form> -->
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
+    <!-- <ul class="navbar-nav ml-auto"> -->
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
+      <!-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
+          <a href="#" class="dropdown-item"> -->
             <!-- Message Start -->
-            <div class="media">
+            <!-- <div class="media">
               <img src="<?php echo base_url('dist/img/user1-128x128.jpg')?>" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
@@ -68,13 +68,13 @@
                 <p class="text-sm">Call me whenever you can...</p>
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
-            </div>
+            </div> -->
             <!-- Message End -->
-          </a>
+          <!-- </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
+          <a href="#" class="dropdown-item"> -->
             <!-- Message Start -->
-            <div class="media">
+            <!-- <div class="media">
               <img src="<?php echo base_url('dist/img/user8-128x128.jpg')?>" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
@@ -84,13 +84,13 @@
                 <p class="text-sm">I got your message bro</p>
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
-            </div>
+            </div> -->
             <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
+          <!-- </a> -->
+          <!-- <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item"> -->
             <!-- Message Start -->
-            <div class="media">
+            <!-- <div class="media">
               <img src="<?php echo base_url('dist/img/user3-128x128.jpg')?>" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
@@ -100,15 +100,15 @@
                 <p class="text-sm">The subject goes here</p>
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
-            </div>
+            </div> -->
             <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
+          <!-- </a> -->
+          <!-- <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
-      </li>
+      </li> -->
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      <!-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
@@ -140,7 +140,7 @@
         </a>
       </li>
     </ul>
-  </nav>
+  </nav> -->
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
@@ -219,7 +219,7 @@
             <a href="<?php echo site_url()?>/welcome/surat/" class="nav-link">
               <i class="nav-icon far fa-envelope"></i>
               <p>
-                Surat Keputusan
+                SK
                 <!-- <i class="fas fa-angle-left right"></i> -->
               </p>
             </a>
@@ -251,7 +251,7 @@
             </a>
             </li>
             <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo site_url()?>/welcome/Ekspedisi" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Ekspedisi
@@ -271,7 +271,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Surat Keluar</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -290,7 +290,7 @@
           <div class="card">
             <div class="card-header">
             <!-- <div class="col-6"> -->
-            <a href="<?php echo site_url()?>/welcome/add_surat">
+            <a href="<?php echo site_url()?>/welcome/add_surat/1">
             <button type="submit" class="btn btn-primary float-right">Add</button>
             </a>  
           </div>
@@ -299,7 +299,7 @@
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Id Surat</th>
+                  <!-- <th>Id Surat</th> -->
                   <th>No. Surat</th>
                   <th>Tanggal Buat</th>
                   <th>Kategori</th>
@@ -311,14 +311,18 @@
                 </thead>
                 <tbody>
                 <tr>
-                  <td>1</td>
+                  <!-- <td>1</td> -->
                   <td>SK/01/XXIX</td>
                   <td>01/02/2019</td>
                   <td>Surat Keputusan</td>
                   <td>Terkirim</td>
                   <td>Rektorat</td>
                   <!-- <td>Single</td> -->
-                  <td><a href="<?php echo site_url()?>/welcome/add_departmen">
+                  <td>
+                  <a href="<?php echo site_url()?>/welcome/add_departmen">
+                   <button type="submit" class="btn btn-primary float-right">Status</button>
+                  </a>
+                  <a href="<?php echo site_url()?>/welcome/add_departmen">
                    <button type="submit" class="btn btn-warning float-right">Edit</button>
                   </a>
                   <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
@@ -343,14 +347,18 @@
                   </td>
                 </tr> -->
                 <tr>
-                  <td>2</td>
+                  <!-- <td>2</td> -->
                   <td>SK/02/XXIX</td>
                   <td>12/03/2019</td>
                   <td>Surat Keputusan</td>
                   <td>Terkirim</td>
                   <td>Rektorat</td>
                   <!-- <td>Multiple</td> -->
-                  <td><a href="<?php echo site_url()?>/welcome/add_departmen">
+                  <td>
+                  <a href="<?php echo site_url()?>/welcome/add_departmen">
+                   <button type="submit" class="btn btn-primary float-right">Status</button>
+                  </a>
+                  <a href="<?php echo site_url()?>/welcome/add_departmen">
                    <button type="submit" class="btn btn-warning float-right">Edit</button>
                   </a>
                   <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">

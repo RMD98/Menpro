@@ -271,7 +271,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Surat Masuk</h1>
+            <h1>Ekspedisi</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -290,9 +290,9 @@
           <div class="card">
             <div class="card-header">
             <!-- <div class="col-6"> -->
-            <a href="<?php echo site_url()?>/welcome/add_surat/1">
+            <!-- <a href="<?php echo site_url()?>/welcome/add_surat/1">
             <button type="submit" class="btn btn-primary float-right">Add</button>
-            </a>  
+            </a>   -->
           </div>
             <!-- /.card-header -->
             <div class="card-body">

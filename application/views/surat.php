@@ -250,7 +250,7 @@
             </a>
             </li>
             <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo site_url()?>/welcome/Ekspedisi" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Ekspedisi
@@ -302,13 +302,12 @@
               if (($key % 3 == 0)):
               ?>
               
-              <a href="<?php echo base_url()?>/welcome/add_surat/<?=$key+1?>" class="col-lg-3 col-6 ml-3 mt-3">
+              <a href="<?php echo base_url()?>/welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
           <!-- <div class="col-lg-3 col-6 ml-3 mt-3"> -->
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3><?=$listSK->Tema?></h3>
-                <p><?=$key+1?></p>
+                <h5 style ='text-align: center' ><?=$listSK->Tema?></h5>
               </div>
             </div>
           <!-- </div> -->
@@ -317,11 +316,11 @@
           <!-- ./col -->
           <!-- <div class="col-lg-3 col-6 ml-3 mt-3"> -->
             <!-- small box -->
-            <a href="<?php echo base_url()?>/welcome/add_surat/<?=$key+1?>" class="col-lg-3 col-6 ml-3 mt-3">
+            <a href="<?php echo base_url()?>/welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
             <div class="small-box bg-success">
               <div class="inner">
-                <h3><?=$listSK->Tema?></sup></h3>
-                <p><?=$key+1?></p>
+                <h5 style ='text-align: center'><?=$listSK->Tema?></sup></h5>
+                
               </div>
             </div>
             </a>
@@ -330,12 +329,12 @@
           <!-- ./col -->
           <!-- <div class="col-lg-3 col-6 ml-3 mt-3"> -->
             <!-- small box -->
-            <a href="<?php echo base_url()?>/welcome/add_surat/<?=$key+1?>" class="col-lg-3 col-6 ml-3 mt-3">
+            <a href="<?php echo base_url()?>/welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
 
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3><?=$listSK->Tema?></sup></h3>
-                <p><?=$key+1?></p>
+                <h5 style ='text-align: center'><?=$listSK->Tema?></sup></h5>
+                
               </div>
             </div>
             </a>

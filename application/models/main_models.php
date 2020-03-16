@@ -3,7 +3,7 @@
  {  
       function can_login($username, $password)  
       {  
-           $this->db->where('NIP', $username);  
+           $this->db->where('Username', $username);  
            $this->db->where('Password', $password);
            $query = $this->db->get('tbl_account')->row_array();
            return $query;
