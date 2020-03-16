@@ -5,7 +5,7 @@
       {  
            $this->db->where('Username', $username);  
            $this->db->where('Password', $password);
-           $query = $this->db->get('account')->row_array();
+           $query = $this->db->get('tbl_account')->row_array();
            return $query;
            // if ($query['stat']='admin'){
            // return 1;
@@ -14,6 +14,8 @@
            // }
            //SELECT * FROM users WHERE username = '$username' AND password = '$password'  
       } 
+
+      
       function daftar_produk()
       {
         return $this->db->get('produk')->result();

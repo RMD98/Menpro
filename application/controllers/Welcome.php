@@ -17,20 +17,28 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
       * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+     public function __construct() {
+          parent::__construct();
+          $this->load->model('main_models');
+          $this->load->model('surat');
+          
+      }
      public function index()
 	{
-          parent::__construct();
-          // $this->load->library('session');
+          // die;
+          $this->load->library('session');
           if($this->session->userdata() != null) 
           {
                $this->load->view('login2');
-               $data = $this->session->all_userdata();
+               // $this->session();
+               // $data = $this->session->all_userdata();
                // echo($this->session->userdata());
                // for each
                // echo $data;
           }
           else 
-          { 
+          {
+                
                redirect(site_url().'/welcome/logedin',$session_data);
           }
 	}
@@ -97,6 +105,10 @@ class Welcome extends CI_Controller {
           $this->load->view('add_departmen');
      }
      public function add_surat(){
+          // $this->get_properties_surat('1');
+          $x = $this->surat->get_template_sk($this->session->userdata('status'));
+          print_r($x);
+          die;
           $this->load->view('add_surat');
      }
      public function mom(){
