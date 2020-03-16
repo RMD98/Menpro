@@ -34,7 +34,12 @@ CREATE TABLE IF NOT EXISTS `tbl_account` (
 DELETE FROM `tbl_account`;
 /*!40000 ALTER TABLE `tbl_account` DISABLE KEYS */;
 INSERT INTO `tbl_account` (`id`, `NIP`, `Username`, `Password`, `Status`) VALUES
-	(1, '1', 'ujank', '1', 'admin');
+	(1, '1', 'admin', '1', 'admin'),
+	(2, '2', 'rektor', '1', 'rektor'),
+	(3, '1', 'dosen', '1', 'dosen'),
+	(4, '2', 'fakultas', '1', 'fakultas'),
+	(5, '2', 'jurusan', '1', 'jurusan'),
+	(6, '1', 'ekspedisi', '1', 'ekspedisi');
 /*!40000 ALTER TABLE `tbl_account` ENABLE KEYS */;
 
 -- Dumping structure for table e-itenice.tbl_department
@@ -98,23 +103,41 @@ DELETE FROM `tbl_rapat`;
 DROP TABLE IF EXISTS `tbl_sk`;
 CREATE TABLE IF NOT EXISTS `tbl_sk` (
   `IdSK` varchar(5) NOT NULL,
-  `Tema` varchar(50) DEFAULT NULL,
+  `Tema` varchar(200) DEFAULT NULL,
   `FileTemplate` varchar(50) DEFAULT NULL,
   `Input` longtext,
   `Role` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`IdSK`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table e-itenice.tbl_sk: ~6 rows (approximately)
+-- Dumping data for table e-itenice.tbl_sk: ~14 rows (approximately)
 DELETE FROM `tbl_sk`;
 /*!40000 ALTER TABLE `tbl_sk` DISABLE KEYS */;
 INSERT INTO `tbl_sk` (`IdSK`, `Tema`, `FileTemplate`, `Input`, `Role`) VALUES
 	('1', 'sk admin', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'admin'),
+	('10', 'Pemberian Tugas & Wewenang Dosen Pengampu', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'fakultas'),
+	('11', 'Penugasan Dosen Penguji Pada Ujian Tugas Akhir', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'fakultas'),
+	('12', 'Pemberian Tugas dan Wewenang mengajar', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'fakultas'),
+	('13', 'Pengangkatan Para Dosen-Kopembimbing Tugas Akhir', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'fakultas'),
+	('14', 'Penugasan Melaksanakan Penelitian', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'jurusan'),
+	('15', 'Penugasan Sebagai Tim Akreditasi', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'jurusan'),
+	('16', 'Penugasan Sebagai Reviewer Publikasi Untuk Jabatan Akademis', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'jurusan'),
+	('17', 'Penugasan Sebagai Redaksi Jurnal Jurusan ', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'fakultas'),
+	('18', 'Penugasan Sebagai Koordinator Kuliah Tamu', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'fakultas'),
+	('19', 'Penugasan Sebagai Koordinator Tim PKKM', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'fakultas'),
 	('2', 'sk dosen', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'dosen'),
-	('3', 'sk dekan', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'dekan'),
+	('20', 'Penugasan Melaksanakan PKM', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'fakultas'),
+	('21', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat Institut Teknologi Nasional', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'dosen'),
+	('22', 'Pelatihan', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'rektor'),
+	('23', 'Pelaksanaan Penelitian Dosen Muda', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'rektor'),
+	('24', 'Pembetukan Tim Auditor Internal', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'rektor'),
+	('3', 'Pelaksanaan Bimbingan Tugas Akhir', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'fakultas'),
 	('4', 'sk rektor', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'rektor'),
 	('5', 'sk jurusan', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'jurusan'),
-	('6', 'sk dosen 2', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'dosen');
+	('6', 'sk dosen 2', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'dosen'),
+	('7', 'Pengangkatan Para Dosen Penguji Ujian Tugas Akhir', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'fakultas'),
+	('8', 'Pengangkatan Dosen Pembimbing Kerja Praktik', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'fakultas'),
+	('9', 'Pengangkatan Dosen Pembimbing Tugas Akhir', NULL, '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'fakultas');
 /*!40000 ALTER TABLE `tbl_sk` ENABLE KEYS */;
 
 -- Dumping structure for table e-itenice.tbl_staff_departement
@@ -175,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `tbl_surat` (
 DELETE FROM `tbl_surat`;
 /*!40000 ALTER TABLE `tbl_surat` DISABLE KEYS */;
 INSERT INTO `tbl_surat` (`IdSurat`, `IdSK`, `NoSurat`, `Topik`, `TglDibuat`, `File`, `Value`, `Status`) VALUES
-	(1, '1', NULL, 'Kontol', '2020-03-16', NULL, '{"no_surat":"asdasd","tujuan":["ujank","asep"],"isi":"asdapasdpaspd"}', NULL);
+	(1, '1', NULL, 'test', '2020-03-16', NULL, '{"no_surat":"asdasd","tujuan":["ujank","asep"],"isi":"asdapasdpaspd"}', NULL);
 /*!40000 ALTER TABLE `tbl_surat` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
