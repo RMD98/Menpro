@@ -17,7 +17,7 @@
     {
         $this->db->where('Role', $role);
       $query = $this->db->get('tbl_sk')->result();
-      
+      return $query;
     }
     function listPegawai(){
         $query = $this->db->get('tbl_pegawai');

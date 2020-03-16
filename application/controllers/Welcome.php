@@ -110,7 +110,9 @@ class Welcome extends CI_Controller {
                $this->load->view('inbox');
           }
 	public function surat(){
-          $this->load->view('surat');
+          $data['listSK'] = $this->surat->get_template_sk('dosen');
+          // print_r($data);
+          $this->load->view('surat',$data);
 	}
 	public function data_surat(){
           $this->load->view('data_surat');
@@ -127,8 +129,8 @@ class Welcome extends CI_Controller {
      public function add_departmen(){
           $this->load->view('add_departmen');
      }
-     public function add_surat(){
-          $data['templateSK'] = json_decode($this->surat->get_properties_surat('1')->Input);
+     public function add_surat($key){
+          $data['templateSK'] = json_decode($this->surat->get_properties_surat($key)->Input);
           $this->load->view('add_surat',$data);
      }
      public function mom(){

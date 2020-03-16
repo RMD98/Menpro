@@ -298,51 +298,52 @@
           </div>
             <!-- /.card-header -->
             <div class="row">
-          <div class="col-lg-3 col-6">
+            <?php foreach ($listSK as $key=>$listSK): 
+              if (($key % 3 == 0)):
+              ?>
+              
+              <a href="<?php echo base_url()?>/welcome/add_surat/<?=$key+1?>" class="col-lg-3 col-6 ml-3 mt-3">
+          <!-- <div class="col-lg-3 col-6 ml-3 mt-3"> -->
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>100</h3>
-
-                <p>Total Surat</p>
+                <h3><?=$listSK->Tema?></h3>
+                <p><?=$key+1?></p>
               </div>
             </div>
-          </div>
+          <!-- </div> -->
+          </a>
+          <?php elseif(($key % 3 ==1)): ?>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <!-- <div class="col-lg-3 col-6 ml-3 mt-3"> -->
             <!-- small box -->
+            <a href="<?php echo base_url()?>/welcome/add_surat/<?=$key+1?>" class="col-lg-3 col-6 ml-3 mt-3">
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>50</sup></h3>
-
-                <p>Surat Keputusa</p>
-              </div>
-             
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>50</h3>
-
-                <p>Surat Pemberitahuan</p>
+                <h3><?=$listSK->Tema?></sup></h3>
+                <p><?=$key+1?></p>
               </div>
             </div>
-          </div>
+            </a>
+          <!-- </div> -->
+          <?php elseif(($key % 3 ==2)): ?>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <!-- <div class="col-lg-3 col-6 ml-3 mt-3"> -->
             <!-- small box -->
+            <a href="<?php echo base_url()?>/welcome/add_surat/<?=$key+1?>" class="col-lg-3 col-6 ml-3 mt-3">
+
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>60</h3>
-
-                <p>Agenda</p>
+                <h3><?=$listSK->Tema?></sup></h3>
+                <p><?=$key+1?></p>
               </div>
-              </div>
-          </div>
-          
+            </div>
+            </a>
+          <!-- </div> -->
+          <?php endif; 
+              endforeach ?>
+         
+                    
           <!-- ./col -->
         </div>
             </div>

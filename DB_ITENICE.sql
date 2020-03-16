@@ -110,11 +110,11 @@ DELETE FROM `tbl_sk`;
 /*!40000 ALTER TABLE `tbl_sk` DISABLE KEYS */;
 INSERT INTO `tbl_sk` (`IdSK`, `Tema`, `FileTemplate`, `Input`, `Role`) VALUES
 	('1', 'sk admin', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'admin'),
-	('2', 'sk dosen', 'asd', '{no_surat :{\n  type:"text",\n  label:"no surat"\n},\n  tujuan :{\n    type: "array",\n    label : "kepada"\n  },\n  isi : {\n    type : "longText",\n    label: "isi surat"\n  }\n}', 'dosen'),
-	('3', 'sk dekan', 'asd', '{no_surat :{\n  type:"text",\n  label:"no surat"\n},\n  tujuan :{\n    type: "array",\n    label : "kepada"\n  },\n  isi : {\n    type : "longText",\n    label: "isi surat"\n  }\n}', 'dekan'),
-	('4', 'sk rektor', 'asd', '{no_surat :{\n  type:"text",\n  label:"no surat"\n},\n  tujuan :{\n    type: "array",\n    label : "kepada"\n  },\n  isi : {\n    type : "longText",\n    label: "isi surat"\n  }\n}', 'rektor'),
-	('5', 'sk jurusan', 'asd', '{no_surat :{', 'jurusan'),
-	('6', 'sk dosen 2', 'asd', '{no_surat :{\n  type:"text",\n  label:"no surat"\n},\n  tujuan :{\n    type: "array",\n    label : "kepada"\n  },\n  isi : {\n    type : "longText",\n    label: "isi surat"\n  }\n}', 'dosen');
+	('2', 'sk dosen', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'dosen'),
+	('3', 'sk dekan', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'dekan'),
+	('4', 'sk rektor', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'rektor'),
+	('5', 'sk jurusan', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'jurusan'),
+	('6', 'sk dosen 2', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'dosen');
 /*!40000 ALTER TABLE `tbl_sk` ENABLE KEYS */;
 
 -- Dumping structure for table e-itenice.tbl_staff_departement
