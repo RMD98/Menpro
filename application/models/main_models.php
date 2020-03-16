@@ -3,28 +3,22 @@
  {  
       function can_login($username, $password)  
       {  
-           $this->db->where('Username', $username);  
+           $this->db->where('NIP', $username);  
            $this->db->where('Password', $password);
-           $query = $this->db->get('account')->row_array();
+           $query = $this->db->get('tbl_account')->row_array();
            return $query;
-           // if ($query['stat']='admin'){
-           // return 1;
-           // }elseif ($query['star']='user'){
-           //  return 2;
-           // }
-           //SELECT * FROM users WHERE username = '$username' AND password = '$password'  
       } 
-      function daftar_produk()
+      function daftar_pegawai()
       {
-        return $this->db->get('produk')->result();
+        return $this->db->get('tbl_pegawai')->result();
       }
-      function daftar_user()
+      function daftar_account()
       {
-        return $this->db->get('users')->result();
+        return $this->db->get('tbl_account')->result();
       }
-      function daftar_trans()
+      function daftar_rapat()
       {
-        return $this->db->get('transaksi')->result();
+        return $this->db->get('tbl_rapat')->result();
       }
       function trans_id()
       {

@@ -19,33 +19,33 @@ class Welcome extends CI_Controller {
 	 */
      public function index()
 	{
-          parent::__construct();
+          // parent::__construct();
           // $this->load->library('session');
-          if($this->session->userdata() != null) 
-          {
+          // if($this->session->userdata() != null) 
+          // {
                $this->load->view('login2');
-               $data = $this->session->all_userdata();
+               // $data = $this->session->all_userdata();
                // echo($this->session->userdata());
                // for each
                // echo $data;
-          }
-          else 
-          { 
-               redirect(site_url().'/welcome/logedin',$session_data);
-          }
+          // }
+          // else 
+          // { 
+          //      redirect(site_url().'/welcome/logedin',$session_data);
+          // }
 	}
 	public function register()
 	{
 		$this->load->view('register');
 	}
 	public function logedin(){
-          $this->load->model('main_models');
+          // $this->load->model('main_models');
           //   $data['produk'] = $this->main_models->daftar_produk();
           $this->load->view('temp/head');
           if($this->session->userdata('status') == 'admin') {
                $this->load->view('temp/sidebar');
           } 
-          elseif($this->session->userdata('status') == 'unit') 
+          elseif($this->session->userdata('status') == 'Unit') 
           {
                $this->load->view('temp/sidebar_unit');
           }
@@ -53,45 +53,57 @@ class Welcome extends CI_Controller {
           {
                $this->load->view('temp/sidebar_dosen');
           }
-          else {
-               // $this->load->view("temp");
-               redirect(site_url().'/welcome/index',$session_data);
-               // $this->index();
-    }
-		$this->load->view('index2');
-          $this->load->view('temp/footer');
-          $this->load->view('temp/js');
-	}
-	public function logedin_user(){
-          
-          $this->load->view('temp/head');
-          $this->load->view('index2');
-          $this->load->view('temp/footer');
-          $this->load->view('temp/js');
-	}
-	public function logedin_dosen(){
-          
-          $this->load->view('temp/head');
-          $this->load->view('temp/sidebar_dosen');
-          $this->load->view('index2');
-          $this->load->view('temp/footer');
-          $this->load->view('temp/js');
-	}
-	public function pegawai()
-	{
-		$this->load->view('pegawai');
-	}
-	public function inbox(){
-		$this->load->view('inbox');
-	}
+          //           else {
+               //                // $this->load->view("temp");
+               //                redirect(site_url().'/welcome/index',$session_data);
+               //                // $this->index();
+               //     }
+               $this->load->view('index2');
+               $this->load->view('temp/footer');
+               $this->load->view('temp/js');
+          }
+          public function logedin_user(){
+               
+               $this->load->view('temp/head');
+               $this->load->view('index2');
+               $this->load->view('temp/footer');
+               $this->load->view('temp/js');
+          }
+          public function logedin_dosen(){
+               
+               $this->load->view('temp/head');
+               $this->load->view('temp/sidebar_dosen');
+               $this->load->view('index2');
+               $this->load->view('temp/footer');
+               $this->load->view('temp/js');
+          }
+          public function pegawai()
+          {
+               $this->load->model('main_models');
+               $data['tbl_pegawai'] = $this->main_models->daftar_pegawai();
+               $this->load->view('temp/head');
+               $this->load->view('temp/sidebar');
+               $this->load->view('pegawai',$data);
+               $this->load->view('temp/footer');
+               $this->load->view('temp/js');
+          }
+          public function inbox(){
+               $this->load->view('inbox');
+          }
 	public function surat(){
-		$this->load->view('surat');
+          $this->load->view('surat');
 	}
 	public function data_surat(){
-		$this->load->view('data_surat');
+          $this->load->view('data_surat');
      }
      public function account(){
-          $this->load->view('account');
+          $this->load->model('main_models');
+          $data['tbl_account'] = $this->main_models->daftar_account();
+          $this->load->view('temp/head');
+          $this->load->view('temp/sidebar');
+          $this->load->view('account',$data);
+          $this->load->view('temp/footer');
+          $this->load->view('temp/js');
      }
      public function add_departmen(){
           $this->load->view('add_departmen');

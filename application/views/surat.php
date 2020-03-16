@@ -274,7 +274,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="<?php echo site_url()?>/welcome/logedin_user">Home</a></li>
+              <li class="breadcrumb-item"><a href="<?php echo site_url()?>/welcome/logedin">Home</a></li>
               <li class="breadcrumb-item active">SK</li>
             </ol>
           </div>
@@ -289,85 +289,62 @@
           <div class="card">
             <div class="card-header">
             <!-- <div class="col-6"> -->
-            <a href="<?php echo site_url()?>/welcome/add_surat">
-            <button type="submit" class="btn btn-primary float-right">Add</button>
-            </a>  
+            <!-- <a href="<?php echo site_url()?>/welcome/add_surat"> -->
+            <select type="formcontrol" class="btn btn-primary float-left">
+            <option> Surat Keputusan </option>
+            <option> Surat Keterangan </option>
+            </Select>
+            <!-- </a>   -->
           </div>
             <!-- /.card-header -->
-            <div class="card-body">
-              <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                  <!-- <th>Id Surat</th> -->
-                  <th>No. Surat</th>
-                  <th>Tanggal Buat</th>
-                  <th>Kategori</th>
-                  <th>Status</th>
-                  <th>Pengirim</th>
-                  <!-- <th>Tipe</th> -->
-                  <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <!-- <td>1</td> -->
-                  <td>SK/01/XXIX</td>
-                  <td>01/02/2019</td>
-                  <td>Surat Keputusan</td>
-                  <td>Terkirim</td>
-                  <td>Rektorat</td>
-                  <!-- <td>Single</td> -->
-                  <td>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen">
-                   <button type="submit" class="btn btn-primary float-right">Status</button>
-                  </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen">
-                   <button type="submit" class="btn btn-warning float-right">Edit</button>
-                  </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
-                  <button type="submit" class="btn btn-danger float-right" >Delete</button>
-                  </a>
-                  </td>
-                </tr>
-                <!-- <tr>
-                  <td>2</td>
-                  <td>SPM/02/XXIX</td>
-                  <td>10/02/2019</td>
-                  <td>Surat Pemberitahuan</td>
-                  <td>Terkirim</td>
-                  <td>Rektorat</td>
-                  <td>ALL</td>
-                  <td><a href="<?php echo site_url()?>/welcome/add_departmen">
-                   <button type="submit" class="btn btn-warning float-right">Edit</button>
-                  </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
-                  <button type="submit" class="btn btn-danger float-right" >Delete</button>
-                  </a>
-                  </td>
-                </tr> -->
-                <tr>
-                  <!-- <td>2</td> -->
-                  <td>SK/02/XXIX</td>
-                  <td>12/03/2019</td>
-                  <td>Surat Keputusan</td>
-                  <td>Terkirim</td>
-                  <td>Rektorat</td>
-                  <!-- <td>Multiple</td> -->
-                  <td>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen">
-                   <button type="submit" class="btn btn-primary float-right">Status</button>
-                  </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen">
-                   <button type="submit" class="btn btn-warning float-right">Edit</button>
-                  </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
-                  <button type="submit" class="btn btn-danger float-right" >Delete</button>
-                  </a>
-                  </td>
-                </tr>
-                
-                </tbody>
-              </table>
+            <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>100</h3>
+
+                <p>Total Surat</p>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>50</sup></h3>
+
+                <p>Surat Keputusa</p>
+              </div>
+             
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>50</h3>
+
+                <p>Surat Pemberitahuan</p>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>60</h3>
+
+                <p>Agenda</p>
+              </div>
+              </div>
+          </div>
+          
+          <!-- ./col -->
+        </div>
             </div>
             <!-- /.card-body -->
           </div>
