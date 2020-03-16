@@ -65,11 +65,12 @@ CREATE TABLE IF NOT EXISTS `tbl_pegawai` (
   PRIMARY KEY (`Nip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table e-itenice.tbl_pegawai: ~1 rows (approximately)
+-- Dumping data for table e-itenice.tbl_pegawai: ~2 rows (approximately)
 DELETE FROM `tbl_pegawai`;
 /*!40000 ALTER TABLE `tbl_pegawai` DISABLE KEYS */;
 INSERT INTO `tbl_pegawai` (`Nip`, `NamaPegawai`, `TanggalLahir`, `TempatLahir`, `Alamat`, `NoHP`, `Email`, `Aktif`) VALUES
-	('1', 'ujank', '2020-03-16', 'bandung', 'kircon', '092', 'asd@asd.asd', 'Y');
+	('1', 'ujank', '2020-03-16', 'bandung', 'kircon', '092', 'asd@asd.asd', 'Y'),
+	('2', 'asep', '2020-03-16', 'bandung', 'kircon', '092', 'asd@asd.asd', 'Y');
 /*!40000 ALTER TABLE `tbl_pegawai` ENABLE KEYS */;
 
 -- Dumping structure for table e-itenice.tbl_rapat
@@ -108,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sk` (
 DELETE FROM `tbl_sk`;
 /*!40000 ALTER TABLE `tbl_sk` DISABLE KEYS */;
 INSERT INTO `tbl_sk` (`IdSK`, `Tema`, `FileTemplate`, `Input`, `Role`) VALUES
-	('1', 'sk admin', 'asd', '{no_surat :{\n  type:"text",\n  label:"no surat"\n},\n  tujuan :{\n    type: "array",\n    label : "kepada"\n  },\n  isi : {\n    type : "longText",\n    label: "isi surat"\n  }\n}', 'admin'),
+	('1', 'sk admin', 'asd', '{"no_surat":{"type":"text","label":"no surat"},"tujuan":{"type":"array","label":"kepada"},"isi":{"type":"longText","label":"isi surat"}}', 'admin'),
 	('2', 'sk dosen', 'asd', '{no_surat :{\n  type:"text",\n  label:"no surat"\n},\n  tujuan :{\n    type: "array",\n    label : "kepada"\n  },\n  isi : {\n    type : "longText",\n    label: "isi surat"\n  }\n}', 'dosen'),
 	('3', 'sk dekan', 'asd', '{no_surat :{\n  type:"text",\n  label:"no surat"\n},\n  tujuan :{\n    type: "array",\n    label : "kepada"\n  },\n  isi : {\n    type : "longText",\n    label: "isi surat"\n  }\n}', 'dekan'),
 	('4', 'sk rektor', 'asd', '{no_surat :{\n  type:"text",\n  label:"no surat"\n},\n  tujuan :{\n    type: "array",\n    label : "kepada"\n  },\n  isi : {\n    type : "longText",\n    label: "isi surat"\n  }\n}', 'rektor'),
@@ -143,8 +144,8 @@ CREATE TABLE IF NOT EXISTS `tbl_staff_surat` (
   `NIP` varchar(11) DEFAULT NULL,
   `StatusSurat` enum('Y','N') DEFAULT NULL,
   PRIMARY KEY (`IdStaffSurat`),
-  KEY `FK_tbl_staff_surat_tbl_surat` (`IdSurat`),
   KEY `FK_tbl_staff_surat_tbl_pegawai` (`NIP`),
+  KEY `FK_tbl_staff_surat_tbl_surat` (`IdSurat`),
   CONSTRAINT `FK_tbl_staff_surat_tbl_pegawai` FOREIGN KEY (`NIP`) REFERENCES `tbl_pegawai` (`Nip`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_tbl_staff_surat_tbl_surat` FOREIGN KEY (`IdSurat`) REFERENCES `tbl_surat` (`IdSurat`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -157,22 +158,24 @@ DELETE FROM `tbl_staff_surat`;
 -- Dumping structure for table e-itenice.tbl_surat
 DROP TABLE IF EXISTS `tbl_surat`;
 CREATE TABLE IF NOT EXISTS `tbl_surat` (
-  `IdSurat` int(11) NOT NULL,
+  `IdSurat` int(11) NOT NULL AUTO_INCREMENT,
   `IdSK` varchar(5) DEFAULT NULL,
   `NoSurat` varchar(50) DEFAULT NULL,
   `Topik` varchar(50) DEFAULT NULL,
   `TglDibuat` date DEFAULT NULL,
   `File` varchar(50) DEFAULT NULL,
-  `Status` varchar(50) DEFAULT NULL,
   `Value` longtext,
+  `Status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`IdSurat`),
   KEY `FK_tbl_surat_tbl_sk` (`IdSK`),
   CONSTRAINT `FK_tbl_surat_tbl_sk` FOREIGN KEY (`IdSK`) REFERENCES `tbl_sk` (`IdSK`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table e-itenice.tbl_surat: ~0 rows (approximately)
 DELETE FROM `tbl_surat`;
 /*!40000 ALTER TABLE `tbl_surat` DISABLE KEYS */;
+INSERT INTO `tbl_surat` (`IdSurat`, `IdSK`, `NoSurat`, `Topik`, `TglDibuat`, `File`, `Value`, `Status`) VALUES
+	(1, '1', NULL, 'Kontol', '2020-03-16', NULL, '{"no_surat":"asdasd","tujuan":["ujank","asep"],"isi":"asdapasdpaspd"}', NULL);
 /*!40000 ALTER TABLE `tbl_surat` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
