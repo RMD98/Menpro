@@ -28,6 +28,15 @@
         }
         return $temp;
     }
+    function listJurusan(){
+        $query = $this->db->get('tbl_department');
+        $temp = [];
+        foreach ($query->result() as $key=>$row){
+        $temp[$key]['id'] = $row->NamaDepartement;
+        $temp[$key]['text'] = $row->NamaDepartement;
+        }
+        return $temp;
+    }
     function insertSurat($idSK,$value,$Topik){
         $data = array(
             'IdSK' => $idSK,

@@ -296,7 +296,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="POST" action="<?php echo base_url()?>/welcome/generateWord">
+              <form role="form" method="POST" action="<?php echo base_url()?>/welcome/generateWord/<?=$IdSK?>">
                 <div class="card-body">
               <?php foreach ($templateSK as $key=>$Input):
                 if($Input->type =='text'):?>
@@ -304,11 +304,15 @@
                     <label for="exampleInputEmail1"><?=$Input->label?></label>
                     <input type="text" class="form-control" name="<?=$key?>"> 
                   </div>
-                  <?php elseif ($Input->type =='array'):?>
-
+                  <?php elseif ($Input->type =='textSugestion'):?>
                     <div class="form-group">
                     <label for="exampleInputEmail1"><?=$Input->label?></label>
-                    <select class="data-dosen form-control" name="<?=$key?>[]" multiple="multiple"></select>
+                    <select class="<?=$Input->source?> form-control" name="<?=$key?>[]"></select>
+                  </div>
+                  <?php elseif ($Input->type =='array'):?>
+                    <div class="form-group">
+                    <label for="exampleInputEmail1"><?=$Input->label?></label>
+                    <select class="<?=$Input->source?> form-control" name="<?=$key?>[]" multiple="multiple"></select>
                   </div>
                   
                   <?php elseif ($Input->type =='longText'):?>
@@ -411,14 +415,22 @@
 
   $(document).ready(function() {
     var dataDosen;
+    var dataJurusan;
     <?php if($this->session->flashdata('statusInsert')=='sukses') :?>
       swal("Sukses", "Data tersimpan sayang :)", "success");
     <?php endif ?>
     $.get( "http://localhost/menpro/index.php/welcome/getPegawai", function( data ) {
       dataDosen = data;
       console.log(dataDosen);
-      $('.data-dosen').select2({
+      $('.dosen').select2({
       data : dataDosen
+});
+      });
+      $.get( "http://localhost/menpro/index.php/welcome/getJurusan", function( data ) {
+      dataJurusan = data;
+      console.log(dataJurusan);
+      $('.jurusan').select2({
+      data : dataJurusan
 });
       });
 });

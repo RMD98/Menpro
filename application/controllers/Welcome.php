@@ -93,12 +93,17 @@ class Welcome extends CI_Controller {
                $data = json_encode($this->surat->listPegawai(),true);
                echo $data;
           }
+          public function getjurusan(){
+               header('Content-Type: application/json');
+               $data = json_encode($this->surat->listJurusan(),true);
+               echo $data;
+          }
           
-          public function generateWord(){
+          public function generateWord($id){
                $Temp = json_encode($this->input->post());
-               $this->surat->insertSurat('1',$Temp,'Kontol');
+               $this->surat->insertSurat($id,$Temp,'Kontol');
                $this->session->set_flashdata('statusInsert','sukses' );
-               redirect('welcome/add_surat');
+               redirect("welcome/add_surat/$id");
           }
           public function pegawai()
           {
@@ -161,6 +166,7 @@ class Welcome extends CI_Controller {
      }
      public function add_surat($key){
           $data['templateSK'] = json_decode($this->surat->get_properties_surat($key)->Input);
+          $data['IdSK'] = json_decode($this->surat->get_properties_surat($key)->IdSK);
           $this->load->view('add_surat',$data);
      }
      public function mom(){
