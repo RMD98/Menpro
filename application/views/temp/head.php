@@ -1,7 +1,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>E-ITENAIS | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -24,4 +24,15 @@
   <link rel="stylesheet" href="<?php echo base_url('plugins/summernote/summernote-bs4.css')?>">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- Tell the browser to be responsive to screen width -->
+  <!-- fullCalendar -->
+  <link rel="stylesheet" href="<?php echo base_url('plugins/fullcalendar/main.min.css')?>">
+  <link rel="stylesheet" href="<?php echo base_url('plugins/fullcalendar-daygrid/main.min.css')?>">
+  <link rel="stylesheet" href="<?php echo base_url('plugins/fullcalendar-timegrid/main.min.css')?>">
+  <link rel="stylesheet" href="<?php echo base_url('plugins/fullcalendar-bootstrap/main.min.css')?>">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?php echo base_url('dist/css/adminlte.min.css')?>">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
 </head>

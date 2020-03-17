@@ -69,38 +69,11 @@
             </ul>
           </li>
           <!-- <li class="nav-header">EXAMPLES</li> -->
-          <li class="nav-item ">
-            <a href="<?php echo site_url()?>/welcome/surat" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
+            <li class="nav-item">
+            <a href="<?php echo site_url()?>/welcome/Ekspedisi" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
               <p>
-                SK
-                <!-- <i class="fas fa-angle-left right"></i> -->
-              </p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a href="<?php echo site_url()?>/welcome/inbox" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
-              <p>
-                Surat Masuk
-                <!-- <i class="fas fa-angle-left right"></i> -->
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo site_url()?>/welcome/outbox" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
-              <p>
-                Surat Keluar
-                <!-- <i class="fas fa-angle-left right"></i> -->
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo site_url()?>/welcome/agenda" class="nav-link">
-              <i class="nav-icon fas fa-calendar-alt"></i>
-              <p>
-                Rapat
+                Ekspedisi
               </p>
             </a>
             </li>

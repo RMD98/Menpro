@@ -79,7 +79,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a href="<?php echo site_url()?>/welcome/surat" class="nav-link">
+            <a href="<?php echo site_url()?>/welcome/inbox" class="nav-link">
               <i class="nav-icon far fa-envelope"></i>
               <p>
                 Surat Masuk
