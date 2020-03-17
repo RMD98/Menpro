@@ -93,6 +93,11 @@ class Welcome extends CI_Controller {
                $data = json_encode($this->surat->listPegawai(),true);
                echo $data;
           }
+          public function getMatkul(){
+               header('Content-Type: application/json');
+               $data = json_encode($this->surat->listMatkul(),true);
+               echo $data;
+          }
           public function getjurusan(){
                header('Content-Type: application/json');
                $data = json_encode($this->surat->listJurusan(),true);
@@ -100,8 +105,11 @@ class Welcome extends CI_Controller {
           }
           
           public function generateWord($id){
+               $Topik = $this->surat->get_properties_surat($id)->Tema;
                $Temp = json_encode($this->input->post());
-               $this->surat->insertSurat($id,$Temp,'Kontol');
+               $NoSurat = "test"; //belum dinamis           
+               //generate word
+               $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat);
                $this->session->set_flashdata('statusInsert','sukses' );
                redirect("welcome/add_surat/$id");
           }
@@ -166,7 +174,8 @@ class Welcome extends CI_Controller {
      }
      public function add_surat($key){
           $data['templateSK'] = json_decode($this->surat->get_properties_surat($key)->Input);
-          $data['IdSK'] = json_decode($this->surat->get_properties_surat($key)->IdSK);
+          $data['IdSK'] = $this->surat->get_properties_surat($key)->IdSK;
+          $data['JudulSK'] = $this->surat->get_properties_surat($key)->Tema;
           $this->load->view('add_surat',$data);
      }
      public function mom(){

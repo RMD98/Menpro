@@ -5,12 +5,6 @@
     {
       $this->db->where('IdSK', $idSurat);
       $query = $this->db->get('tbl_sk');
-    
-    //   foreach ($query->result() as $row)
-    //     {
-    //     $listInput = $row->Input;
-    //     }
-        
         return $query->row();
     }
     function get_template_sk($role)
@@ -28,6 +22,18 @@
         }
         return $temp;
     }
+    function listMatkul(){
+        $query = $this->db->get('tbl_matkul');
+        $temp = [];
+        foreach ($query->result() as $key=>$row){
+            $MK =  $row->Matakuliah;
+            $jenis = $row->Jenis;
+        $temp[$key]['id'] = $MK.' '.$jenis;
+        $temp[$key]['text'] = $MK.' '.$jenis;
+        }
+        return $temp;
+    }
+    
     function listJurusan(){
         $query = $this->db->get('tbl_department');
         $temp = [];
@@ -37,13 +43,19 @@
         }
         return $temp;
     }
-    function insertSurat($idSK,$value,$Topik){
+    function insertSurat($idSK,$value,$Topik,$NoSurat){
         $data = array(
             'IdSK' => $idSK,
+            'NoSurat' =>$NoSurat,
             'Topik' => $Topik,
             'TglDibuat' =>date("Y-m-d"),
             'Value' => $value
-        );
+        );//belum insert ke tabel anak
         $this->db->insert('tbl_surat',$data);
+    }
+    function getValueSurat($idSurat){
+        $this->db->where('IdSurat', $idSurat);
+        $query = $this->db->get('tbl_Surat');
+        return $query->row();
     }
  }
