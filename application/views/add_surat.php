@@ -16,6 +16,9 @@
   
   <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('dist/css/adminlte.min.css')?>">
   <!-- Google Font: Source Sans Pro -->
@@ -274,7 +277,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Surat</h1>
+            <h1><?=$JudulSK?></h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -296,7 +299,8 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="POST" action="<?php echo base_url()?>/welcome/generateWord">
+              <p>Date: <input type="text" id="datepicker"></p>
+              <form role="form" method="POST" action="<?php echo base_url()?>/welcome/generateWord/<?=$IdSK?>">
                 <div class="card-body">
               <?php foreach ($templateSK as $key=>$Input):
                 if($Input->type =='text'):?>
@@ -304,11 +308,15 @@
                     <label for="exampleInputEmail1"><?=$Input->label?></label>
                     <input type="text" class="form-control" name="<?=$key?>"> 
                   </div>
-                  <?php elseif ($Input->type =='array'):?>
-
+                  <?php elseif ($Input->type =='textSugestion'):?>
                     <div class="form-group">
                     <label for="exampleInputEmail1"><?=$Input->label?></label>
-                    <select class="data-dosen form-control" name="<?=$key?>[]" multiple="multiple"></select>
+                    <select class="<?=$Input->source?> form-control" name="<?=$key?>[]"></select>
+                  </div>
+                  <?php elseif ($Input->type =='array'):?>
+                    <div class="form-group">
+                    <label for="exampleInputEmail1"><?=$Input->label?></label>
+                    <select class="<?=$Input->source?> form-control" name="<?=$key?>[]" multiple="multiple"></select>
                   </div>
                   
                   <?php elseif ($Input->type =='longText'):?>
@@ -394,6 +402,9 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
 <!-- page script -->
 <script>
@@ -408,17 +419,35 @@
       "autoWidth": false,
     });
   });
-
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
   $(document).ready(function() {
     var dataDosen;
+    var dataJurusan;
+    var dataMatkul;
     <?php if($this->session->flashdata('statusInsert')=='sukses') :?>
       swal("Sukses", "Data tersimpan sayang :)", "success");
     <?php endif ?>
     $.get( "http://localhost/menpro/index.php/welcome/getPegawai", function( data ) {
       dataDosen = data;
       console.log(dataDosen);
-      $('.data-dosen').select2({
+      $('.dosen').select2({
       data : dataDosen
+});
+      });
+      $.get( "http://localhost/menpro/index.php/welcome/getJurusan", function( data ) {
+      dataJurusan = data;
+      console.log(dataJurusan);
+      $('.jurusan').select2({
+      data : dataJurusan
+});
+      });
+      $.get( "http://localhost/menpro/index.php/welcome/getMatkul", function( data ) {
+      dataMatkul = data;
+      console.log(dataJurusan);
+      $('.matkul').select2({
+      data : dataMatkul
 });
       });
 });
