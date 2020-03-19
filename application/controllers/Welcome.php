@@ -111,7 +111,26 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/js');
           }
           public function inbox(){
+               $this->load->view('temp/head');
+               if($this->session->userdata('status') == 'admin') {
+                    $this->load->view('temp/sidebar');
+               } 
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $this->load->view('temp/sidebar_dosen');
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $this->load->view('temp/sidebar_ekspedisi');
+               }
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $this->load->view('temp/sidebar_unit');
+               }
                $this->load->view('inbox');
+               $this->load->view('temp/footer');
+               $this->load->view('temp/js');
+               
           }
           public function outbox(){
                $this->load->view('outbox');
