@@ -43,6 +43,38 @@
         }
         return $temp;
     }
+    function listSuratMasuk(){
+        $this->db->where('IdSK', '26');
+        return $this->db->get('tbl_surat')->result();
+    }
+    function listSurat(){
+        return $this->db->get('tbl_surat')->result();
+    }
+    function listSuratKeluar(){
+        $this->db->where('IdSK', '25');
+        return $this->db->get('tbl_surat')->result();
+    }
+    function listDetailSurat($IdSurat){
+        $this->db->select('*');    
+        $this->db->from('tbl_staff_surat');
+        $this->db->join('tbl_pegawai', 'tbl_staff_surat.NIP = tbl_pegawai.NIP');
+        $this->db->join('tbl_staff_departement', 'tbl_pegawai.NIP = tbl_staff_departement.NIP');
+        $this->db->join('tbl_department', 'tbl_staff_departement.idDepartement = tbl_department.idDepartment');
+        $this->db->where('IdSurat', $IdSurat);
+        $query = $this->db->get()->result();
+        return $query;
+    }
+    function listSuratStaff($IdSurat){
+        $this->db->where('IdStaffSurat',$IdSurat);
+        return $this->db->get('tbl_staff_surat')->result();
+    }
+    function updateStatusSurat($IdSurat){
+        $data = array(
+            'StatusSurat' => 'Y'
+        );
+        $this->db->where('IdStaffSurat',$IdSurat);
+         $this->db->update('tbl_staff_surat',$data);
+    }
     function insertSurat($idSK,$value,$Topik,$NoSurat){
         $data = array(
             'IdSK' => $idSK,

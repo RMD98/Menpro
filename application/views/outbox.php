@@ -34,7 +34,7 @@
           <div class="card">
             <div class="card-header">
             <!-- <div class="col-6"> -->
-            <a href="<?php echo site_url()?>/welcome/add_surat/1">
+            <a href="<?php echo site_url()?>/welcome/add_surat/25">
             <button type="submit" class="btn btn-primary float-right">Add</button>
             </a>  
           </div>
@@ -46,71 +46,34 @@
                   <!-- <th>Id Surat</th> -->
                   <th>No. Surat</th>
                   <th>Tanggal Buat</th>
-                  <th>Kategori</th>
+                  <th>Topik</th>
                   <th>Status</th>
-                  <th>Pengirim</th>
                   <!-- <th>Tipe</th> -->
                   <th></th>
                 </tr>
                 </thead>
                 <tbody>
+                <?php foreach($SuratKeluar as $SuratKeluar): ?>
                 <tr>
                   <!-- <td>1</td> -->
-                  <td>SK/01/XXIX</td>
-                  <td>01/02/2019</td>
-                  <td>Surat Keputusan</td>
-                  <td>Terkirim</td>
-                  <td>Rektorat</td>
+                  <td><?=$SuratKeluar->NoSurat?></td>
+                  <td><?=$SuratKeluar->TglDibuat?></td>
+                  <td><?=$SuratKeluar->Topik?></td>
+                  <td><?=$SuratKeluar->Status?></td>
                   <!-- <td>Single</td> -->
                   <td>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen">
+                  <a href="<?php echo site_url()?>/welcome/statusSurat/<?=$SuratKeluar->IdSurat?>">
                    <button type="submit" class="btn btn-primary float-right">Status</button>
                   </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen">
+                  <!-- <a href="<?php echo site_url()?>/welcome/add_departmen"> -->
                    <button type="submit" class="btn btn-warning float-right">Edit</button>
                   </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
+                  <!-- <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;"> -->
                   <button type="submit" class="btn btn-danger float-right" >Delete</button>
                   </a>
                   </td>
-                </tr>
-                <!-- <tr>
-                  <td>2</td>
-                  <td>SPM/02/XXIX</td>
-                  <td>10/02/2019</td>
-                  <td>Surat Pemberitahuan</td>
-                  <td>Terkirim</td>
-                  <td>Rektorat</td>
-                  <td>ALL</td>
-                  <td><a href="<?php echo site_url()?>/welcome/add_departmen">
-                   <button type="submit" class="btn btn-warning float-right">Edit</button>
-                  </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
-                  <button type="submit" class="btn btn-danger float-right" >Delete</button>
-                  </a>
-                  </td>
-                </tr> -->
-                <tr>
-                  <!-- <td>2</td> -->
-                  <td>SK/02/XXIX</td>
-                  <td>12/03/2019</td>
-                  <td>Surat Keputusan</td>
-                  <td>Terkirim</td>
-                  <td>Rektorat</td>
-                  <!-- <td>Multiple</td> -->
-                  <td>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen">
-                   <button type="submit" class="btn btn-primary float-right">Status</button>
-                  </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen">
-                   <button type="submit" class="btn btn-warning float-right">Edit</button>
-                  </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
-                  <button type="submit" class="btn btn-danger float-right" >Delete</button>
-                  </a>
-                  </td>
-                </tr>
-                
+                </tr>  
+                <?php endforeach ?>  
                 </tbody>
               </table>
             </div>

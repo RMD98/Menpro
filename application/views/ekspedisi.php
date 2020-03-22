@@ -7,7 +7,7 @@
  
   <!-- /.navbar -->
 
-  
+  <!-- Main Sidebar Container -->
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -34,9 +34,7 @@
           <div class="card">
             <div class="card-header">
             <!-- <div class="col-6"> -->
-            <!-- <a href="<?php echo site_url()?>/welcome/add_surat/1">
-            <button type="submit" class="btn btn-primary float-right">Add</button>
-            </a>   -->
+            
           </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -46,71 +44,34 @@
                   <!-- <th>Id Surat</th> -->
                   <th>No. Surat</th>
                   <th>Tanggal Buat</th>
-                  <th>Kategori</th>
+                  <th>Topik</th>
                   <th>Status</th>
-                  <th>Pengirim</th>
                   <!-- <th>Tipe</th> -->
                   <th></th>
                 </tr>
                 </thead>
                 <tbody>
+                <?php foreach($SuratEkspedisi as $SuratEkspedisi): ?>
                 <tr>
                   <!-- <td>1</td> -->
-                  <td>SK/01/XXIX</td>
-                  <td>01/02/2019</td>
-                  <td>Surat Keputusan</td>
-                  <td>Terkirim</td>
-                  <td>Rektorat</td>
+                  <td><?=$SuratEkspedisi->NoSurat?></td>
+                  <td><?=$SuratEkspedisi->TglDibuat?></td>
+                  <td><?=$SuratEkspedisi->Topik?></td>
+                  <td><?=$SuratEkspedisi->Status?></td>
                   <!-- <td>Single</td> -->
                   <td>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen">
+                  <a href="<?php echo site_url()?>/welcome/statusSurat/<?=$SuratEkspedisi->IdSurat?>">
                    <button type="submit" class="btn btn-primary float-right">Status</button>
                   </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen">
+                  <!-- <a href="<?php echo site_url()?>/welcome/add_departmen"> -->
                    <button type="submit" class="btn btn-warning float-right">Edit</button>
                   </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
+                  <!-- <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;"> -->
                   <button type="submit" class="btn btn-danger float-right" >Delete</button>
                   </a>
                   </td>
-                </tr>
-                <!-- <tr>
-                  <td>2</td>
-                  <td>SPM/02/XXIX</td>
-                  <td>10/02/2019</td>
-                  <td>Surat Pemberitahuan</td>
-                  <td>Terkirim</td>
-                  <td>Rektorat</td>
-                  <td>ALL</td>
-                  <td><a href="<?php echo site_url()?>/welcome/add_departmen">
-                   <button type="submit" class="btn btn-warning float-right">Edit</button>
-                  </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
-                  <button type="submit" class="btn btn-danger float-right" >Delete</button>
-                  </a>
-                  </td>
-                </tr> -->
-                <tr>
-                  <!-- <td>2</td> -->
-                  <td>SK/02/XXIX</td>
-                  <td>12/03/2019</td>
-                  <td>Surat Keputusan</td>
-                  <td>Terkirim</td>
-                  <td>Rektorat</td>
-                  <!-- <td>Multiple</td> -->
-                  <td>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen">
-                   <button type="submit" class="btn btn-primary float-right">Status</button>
-                  </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen">
-                   <button type="submit" class="btn btn-warning float-right">Edit</button>
-                  </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
-                  <button type="submit" class="btn btn-danger float-right" >Delete</button>
-                  </a>
-                  </td>
-                </tr>
-                
+                </tr>  
+                <?php endforeach ?>  
                 </tbody>
               </table>
             </div>
@@ -128,7 +89,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
+ 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->

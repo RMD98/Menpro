@@ -113,6 +113,34 @@ class Welcome extends CI_Controller {
                $this->session->set_flashdata('statusInsert','sukses' );
                redirect("welcome/add_surat/$id");
           }
+          public function statusSurat($idSurat){
+               $data['DetailSurat'] = $this->surat->listDetailSurat($idSurat);
+               $this->load->view('temp/head');
+               $this->load->view('temp/js');
+               if($this->session->userdata('status') == 'admin') {
+                    $this->load->view('temp/sidebar');
+               } 
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $this->load->view('temp/sidebar_dosen');
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $this->load->view('temp/sidebar_ekspedisi');
+               }
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $this->load->view('temp/sidebar_unit');
+               }
+               $this->load->view('detail_surat',$data);
+               $this->load->view('temp/footer');
+               
+          }
+          public function changeStatusSurat($IdSuratStaff=0,$IdSurat=0){
+               $this->surat->updateStatusSurat($IdSuratStaff);
+               $this->session->set_flashdata('statusInsert','sukses' );
+               redirect("welcome/statusSurat/$IdSurat");
+          }
           public function pegawai()
           {
                $this->load->model('main_models');
@@ -124,6 +152,7 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/js');
           }
           public function inbox(){
+               $data['SuratMasuk'] = $this->surat->listSuratMasuk();
                $this->load->view('temp/head');
                if($this->session->userdata('status') == 'admin') {
                     $this->load->view('temp/sidebar');
@@ -140,16 +169,55 @@ class Welcome extends CI_Controller {
                {
                     $this->load->view('temp/sidebar_unit');
                }
-               $this->load->view('inbox');
+               $this->load->view('inbox',$data);
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
                
           }
           public function outbox(){
-               $this->load->view('outbox');
+               
+               $data['SuratKeluar'] = $this->surat->listSuratKeluar();
+               $this->load->view('temp/head');
+               if($this->session->userdata('status') == 'admin') {
+                    $this->load->view('temp/sidebar');
+               } 
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $this->load->view('temp/sidebar_dosen');
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $this->load->view('temp/sidebar_ekspedisi');
+               }
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $this->load->view('temp/sidebar_unit');
+               }
+               $this->load->view('outbox',$data);
+               $this->load->view('temp/footer');
+               $this->load->view('temp/js');
           }
           public function ekspedisi(){
-               $this->load->view('ekspedisi');
+               $data['SuratEkspedisi'] = $this->surat->listSurat();
+               if($this->session->userdata('status') == 'admin') {
+                    $this->load->view('temp/sidebar');
+               } 
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $this->load->view('temp/sidebar_dosen');
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $this->load->view('temp/sidebar_ekspedisi');
+               }
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $this->load->view('temp/sidebar_unit');
+               }
+               $this->load->view('temp/head');
+               $this->load->view('ekspedisi',$data);
+               $this->load->view('temp/footer');
+               $this->load->view('temp/js');
           }
           public function surat(){
                $data['listSK'] = $this->surat->get_template_sk($this->session->userdata('status'));
@@ -192,6 +260,24 @@ class Welcome extends CI_Controller {
           $this->load->view('add_departmen');
      }
      public function add_surat($key){
+          $this->load->view('temp/head');
+          if($this->session->userdata('status') == 'admin') {
+               $this->load->view('temp/sidebar');
+          } 
+          elseif($this->session->userdata('status') == 'dosen') 
+          {
+               $this->load->view('temp/sidebar_dosen');
+          }
+          elseif($this->session->userdata('status') == 'ekspedisi') 
+          {
+               $this->load->view('temp/sidebar_ekspedisi');
+          }
+          elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+          {
+               $this->load->view('temp/sidebar_unit');
+          }
+         
+          $this->load->view('temp/js');
           $data['templateSK'] = json_decode($this->surat->get_properties_surat($key)->Input);
           $data['IdSK'] = $this->surat->get_properties_surat($key)->IdSK;
           $data['JudulSK'] = $this->surat->get_properties_surat($key)->Tema;
@@ -250,30 +336,6 @@ class Welcome extends CI_Controller {
                      $this->session->set_userdata($session_data);  
                      redirect(site_url().'/welcome/logedin',$session_data);
                 }  
-               //  elseif($login_data['Status'] == 'dosen')  
-               //  {  
-               //       $session_data = array(  
-               //            'id'           =>     $login_data['id'],
-               //            'username'     =>     $username,
-               //            'address'      =>     $login_data['address'],
-               //          //   'nope'	     =>     $login_data['nope'],
-               //            'status'       =>     $login_data['Status']
-               //       );  
-               //       $this->session->set_userdata($session_data);  
-               //       redirect(site_url().'/welcome/logedin_dosen',$session_data);
-               //  }  
-               //  elseif($login_data['Status'] != ' ')  
-               //  {  
-               //       $session_data = array(  
-               //            'id'           =>     $login_data['id'],
-               //            'username'     =>     $username,
-               //            'address'      =>     $login_data['address'],
-               //          //   'nope'	     =>     $login_data['nope'],
-               //            'status'       =>     $login_data['Status']
-               //       );  
-               //       $this->session->set_userdata($session_data);  
-               //       redirect(site_url().'/welcome/logedin_user',$session_data);
-               //  }    
                 else  
                 {  
                      $this->session->set_flashdata('error', 'Invalid Username and Password');  
