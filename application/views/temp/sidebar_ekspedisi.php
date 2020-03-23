@@ -77,6 +77,7 @@
               </p>
             </a>
             </li>
+            <a href="<?php echo site_url()?>/welcome/index"> Logout </a>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
