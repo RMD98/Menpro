@@ -295,10 +295,6 @@ class Welcome extends CI_Controller {
           if($this->session->userdata('status') == 'admin') {
                $this->load->view('temp/sidebar');
           } 
-          elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
-          {
-               $this->load->view('temp/sidebar_unit');
-          }
           elseif($this->session->userdata('status') == 'dosen') 
           {
                $this->load->view('temp/sidebar_dosen');
@@ -306,6 +302,10 @@ class Welcome extends CI_Controller {
           elseif($this->session->userdata('status') == 'ekspedisi') 
           {
                $this->load->view('temp/sidebar_ekspedisi');
+          }
+          elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+          {
+               $this->load->view('temp/sidebar_unit');
           }
           $this->load->view('agenda');
           // $this->load->view('index2');
