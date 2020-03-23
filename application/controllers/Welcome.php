@@ -246,7 +246,14 @@ class Welcome extends CI_Controller {
                
 	}
 	public function data_surat(){
+          $this->load->model('main_models');
+          
+          $this->load->view('temp/head');
+          $this->load->view('temp/sidebar');
           $this->load->view('data_surat');
+          
+          $this->load->view('temp/footer');
+          $this->load->view('temp/js');
      }
      public function account(){
           $this->load->model('main_models');
@@ -258,8 +265,24 @@ class Welcome extends CI_Controller {
           $this->load->view('temp/js');
      }
      public function add_departmen(){
+          $this->load->model('main_models');
+          $this->load->view('temp/head');
+          $this->load->view('temp/sidebar');
           $this->load->view('add_departmen');
+         
+          $this->load->view('temp/footer');
+          $this->load->view('temp/js');
      }
+     public function add_pegawai(){
+          $this->load->model('main_models');
+          $this->load->view('temp/head');
+          $this->load->view('temp/sidebar');
+          $this->load->view('add_pegawai');
+         
+          $this->load->view('temp/footer');
+          $this->load->view('temp/js');
+     }
+     
      public function add_surat($key){
           $this->load->view('temp/head');
           if($this->session->userdata('status') == 'admin') {
@@ -285,10 +308,23 @@ class Welcome extends CI_Controller {
           $this->load->view('add_surat',$data);
      }
      public function mom(){
+          $this->load->model('main_models');
+          $this->load->view('temp/head');
+          $this->load->view('temp/sidebar');
           $this->load->view('mom');
+          
+          $this->load->view('temp/footer');
+          $this->load->view('temp/js');
      }
      public function departemen(){
-          $this->load->view('departemen');
+          $this->load->model('main_models');
+          $data['departement'] = $this->main_models->daftar_departement();
+          $this->load->view('temp/head');
+          $this->load->view('temp/sidebar');
+          $this->load->view('departemen',$data);
+          $this->load->view('temp/footer');
+          $this->load->view('temp/js');
+          
      }
      public function agenda(){
           $this->load->view('temp/head');

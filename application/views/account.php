@@ -14,7 +14,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Data Akun</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -36,7 +36,6 @@
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>NIP</th>
                   <th>Password</th>
                   <th>Status</th>
                   <th></th>
@@ -45,7 +44,6 @@
                 <tbody>
                 <?php foreach($tbl_account as $tbl_account): ?>
                 <tr>
-                  <td><?php echo $tbl_account->NIP?></td>
                   <td>*****</td>
                   <td><?php echo $tbl_account->Status?></td>
                   <td><a href="<?php echo site_url()?>/welcome/add_departmen">
@@ -73,13 +71,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.2
-    </div>
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-    reserved.
-  </footer>
+ 
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
