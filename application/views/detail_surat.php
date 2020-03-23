@@ -65,7 +65,9 @@
                   <th>Jabatan</th>
                   <th>Departement</th>
                   <th>Status Surat</th>
+                  <?php if($this->session->userdata('status') == 'ekspedisi'): ?>
                   <th></th>
+                  <?php endif ?>
                   <!-- <th>Tipe</th> -->
                 </tr>
                 </thead>
@@ -82,6 +84,7 @@
                     <?php elseif($DetailSurat->StatusSurat == 'N'): ?>
                         <td>Belum Terkirim</td>
                     <?php endif ?>
+                    <?php if($this->session->userdata('status') == 'ekspedisi'): ?>
                     <td>
                     <?php if($DetailSurat->StatusSurat == 'N'): ?>
                       <a href="<?php echo site_url()?>/welcome/changeStatusSurat/<?=$DetailSurat->IdStaffSurat?>/<?=$DetailSurat->IdSurat?>">
@@ -90,6 +93,7 @@
                     <?php endif ?>
                   
                   </td>
+                  <?php endif ?>
                   <!-- <td>Single</td> -->
                 </tr>  
                 <?php endforeach ?>  

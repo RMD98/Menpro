@@ -26,11 +26,11 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">Silahkan Login</p>
 
       <form action="<?php echo site_url()?>/Welcome/login" method="post">
         <div class="input-group mb-3">
-          <input name="Username" type="text" class="form-control" placeholder="Email">
+          <input name="Username" type="text" class="form-control" placeholder="Username">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>

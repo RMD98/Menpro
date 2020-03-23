@@ -52,16 +52,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($SuratEkspedisi as $SuratEkspedisi): ?>
+                <?php foreach($DetailSurat as $DetailSurat): ?>
                 <tr>
                   <!-- <td>1</td> -->
-                  <td><?=$SuratEkspedisi->NoSurat?></td>
-                  <td><?=$SuratEkspedisi->TglDibuat?></td>
-                  <td><?=$SuratEkspedisi->Topik?></td>
-                  <td><?=$SuratEkspedisi->Status?></td>
+                  <td><?=$DetailSurat->NoSurat?></td>
+                  <td><?=$DetailSurat->TglDibuat?></td>
+                  <td><?=$DetailSurat->Topik?></td>
+                  <td><?=$DetailSurat->Status?></td>
                   <!-- <td>Single</td> -->
                   <td>
-                  <a href="<?php echo site_url()?>/welcome/statusSurat/<?=$SuratEkspedisi->IdSurat?>">
+                  <a href="<?php echo site_url()?>/welcome/statusSurat/<?=$DetailSurat->IdSurat?>">
                    <button type="submit" class="btn btn-primary float-right">Status</button>
                   </a>
                   <!-- <a href="<?php echo site_url()?>/welcome/add_departmen"> -->

@@ -137,6 +137,29 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/footer');
                
           }
+          public function detailSurat($role){
+               $data['DetailSurat'] = $this->surat->listSurat();
+               $this->load->view('temp/head');
+               $this->load->view('temp/js');
+               if($this->session->userdata('status') == 'admin') {
+                    $this->load->view('temp/sidebar');
+               } 
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $this->load->view('temp/sidebar_dosen');
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $this->load->view('temp/sidebar_ekspedisi');
+               }
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $this->load->view('temp/sidebar_unit');
+               }
+               $this->load->view('list_sk',$data);
+               $this->load->view('temp/footer');
+               
+          }
           public function changeStatusSurat($IdSuratStaff=0,$IdSurat=0){
                $this->surat->updateStatusSurat($IdSuratStaff);
                $this->session->set_flashdata('statusInsert','sukses' );
