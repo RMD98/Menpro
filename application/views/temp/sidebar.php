@@ -15,7 +15,7 @@
       </div>
 
       <!-- Sidebar Menu -->
-      <nav class="mt-2">
+      <nav class="mt-4">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -114,7 +114,7 @@
             </a>
             </li>
             <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo site_url()?>/welcome/departemen" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Departemen
@@ -122,7 +122,7 @@
             </a>
             </li>
             <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo site_url()?>/welcome/mom" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Mom

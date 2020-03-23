@@ -12,6 +12,10 @@
       {
         return $this->db->get('tbl_pegawai')->result();
       }
+      function daftar_departement()
+      {
+        return $this->db->get('tbl_department')->result();
+      }
       function daftar_account()
       {
         return $this->db->get('tbl_account')->result();
