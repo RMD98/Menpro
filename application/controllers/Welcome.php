@@ -310,7 +310,7 @@ class Welcome extends CI_Controller {
           // $this->load->view('index2');
           // echo $this->session->userd?ata('status');
           $this->load->view('temp/footer');
-          $this->load->view('temp/js');
+          // $this->load->view('temp/js');
      }
 	function login()  
       {  

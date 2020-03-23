@@ -1,7 +1,4 @@
-
 <script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="<?php echo base_url('plugins/jquery-ui/jquery-ui.min.js')?>"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
@@ -33,19 +30,16 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('dist/js/demo.js')?>"></script>
 <script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
-<!-- Bootstrap -->
-<!-- <script src="<?php echo base_url('plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script> -->
-<!-- jQuery UI -->
-<!-- <script src="<?php echo base_url('plugins/jquery-ui/jquery-ui.min.js')?>"></script> -->
 <!-- AdminLTE App -->
-<!-- <script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script> -->
-<!-- AdminLTE for demo purposes -->
-<!-- <script src="<?php echo base_url('dist/js/demo.js')?>"></script> -->
+<script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script>
 <!-- fullCalendar 2.2.5 -->
-<!-- <script src="<?php echo base_url('plugins/moment/moment.min.js')?>"></script> -->
+<script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
+<!-- Bootstrap -->
+<script src="<?php echo base_url('plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
+<!-- fullCalendar 2.2.5 -->
+<script src="<?php echo base_url('plugins/moment/moment.min.js')?>"></script>
 <script src="<?php echo base_url('plugins/fullcalendar/main.min.js')?>"></script>
 <script src="<?php echo base_url('plugins/fullcalendar-daygrid/main.min.js')?>"></script>
 <script src="<?php echo base_url('plugins/fullcalendar-timegrid/main.min.js')?>"></script>
 <script src="<?php echo base_url('plugins/fullcalendar-interaction/main.min.js')?>"></script>
 <script src="<?php echo base_url('plugins/fullcalendar-bootstrap/main.min.js')?>"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

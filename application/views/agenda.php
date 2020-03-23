@@ -7,26 +7,26 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="<?php echo base_url('plugins/fontawesome-free/css/all.min.css')?>">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- fullCalendar -->
-  <link rel="stylesheet" href="../plugins/fullcalendar/main.min.css">
-  <link rel="stylesheet" href="../plugins/fullcalendar-daygrid/main.min.css">
-  <link rel="stylesheet" href="../plugins/fullcalendar-timegrid/main.min.css">
-  <link rel="stylesheet" href="../plugins/fullcalendar-bootstrap/main.min.css">
+  <link rel="stylesheet" href="<?php echo base_url('plugins/fullcalendar/main.min.css')?>">
+  <link rel="stylesheet" href="<?php echo base_url('plugins/fullcalendar-daygrid/main.min.css')?>">
+  <link rel="stylesheet" href="<?php echo base_url('plugins/fullcalendar-timegrid/main.min.css')?>">
+  <link rel="stylesheet" href="<?php echo base_url('plugins/fullcalendar-bootstrap/main.min.css')?>">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="<?php echo base_url('dist/css/adminlte.min.css')?>">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
- 
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
+  
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -96,7 +96,9 @@
                     <input id="new-event" type="text" class="form-control" placeholder="Event Title">
 
                     <div class="input-group-append">
-                      <button id="add-new-event" type="button" class="btn btn-primary">Add</button>
+                    <a href="<?php echo site_url()?>/welcome/add_agenda">    
+                      <button  type="button" class="btn btn-primary">Add</button>
+                    </a>
                     </div>
                     <!-- /btn-group -->
                   </div>
@@ -125,14 +127,6 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.2
-    </div>
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-    reserved.
-  </footer>
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -142,22 +136,22 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="../plugins/jquery/jquery.min.js"></script>
+<script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
 <!-- Bootstrap -->
-<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?php echo base_url('plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 <!-- jQuery UI -->
-<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="<?php echo base_url('plugins/jquery-ui/jquery-ui.min.js')?>"></script>
 <!-- AdminLTE App -->
-<script src="../dist/js/adminlte.min.js"></script>
+<script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../dist/js/demo.js"></script>
+<script src="<?php echo base_url('dist/js/demo.js')?>"></script>
 <!-- fullCalendar 2.2.5 -->
-<script src="../plugins/moment/moment.min.js"></script>
-<script src="../plugins/fullcalendar/main.min.js"></script>
-<script src="../plugins/fullcalendar-daygrid/main.min.js"></script>
-<script src="../plugins/fullcalendar-timegrid/main.min.js"></script>
-<script src="../plugins/fullcalendar-interaction/main.min.js"></script>
-<script src="../plugins/fullcalendar-bootstrap/main.min.js"></script>
+<script src="<?php echo base_url('plugins/moment/moment.min.js')?>"></script>
+<script src="<?php echo base_url('plugins/fullcalendar/main.min.js')?>"></script>
+<script src="<?php echo base_url('plugins/fullcalendar-daygrid/main.min.js')?>"></script>
+<script src="<?php echo base_url('plugins/fullcalendar-timegrid/main.min.js')?>"></script>
+<script src="<?php echo base_url('plugins/fullcalendar-interaction/main.min.js')?>"></script>
+<script src="<?php echo base_url('plugins/fullcalendar-bootstrap/main.min.js')?>"></script>
 <!-- Page specific script -->
 <script>
   $(function () {
@@ -233,45 +227,33 @@
           start          : new Date(y, m, 1),
           backgroundColor: '#f56954', //red
           borderColor    : '#f56954', //red
-          allDay         : true
+          allDay         : true,
+          url            : '<?php echo site_url()?>/welcome/add_surat/1'
         },
         {
           title          : 'Long Event',
           start          : new Date(y, m, d - 5),
           end            : new Date(y, m, d - 2),
           backgroundColor: '#f39c12', //yellow
-          borderColor    : '#f39c12' //yellow
+          borderColor    : '#f39c12', //yellow,
+          url            : '<?php echo site_url()?>/welcome/add_surat/1'
         },
         {
           title          : 'Meeting',
           start          : new Date(y, m, d, 10, 30),
           allDay         : false,
           backgroundColor: '#0073b7', //Blue
-          borderColor    : '#0073b7' //Blue
-        },
-        {
-          title          : 'Lunch',
-          start          : new Date(y, m, d, 12, 0),
-          end            : new Date(y, m, d, 14, 0),
-          allDay         : false,
-          backgroundColor: '#00c0ef', //Info (aqua)
-          borderColor    : '#00c0ef' //Info (aqua)
+          borderColor    : '#0073b7', //Blue
+          url            : '<?php echo site_url()?>/welcome/add_surat/1'
         },
         {
           title          : 'Birthday Party',
           start          : new Date(y, m, d + 1, 19, 0),
           end            : new Date(y, m, d + 1, 22, 30),
           allDay         : false,
+          url            : '<?php echo site_url()?>/welcome/add_surat/1',
           backgroundColor: '#00a65a', //Success (green)
           borderColor    : '#00a65a' //Success (green)
-        },
-        {
-          title          : 'Click for Google',
-          start          : new Date(y, m, 28),
-          end            : new Date(y, m, 29),
-          url            : 'http://google.com/',
-          backgroundColor: '#3c8dbc', //Primary (light-blue)
-          borderColor    : '#3c8dbc' //Primary (light-blue)
         }
       ],
       editable  : true,
