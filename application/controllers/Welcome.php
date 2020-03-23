@@ -363,7 +363,7 @@ class Welcome extends CI_Controller {
                 //model function  
                 $this->load->model('main_models');  
                 $login_data = $this->main_models->can_login($username, $password);
-                if($login_data['Status'] != ' ')  
+                if($login_data['Status'] != '')  
                 {  
                      $session_data = array(  
                           'id'           => $login_data['id'],
@@ -376,9 +376,14 @@ class Welcome extends CI_Controller {
                 else  
                 {  
                      $this->session->set_flashdata('error', 'Invalid Username and Password');  
-                     redirect(site_url() . '/welcome/');  
+                     redirect(site_url() . '/welcome/index');  
                     }  
                }  
+               else  
+               {  
+                    $this->session->set_flashdata('error', 'Invalid Username and Password');  
+                    redirect(site_url() . '/welcome/index');  
+                   }  
                
       }
 }
