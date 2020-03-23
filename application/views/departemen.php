@@ -28,9 +28,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header col-12">
-            <div class="col-6">
-             <h3 class="card-title">DataTable with minimal features & hover style</h3>
-            </div>
+            
             <!-- <div class="col-6"> -->
             <a href="<?php echo site_url()?>/welcome/add_departmen">
               <button type="submit" class="btn btn-primary float-right">Add</button>

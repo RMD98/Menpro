@@ -248,7 +248,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Data Surat Keluar dan masuk</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -265,16 +265,14 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">DataTable with minimal features & hover style</h3>
-            </div>
+            
             <!-- /.card-header -->
             <div class="card-body">
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Id</th>
-                  <th>Id Surat</th>
+                  
+                  <th>No Surat</th>
                   <th>Kategori</th>
                   <th>Pengirim</th>
                   <th>Penerima</th>
@@ -282,21 +280,21 @@
                 </thead>
                 <tbody>
                 <tr>
-                  <td>1</td>
+                  
                   <td>SK/01/XXIX</td>
                   <td>Surat Keputusan</td>
                   <td>Rektorat</td>
                   <td>Kajur IF</td>
                 </tr>
                 <tr>
-                  <td>2</td>
+                  
                   <td>SK/01/XXIX</td>
                   <td>Surat Keputusan</td>
                   <td>Rektorat</td>
                   <td>Kajur Elektro</td>
                 </tr>
                 <tr>
-                  <td>1</td>
+                  
                   <td>SK/01/XXIX</td>
                   <td>Surat Keputusan</td>
                   <td>Rektorat</td>
