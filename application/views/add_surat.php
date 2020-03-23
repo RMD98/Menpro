@@ -181,7 +181,7 @@
     var dataJurusan;
     var dataMatkul;
     <?php if($this->session->flashdata('statusInsert')=='sukses') :?>
-      swal("Sukses", "Data tersimpan sayang :)", "success");
+      swal("Sukses", "Data berhasil tersimpan", "success");
     <?php endif ?>
     $.get( "http://localhost/menpro/index.php/welcome/getPegawai", function( data ) {
       dataDosen = data;

@@ -136,7 +136,7 @@
 
   $(document).ready(function() {
     <?php if($this->session->flashdata('statusInsert')=='sukses') :?>
-      swal("Sukses", "Data tersimpan sayang :)", "success");
+      swal("Sukses", "Data berhasil tersimpan", "success");
     <?php endif ?>
     
 });

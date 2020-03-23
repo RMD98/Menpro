@@ -114,6 +114,7 @@ class Welcome extends CI_Controller {
                redirect("welcome/add_surat/$id");
           }
           public function statusSurat($idSurat){
+               $idSurat = 13;
                $data['DetailSurat'] = $this->surat->listDetailSurat($idSurat);
                $this->load->view('temp/head');
                $this->load->view('temp/js');

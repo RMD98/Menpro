@@ -9,9 +9,14 @@
     }
     function get_template_sk($role)
     {
-        $this->db->where('Role', $role);
-      $query = $this->db->get('tbl_sk')->result();
-      return $query;
+        if($role == 'admin'){
+            return $query = $this->db->get('tbl_sk')->result();  
+        }
+        else{
+            $this->db->where('Role', $role);
+            $query = $this->db->get('tbl_sk')->result();
+            return $query;
+        }
     }
     function listPegawai(){
         $query = $this->db->get('tbl_pegawai');
@@ -48,6 +53,8 @@
         return $this->db->get('tbl_surat')->result();
     }
     function listSurat(){
+        $this->db->limit('5');
+        $this->db->order_by('IdSurat', 'DESC');
         return $this->db->get('tbl_surat')->result();
     }
     function listSuratKeluar(){
