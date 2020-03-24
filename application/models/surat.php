@@ -96,4 +96,22 @@
         $query = $this->db->get('tbl_Surat');
         return $query->row();
     }
+    function insertDetailSurat($idSurat,$idPegawai){
+        $data = array(
+            'IdSurat' => $idSurat,
+            'NIP' => $idPegawai,
+            'StatusSurat' => 'N'
+        );
+        $this->db->insert('tbl_staff_surat',$data);
+    }
+    function getWhere($table,$where,$value){
+        $this->db->where($where, $value);
+        $query = $this->db->get($table);
+        return $query->row();
+    }
+    function getLast($table,$order){
+        $this->db->order_by($order, 'DESC');
+        $query = $this->db->get($table);
+        return $query->row();
+    }
  }

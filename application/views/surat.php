@@ -32,10 +32,7 @@
             </a>  
             <!-- <div class="col-6"> -->
             <!-- <a href="<?php echo site_url()?>/welcome/add_surat"> -->
-            <select type="formcontrol" class="btn btn-primary float-left">
-            <option> Surat Keputusan </option>
-            <option> Surat Keterangan </option>
-            </Select>
+            
             <!-- </a>   -->
           </div>
             <!-- /.card-header -->

@@ -53,6 +53,14 @@
               <!-- form start -->
               <form role="form" method="POST" action="<?php echo base_url()?>index.php/welcome/generateWord/<?=$IdSK?>">
                 <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Jenis</label>
+                    <select type="formcontrol" class="btn btn-primary form-control" name="jenis">
+                  <option> Surat Keputusan </option>
+                  <option> Surat Keterangan </option>
+                </Select> 
+                  </div>  
+                
               <?php foreach ($templateSK as $key=>$Input):
                 if($Input->type =='text'):?>
                   <div class="form-group">

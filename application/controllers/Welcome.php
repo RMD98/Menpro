@@ -20,6 +20,7 @@ class Welcome extends CI_Controller {
           parent::__construct();
           $this->load->model('main_models');
           $this->load->model('surat');
+          $this->load->model('test');
       }
      public function index()
 	{
@@ -103,12 +104,23 @@ class Welcome extends CI_Controller {
                $Temp = json_encode($this->input->post());
                $NoSurat = "test"; //belum dinamis           
                //generate word
-               $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat);
+               // $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat);
+               $temp = ($this->input->post());
+               $idSurat = $this->surat->getLast('tbl_surat','IdSurat')->IdSurat;
+               // print_r($this->input->post());
+               foreach ($this->input->post() as $val=>$key) {
+                    // print_r($val);
+                    if(count($val) > 1 or $val == 'dosen' or $val == 'tujuan' ){
+                         foreach($key as $key ){
+                              $NIP = $this->surat->getWhere('tbl_pegawai','NamaPegawai',$key)->Nip;
+                              // $this->surat->insertDetailSurat($idSurat,$NIP);
+                         } 
+                    }
+               }
                $this->session->set_flashdata('statusInsert','sukses' );
                redirect("welcome/add_surat/$id");
           }
           public function statusSurat($idSurat){
-               $idSurat = 13;
                $data['DetailSurat'] = $this->surat->listDetailSurat($idSurat);
                $this->load->view('temp/head');
                $this->load->view('temp/js');
@@ -380,5 +392,8 @@ class Welcome extends CI_Controller {
                     $this->session->set_flashdata('error', 'Invalid Username and Password');  
                     redirect(site_url() . '/welcome/index');  
                    }  
+      }
+      function test(){
+           $this->test->test1();
       }
 }
