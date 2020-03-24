@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html>
-
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
- 
   <!-- /.navbar -->
-
   <!-- Main Sidebar Container -->
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -26,7 +23,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -91,7 +87,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
- 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -99,7 +94,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <!-- page script -->
 <script>

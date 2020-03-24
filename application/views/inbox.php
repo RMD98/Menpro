@@ -22,7 +22,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -44,7 +43,6 @@
                   <th>Tanggal Buat</th>
                   <th>Topik</th>
                   <th>Status</th>
-                  
                   <!-- <th>Tipe</th> -->
                   <th></th>
                 </tr>
@@ -88,7 +86,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -96,7 +93,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <!-- page script -->
 <script>

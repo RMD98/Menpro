@@ -1,5 +1,5 @@
 <?php  
- class surat extends CI_Model  
+ class Surat extends CI_Model  
  {
     function get_properties_surat($idSurat)
     {
@@ -38,7 +38,6 @@
         }
         return $temp;
     }
-    
     function listJurusan(){
         $query = $this->db->get('tbl_department');
         $temp = [];

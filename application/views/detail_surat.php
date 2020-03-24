@@ -6,16 +6,13 @@
   <title>Itenise</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url('plugins/fontawesome-free/css/all.min.css')?>">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo base_url('plugins/datatables-bs4/css/dataTables.bootstrap4.css')?>">
-  
   <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('dist/css/adminlte.min.css')?>">
   <!-- Google Font: Source Sans Pro -->
@@ -23,9 +20,7 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
- 
   <!-- /.navbar -->
-  
   <!-- Main Sidebar Container -->
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -45,7 +40,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -91,7 +85,6 @@
                    <button type="submit" class="btn btn-primary float-right">Ubah Status</button>
                        </a>
                     <?php endif ?>
-                  
                   </td>
                   <?php endif ?>
                   <!-- <td>Single</td> -->
@@ -114,7 +107,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
- 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -137,14 +129,11 @@
       "autoWidth": false,
     });
   });
-
   $(document).ready(function() {
     <?php if($this->session->flashdata('statusInsert')=='sukses') :?>
       swal("Sukses", "Data berhasil tersimpan", "success");
     <?php endif ?>
-    
 });
-
 </script>
 </body>
 </html>

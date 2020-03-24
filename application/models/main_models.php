@@ -1,4 +1,4 @@
- <?php  
+<?php  
  class Main_models extends CI_Model  
  {  
       function can_login($username, $password)  
@@ -83,9 +83,7 @@
           );
           $this->db->insert('det_trans',$data);
         }
-        
         $this->cart->destroy();
-        
       }
       function select_by_id($id)
       {
@@ -104,9 +102,7 @@
         $config['max_size']             = 10000;
         $config['max_width']            = 5000;
         $config['max_height']           = 5000;
-
         $this->load->library('upload', $config);
-        
         if (!$this->upload->do_upload())
         {
           $id = $this->input->post('id');
@@ -115,7 +111,6 @@
         else
         {
           $gambar = $this->upload->data();
-          
           $data['kategori'] = $this->input->post('kategori',true);
           $data['brand'] = $this->input->post('brand',true);
           $data['model'] = $this->input->post('model',true);
@@ -123,9 +118,7 @@
           $data['keterangan'] = $this->input->post('keterangan',true);
           $data['harga'] = $this->input->post('harga',true);
           $data['gambar'] = $gambar['file_name'];
-          
           $id=$this->input->post('id');
-        
           $this->produk_model->edit_produk($id,$data);
           redirect('admin/daftarproduk');
         }
@@ -144,5 +137,4 @@
         //$this->db->where('Kode',$id);
           $this->db->query("Update transaksi set Status = 'Sudah Bayar' where Kode ='".$id."'");
       }
-
  }  
