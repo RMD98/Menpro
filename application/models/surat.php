@@ -81,14 +81,15 @@
         $this->db->where('IdStaffSurat',$IdSurat);
          $this->db->update('tbl_staff_surat',$data);
     }
-    function insertSurat($idSK,$value,$Topik,$NoSurat){
+    function insertSurat($idSK,$value,$Topik,$NoSurat,$lokasi){
         $data = array(
             'IdSK' => $idSK,
             'NoSurat' =>$NoSurat,
             'Topik' => $Topik,
             'TglDibuat' =>date("Y-m-d"),
-            'Value' => $value
-        );//belum insert ke tabel anak
+            'Value' => $value,
+            'File' => $lokasi
+        );
         $this->db->insert('tbl_surat',$data);
     }
     function getValueSurat($idSurat){
@@ -113,5 +114,35 @@
         $this->db->order_by($order, 'DESC');
         $query = $this->db->get($table);
         return $query->row();
+    }
+    function getDetailAccount($idakun){
+        $this->db->select('*');    
+        $this->db->from('tbl_account');
+        $this->db->join('tbl_pegawai', 'tbl_account.NIP = tbl_pegawai.NIP');
+        $this->db->join('tbl_staff_departement', 'tbl_pegawai.NIP = tbl_staff_departement.NIP');
+        $this->db->join('tbl_department', 'tbl_staff_departement.idDepartement = tbl_department.idDepartment');
+        $this->db->where('id', $idakun);
+        $query = $this->db->get()->row();
+        return $query;
+    }
+    function generateWord($mulai,$selesai,$data){
+        
+        $user = $this->getDetailAccount($this->session->userdata('id'));
+        
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($mulai);
+
+        // Variables on different parts of document
+        $templateProcessor->setValue('Departement', $user->NamaDepartement);           
+        $templateProcessor->setValue('JenisSurat', $data['jenis']);         
+        $templateProcessor->setValue('dosen', $data['NamaDosen']); 
+        $templateProcessor->setValue('mahasiswa', $data['NamaMahasiswa']); 
+        $templateProcessor->setValue('nrp', $data['NRP']); 
+        $templateProcessor->setValue('jurusan', $data['Jurusan']); 
+        $templateProcessor->setValue('judulTA', $data['JudulTA']); 
+        $templateProcessor->setValue('date', date("d F Y")); 
+        $templateProcessor->setValue('pembuat', $user->NamaPegawai); 
+        $templateProcessor->saveAs($selesai);
+        return $selesai;
     }
  }

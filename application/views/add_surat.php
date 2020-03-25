@@ -70,7 +70,7 @@
                   <?php elseif ($Input->type =='textSugestion'):?>
                     <div class="form-group">
                     <label for="exampleInputEmail1"><?=$Input->label?></label>
-                    <select class="<?=$Input->source?> form-control" name="<?=$key?>[]"></select>
+                    <select class="<?=$Input->source?> form-control" name="<?=$key?>"></select>
                   </div>
                   <?php elseif ($Input->type =='array'):?>
                     <div class="form-group">

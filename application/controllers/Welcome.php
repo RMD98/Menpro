@@ -21,6 +21,7 @@ class Welcome extends CI_Controller {
           $this->load->model('main_models');
           $this->load->model('surat');
           $this->load->model('test');
+          date_default_timezone_set("Asia/Jakarta");
       }
      public function index()
 	{
@@ -102,14 +103,16 @@ class Welcome extends CI_Controller {
           public function generateWord($id){
                $Topik = $this->surat->get_properties_surat($id)->Tema;
                $Temp = json_encode($this->input->post());
-               $NoSurat = "test"; //belum dinamis           
+               $NoSurat = "test"; //belum dinamis        
+               $unik = date("Y-m-d_h-i-s");
+               $template = 'resource/fakultas_BimbinganTugasAkhir.docx';
+               $hasil = "results/fakultas_BimbinganTugasAkhir_{$unik}.docx";
+               $data = $this->input->post();
+               $lokasi = $this->surat->generateWord($template,$hasil,$data);   
                //generate word
-               // $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat);
-               $temp = ($this->input->post());
+               // $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat,$lokasi);
                $idSurat = $this->surat->getLast('tbl_surat','IdSurat')->IdSurat;
-               // print_r($this->input->post());
                foreach ($this->input->post() as $val=>$key) {
-                    // print_r($val);
                     if(count($val) > 1 or $val == 'dosen' or $val == 'tujuan' ){
                          foreach($key as $key ){
                               $NIP = $this->surat->getWhere('tbl_pegawai','NamaPegawai',$key)->Nip;
@@ -117,6 +120,7 @@ class Welcome extends CI_Controller {
                          } 
                     }
                }
+               
                $this->session->set_flashdata('statusInsert','sukses' );
                redirect("welcome/add_surat/$id");
           }
