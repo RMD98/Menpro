@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="<?php echo base_url('dist/css/adminlte.min.css')?>">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -59,8 +60,7 @@
                   <option> Surat Keputusan </option>
                   <option> Surat Keterangan </option>
                 </Select> 
-                  </div>  
-                
+                  </div>         
               <?php foreach ($templateSK as $key=>$Input):
                 if($Input->type =='text'):?>
                   <div class="form-group">
@@ -76,6 +76,11 @@
                     <div class="form-group">
                     <label for="exampleInputEmail1"><?=$Input->label?></label>
                     <select class="<?=$Input->source?> form-control" name="<?=$key?>[]" multiple="multiple"></select>
+                  </div>
+                  <?php elseif ($Input->type =='datePicker'):?>
+                    <div class="form-group">
+                    <label for="exampleInputEmail1"><?=$Input->label?></label>
+                    <input type="text" name="<?=$key?>" value="" class="form-control"/> 
                   </div>
                   <?php elseif ($Input->type =='longText'):?>
                   <div class="form-group">
@@ -131,32 +136,57 @@
 </div>
 <!-- ./wrapper -->
 <!-- jQuery -->
+
+<!-- Bootstrap 4 -->
 <script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
 <!-- Bootstrap 4 -->
 <script src="<?php echo base_url('plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
-<!-- DataTables -->
-<script src="<?php echo base_url('plugins/datatables/jquery.dataTables.js')?>"></script>
-<script src="<?php echo base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.js')?>"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url('dist/js/demo.js')?>"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <!-- page script -->
 <script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
-  });
+  
   $(document).ready(function() {
+    $(function() {
+  $('input[name="rangeTanggal"]').daterangepicker({
+      autoUpdateInput: false,
+      locale: {
+          cancelLabel: 'Clear'
+      }
+  });
+
+  $('input[name="rangeTanggal"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('DD-MM-YYYY') + ' - ' + picker.endDate.format('DD-MM-YYYY'));
+  });
+
+  $('input[name="rangeTanggal"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+  $('input[name="rangeTanggalWaktu"]').daterangepicker({
+    timePicker: true,
+    timePicker24Hour:true,
+    startDate: moment().startOf('hour'),
+    endDate: moment().startOf('hour').add(32, 'hour'),
+    locale: {
+      format: 'M/DD hh:mm'
+    }
+  });
+  $('input[name="tanggalWaktu"]').daterangepicker({
+    timePicker: true,
+    timePicker24Hour:true,
+    singleDatePicker: true,
+    showDropdowns: true,
+    locale: {
+      format: 'M/DD hh:mm'
+    }
+  });
+
+   
+});
     var dataDosen;
     var dataJurusan;
     var dataMatkul;

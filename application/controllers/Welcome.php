@@ -102,13 +102,16 @@ class Welcome extends CI_Controller {
           }
           public function generateWord($id){
                $Topik = $this->surat->get_properties_surat($id)->Tema;
+               $Parameter = json_decode($this->surat->get_properties_surat($id)->Parameter);
                $Temp = json_encode($this->input->post());
                $NoSurat = "test"; //belum dinamis        
                $unik = date("Y-m-d_h-i-s");
                $template = 'resource/fakultas_BimbinganTugasAkhir.docx';
                $hasil = "results/fakultas_BimbinganTugasAkhir_{$unik}.docx";
-               $data = $this->input->post();
-               $lokasi = $this->surat->generateWord($template,$hasil,$data);   
+               // $data = $this->input->post();
+               // $user = $this->surat->getDetailAccount($this->session->userdata('id'));
+               $data = array_merge($this->input->post(), $this->surat->getDetailAccount($this->session->userdata('id')));
+               $lokasi = $this->surat->generateWord($template,$hasil,$data,$Parameter);   
                //generate word
                // $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat,$lokasi);
                $idSurat = $this->surat->getLast('tbl_surat','IdSurat')->IdSurat;
@@ -318,7 +321,7 @@ class Welcome extends CI_Controller {
           {
                $this->load->view('temp/sidebar_unit');
           }
-          $this->load->view('temp/js');
+          // $this->load->view('temp/js');
           $data['templateSK'] = json_decode($this->surat->get_properties_surat($key)->Input);
           $data['IdSK'] = $this->surat->get_properties_surat($key)->IdSK;
           $data['JudulSK'] = $this->surat->get_properties_surat($key)->Tema;

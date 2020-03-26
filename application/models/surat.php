@@ -122,27 +122,26 @@
         $this->db->join('tbl_staff_departement', 'tbl_pegawai.NIP = tbl_staff_departement.NIP');
         $this->db->join('tbl_department', 'tbl_staff_departement.idDepartement = tbl_department.idDepartment');
         $this->db->where('id', $idakun);
-        $query = $this->db->get()->row();
+        $query = $this->db->get()->row_array();
         return $query;
     }
-    function generateWord($mulai,$selesai,$data){
+    function generateWord($mulai,$selesai,$data,$parameter){
         
-        $user = $this->getDetailAccount($this->session->userdata('id'));
-        
-
+        // $user = $this->getDetailAccount($this->session->userdata('id'));
+        \PhpOffice\PhpWord\Settings::setZipClass(\PhpOffice\PhpWord\Settings::PCLZIP);
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($mulai);
-
-        // Variables on different parts of document
-        $templateProcessor->setValue('Departement', $user->NamaDepartement);           
-        $templateProcessor->setValue('JenisSurat', $data['jenis']);         
-        $templateProcessor->setValue('dosen', $data['NamaDosen']); 
-        $templateProcessor->setValue('mahasiswa', $data['NamaMahasiswa']); 
-        $templateProcessor->setValue('nrp', $data['NRP']); 
-        $templateProcessor->setValue('jurusan', $data['Jurusan']); 
-        $templateProcessor->setValue('judulTA', $data['JudulTA']); 
-        $templateProcessor->setValue('date', date("d F Y")); 
-        $templateProcessor->setValue('pembuat', $user->NamaPegawai); 
+        foreach($parameter as $key=>$Parameter){
+            if($key != 'date'){
+                $templateProcessor->setValue($key, $data["$Parameter"]);    
+            }
+            else{
+                $templateProcessor->setValue($key, date("$Parameter"));    
+            }
+        }
+        
         $templateProcessor->saveAs($selesai);
+        // // save as a random file in temp file
+    
         return $selesai;
     }
  }
