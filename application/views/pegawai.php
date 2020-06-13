@@ -31,6 +31,12 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
+            <div class="card-header">
+            <!-- <div class="col-6"> -->
+              <a href="<?php echo site_url()?>/welcome/add_surat/26">
+              <button type="submit" class="btn btn-primary float-right">Add</button>
+              </a>  
+            </div>
             <div class="card-body">
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
@@ -85,13 +91,13 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
+  <!-- <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.0.2
     </div>
     <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
     reserved.
-  </footer>
+  </footer> -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

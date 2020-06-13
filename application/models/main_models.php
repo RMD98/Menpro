@@ -20,6 +20,15 @@
       {
         return $this->db->get('tbl_rapat')->result();
       }
+      function get_rapat($id)
+      {
+        $this->db->where('IdRapat',$id);
+        return $this->db->get('tbl_rapat')->result();
+      }
+      function tambah_rapat($data)
+      {
+        $this->db->insert('tbl_rapat',$data);
+      }
       function trans_id()
       {
         $this->db->where('user',$this->session->userdata('username'));  

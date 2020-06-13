@@ -43,12 +43,12 @@
               if (($key % 3 == 0)):
               ?>
               
-              <a href="<?php echo base_url()?>/welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
+              <a href="<?php echo base_url()?>welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
           <!-- <div class="col-lg-3 col-6 ml-3 mt-3"> -->
             <!-- small box -->
             <div class="small-box bg-info">
-              <div class="inner">
-                <h5 style ='text-align: center' ><?=$listSK->Tema?></h5>
+              <div class="inner" style="height:220;">
+                <h5 style ='text-align: center; margin-top:50%' ><?=$listSK->Tema?></h5>
               </div>
             </div>
           <!-- </div> -->
@@ -58,9 +58,9 @@
           <!-- <div class="col-lg-3 col-6 ml-3 mt-3"> -->
             <!-- small box -->
             <a href="<?php echo base_url()?>/welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h5 style ='text-align: center'><?=$listSK->Tema?></sup></h5>
+            <div class="small-box bg-success col-12">
+              <div class="inner" style="height:220;">
+                <h5 style ='text-align: center;'><?=$listSK->Tema?></sup></h5>
                 
               </div>
             </div>
@@ -73,8 +73,8 @@
             <a href="<?php echo base_url()?>/welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
 
             <div class="small-box bg-danger">
-              <div class="inner">
-                <h5 style ='text-align: center'><?=$listSK->Tema?></sup></h5>
+              <div class="inner" style="height:220;">
+                <h5 style ='text-align: center; margin-top:50%'><?=$listSK->Tema?></sup></h5>
                 
               </div>
             </div>

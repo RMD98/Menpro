@@ -21,90 +21,94 @@ class Welcome extends CI_Controller {
           parent::__construct();
           $this->load->model('main_models');
           $this->load->model('surat');
+          $this->load->library('session');
           
       }
-     public function index()
-	{
+     public function index(){
           // parent::__construct();
           // $this->load->library('session');
-          // if($this->session->userdata() != null) 
-          // {
-               $this->load->view('login2');
-               // $data = $this->session->all_userdata();
+          if($this->session->userdata('id') == '') 
+          {
+               $this->load->view('login');
+               //$data = $this->session->all_userdata();
                // echo($this->session->userdata());
-               // for each
-               // echo $data;
-          // }
-          // else 
-          // { 
-          //      redirect(site_url().'/welcome/logedin',$session_data);
-          // }
+          }
+          else 
+          { 
+               redirect(site_url().'/welcome/logedin',$session_data);
+          }
 	}
-	public function register()
-	{
+	public function register(){
 		$this->load->view('register');
 	}
 	public function logedin(){
           // $this->load->model('main_models');
           //   $data['produk'] = $this->main_models->daftar_produk();
           $this->load->view('temp/head');
-          if($this->session->userdata('status') == 'admin') {
-               $this->load->view('temp/sidebar');
-          } 
-          elseif($this->session->userdata('status') == 'dosen') 
+          if($this->session->userdata('id') == '') 
           {
-               $this->load->view('temp/sidebar_dosen');
+               $this->load->view('login');
+               //$data = $this->session->all_userdata();
+               // echo($this->session->userdata());
           }
-          elseif($this->session->userdata('status') == 'ekspedisi') 
-          {
-               $this->load->view('temp/sidebar_ekspedisi');
-          }
-          elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
-          {
-               $this->load->view('temp/sidebar_unit');
+          else 
+          { 
+           //    redirect(site_url().'/welcome/logedin',$session_data);
+               if($this->session->userdata('status') == 'admin') {
+                $this->load->view('temp/sidebar');
+               } 
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $this->load->view('temp/sidebar_dosen');
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $this->load->view('temp/sidebar_ekspedisi');
+               }
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $this->load->view('temp/sidebar_unit');
+               }
           }
           $this->load->view('index2');
           $this->load->view('temp/footer');
           $this->load->view('temp/js');
-          //           else {
-               //                // $this->load->view("temp");
-               //                redirect(site_url().'/welcome/index',$session_data);
-                              //                // $this->index();
-                              //     }
-                         }
-                         public function logedin_user(){
+          // else {
+               // $this->load->view("temp");
+               // redirect(site_url().'/welcome/index',$session_data);
+                          // $this->index();
+                          // }
+     }
+     public function logedin_user(){
                
-                              $this->load->view('temp/head');
-               $this->load->view('index2');
-               $this->load->view('temp/footer');
-               $this->load->view('temp/js');
-          }
-          public function logedin_dosen(){
-               
+          $this->load->view('temp/head');
+          $this->load->view('index2');
+          $this->load->view('temp/footer');
+          $this->load->view('temp/js');
+     }
+     public function logedin_dosen(){
                $this->load->view('temp/head');
                $this->load->view('temp/sidebar_dosen');
                $this->load->view('index2');
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
-          }
-          
-          public function getPegawai(){
+     }
+     public function getPegawai(){
                header('Content-Type: application/json');
                $data = json_encode($this->surat->listPegawai(),true);
                echo $data;
-          }
-          public function getMatkul(){
+     }
+     public function getMatkul(){
                header('Content-Type: application/json');
                $data = json_encode($this->surat->listMatkul(),true);
                echo $data;
-          }
-          public function getjurusan(){
+     }
+     public function getjurusan(){
                header('Content-Type: application/json');
                $data = json_encode($this->surat->listJurusan(),true);
                echo $data;
-          }
-          
-          public function generateWord($id){
+     }   
+     public function generateWord($id){
                $Topik = $this->surat->get_properties_surat($id)->Tema;
                $Temp = json_encode($this->input->post());
                $NoSurat = "test"; //belum dinamis           
@@ -112,8 +116,8 @@ class Welcome extends CI_Controller {
                $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat);
                $this->session->set_flashdata('statusInsert','sukses' );
                redirect("welcome/add_surat/$id");
-          }
-          public function statusSurat($idSurat){
+     }
+     public function statusSurat($idSurat){
                $data['DetailSurat'] = $this->surat->listDetailSurat($idSurat);
                $this->load->view('temp/head');
                $this->load->view('temp/js');
@@ -135,14 +139,13 @@ class Welcome extends CI_Controller {
                $this->load->view('detail_surat',$data);
                $this->load->view('temp/footer');
                
-          }
-          public function changeStatusSurat($IdSuratStaff=0,$IdSurat=0){
+     }
+     public function changeStatusSurat($IdSuratStaff=0,$IdSurat=0){
                $this->surat->updateStatusSurat($IdSuratStaff);
                $this->session->set_flashdata('statusInsert','sukses' );
                redirect("welcome/statusSurat/$IdSurat");
-          }
-          public function pegawai()
-          {
+     }
+     public function pegawai() {
                $this->load->model('main_models');
                $data['tbl_pegawai'] = $this->main_models->daftar_pegawai();
                $this->load->view('temp/head');
@@ -150,10 +153,19 @@ class Welcome extends CI_Controller {
                $this->load->view('pegawai',$data);
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
+     }
+     public function inbox(){
+          $data['SuratMasuk'] = $this->surat->listSuratMasuk();
+          $this->load->view('temp/head');
+          if($this->session->userdata('id') == '') 
+          {
+               $this->load->view('login');
+               //$data = $this->session->all_userdata();
+               // echo($this->session->userdata());
           }
-          public function inbox(){
-               $data['SuratMasuk'] = $this->surat->listSuratMasuk();
-               $this->load->view('temp/head');
+          else 
+          { 
+               // redirect(site_url().'/welcome/logedin',$session_data);
                if($this->session->userdata('status') == 'admin') {
                     $this->load->view('temp/sidebar');
                } 
@@ -169,15 +181,24 @@ class Welcome extends CI_Controller {
                {
                     $this->load->view('temp/sidebar_unit');
                }
-               $this->load->view('inbox',$data);
-               $this->load->view('temp/footer');
-               $this->load->view('temp/js');
-               
           }
-          public function outbox(){
+          $this->load->view('inbox',$data);
+          $this->load->view('temp/footer');
+          $this->load->view('temp/js');
                
-               $data['SuratKeluar'] = $this->surat->listSuratKeluar();
-               $this->load->view('temp/head');
+     }
+     public function outbox(){
+          $data['SuratKeluar'] = $this->surat->listSuratKeluar();
+          $this->load->view('temp/head');
+          if($this->session->userdata('id') == '') 
+          {
+               $this->load->view('login');
+               //$data = $this->session->all_userdata();
+               // echo($this->session->userdata());
+          }
+          else 
+          { 
+               // redirect(site_url().'/welcome/logedin',$session_data);
                if($this->session->userdata('status') == 'admin') {
                     $this->load->view('temp/sidebar');
                } 
@@ -193,11 +214,12 @@ class Welcome extends CI_Controller {
                {
                     $this->load->view('temp/sidebar_unit');
                }
+          }
                $this->load->view('outbox',$data);
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
-          }
-          public function ekspedisi(){
+     }
+     public function ekspedisi(){
                $data['SuratEkspedisi'] = $this->surat->listSurat();
                if($this->session->userdata('status') == 'admin') {
                     $this->load->view('temp/sidebar');
@@ -218,8 +240,8 @@ class Welcome extends CI_Controller {
                $this->load->view('ekspedisi',$data);
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
-          }
-          public function surat(){
+     }
+     public function surat(){
                $data['listSK'] = $this->surat->get_template_sk($this->session->userdata('status'));
                // print_r($data);
                $this->load->view('temp/head');
@@ -283,13 +305,8 @@ class Welcome extends CI_Controller {
           $data['JudulSK'] = $this->surat->get_properties_surat($key)->Tema;
           $this->load->view('add_surat',$data);
      }
-     public function mom(){
-          $this->load->view('mom');
-     }
-     public function departemen(){
-          $this->load->view('departemen');
-     }
-     public function agenda(){
+     public function add_agenda(){
+          
           $this->load->view('temp/head');
           if($this->session->userdata('status') == 'admin') {
                $this->load->view('temp/sidebar');
@@ -306,18 +323,50 @@ class Welcome extends CI_Controller {
           {
                $this->load->view('temp/sidebar_ekspedisi');
           }
-          $this->load->view('agenda');
+          $this->load->model('main_models');
+          $data['pgw'] = $this->main_models->daftar_pegawai();
+          $this->load->view('add_agenda',$data);
           // $this->load->view('index2');
           // echo $this->session->userd?ata('status');
+          // $this->load->view('temp/js');
           $this->load->view('temp/footer');
-          $this->load->view('temp/js');
      }
-	function login()  
-      {  
-           $this->load->helper(array('form', 'url'));
+     public function mom(){
+          $this->load->view('mom');
+     }
+     public function departemen(){
+          $this->load->view('departemen');
+     }
+     public function agenda(){
+          $this->load->model('main_models');
+          $data['agenda'] = $this->main_models->daftar_rapat();
+          $this->load->view('temp/head');
+          if($this->session->userdata('status') == 'admin') {
+               $this->load->view('temp/sidebar');
+          } 
+          elseif($this->session->userdata('status') == 'dosen') 
+          {
+               $this->load->view('temp/sidebar_dosen');
+          }
+          elseif($this->session->userdata('status') == 'ekspedisi') 
+          {
+               $this->load->view('temp/sidebar_ekspedisi');
+          }
+          elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+          {
+               $this->load->view('temp/sidebar_unit');
+          }
+          $this->load->view('agenda',$data);
+          // $this->load->view('index2');
+          // echo $this->session->userd?ata('status');
+          // $this->load->view('temp/js');
+          $this->load->view('temp/footer');
+     }
+	function login(){  
+           $this->load->helper(array('form','url'));
            $this->load->library('form_validation');  
-           $this->form_validation->set_rules('Username', 'Username', 'required');  
-           $this->form_validation->set_rules('Password', 'Password', 'required');  
+           $this->form_validation->set_rules('Username', 'username', 'required');  
+           $this->form_validation->set_rules('Password', 'password', 'required');  
            if($this->form_validation->run())  
            {  
                 //true  
@@ -326,7 +375,7 @@ class Welcome extends CI_Controller {
                 //model function  
                 $this->load->model('main_models');  
                 $login_data = $this->main_models->can_login($username, $password);
-                if($login_data['Status'] != ' ')  
+                if($login_data['Status'] != '')  
                 {  
                      $session_data = array(  
                           'id'           => $login_data['id'],
@@ -339,9 +388,76 @@ class Welcome extends CI_Controller {
                 else  
                 {  
                      $this->session->set_flashdata('error', 'Invalid Username and Password');  
-                     redirect(site_url() . '/welcome/');  
+                     redirect(site_url() . '/welcome/index');  
                     }  
                }  
+          else  
+               {  
+                     $this->session->set_flashdata('error', 'Invalid Username and Password');  
+                     redirect(site_url() . '/welcome/index');  
+                    }  
+                 
                
-      }
+     
+     } 
+     function logout(){  
+          $user_data = $this->session->all_userdata();
+            foreach ($user_data as $key => $value) {
+            if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity') {
+                $this->session->unset_userdata($key);
+            }
+        }
+        $this->index();
+     }  
+     function add_rapat(){
+          // $this->load->library('form_validation');
+          // // $this->load->library('form_validation');
+          // $this->form_validation->set_rules('nip', 'NIP','required');  
+          // $this->form_validation->set_rules('topik', 'TopikRapat', 'required');  
+          // $this->form_validation->set_rules('tgl_awal', 'TglMulai', 'required');  
+          // $this->form_validation->set_rules('wkt_awal', 'WaktuMulai', 'required');  
+          // $this->form_validation->set_rules('tgl_akhir', 'TglAkhir', 'required');  
+          // $this->form_validation->set_rules('wkt_akhir', 'WaktuAkhir', 'required');
+          // $this->form_validation->set_rules('mom', 'MOM', 'required');
+          // if($this->form_validation->run()){
+            $agenda = array(
+                'NIP'           => $this->input->post('nip'),
+                'TopikRapat'    => $this->input->post('topik'),
+                'TglMulai'      => $this->input->post('tgl_mulai'),
+                'WaktuMulai'    => $this->input->post('wkt_mulai'),
+                'TglAkhir'      => $this->input->post('tgl_akhir'),
+                'WaktuAkhir'    => $this->input->post('wkt_akhir'),
+                'MOM'           => $this->input->post('mom')
+            );
+            $this->load->model('main_models');
+            $this->main_models->tambah_rapat($agenda);
+            redirect(site_url().'/welcome/agenda');
+          // }
+          // else {
+          //  redirect(site_url().'/welcome/add_agenda');
+          // }
+     }
+     function det_agenda($Id){
+          $this->load->model('main_models');
+          $data['agenda'] = $this->main_models->get_rapat($Id);
+          $this->load->view('temp/head');
+          if($this->session->userdata('status') == 'admin') {
+               $this->load->view('temp/sidebar');
+          } 
+          elseif($this->session->userdata('status') == 'dosen') 
+          {
+               $this->load->view('temp/sidebar_dosen');
+          }
+          elseif($this->session->userdata('status') == 'ekspedisi') 
+          {
+               $this->load->view('temp/sidebar_ekspedisi');
+          }
+          elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+          {
+               $this->load->view('temp/sidebar_unit');
+          }
+          $this->load->view('detail_agenda',$data);
+          $this->load->view('temp/footer');
+
+     }
 }
