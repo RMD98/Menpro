@@ -1,7 +1,5 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    
-
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -13,7 +11,6 @@
           <a href="#" class="d-block">Alexander Pierce</a>
         </div>
       </div>
-
       <!-- Sidebar Menu -->
       <nav class="mt-4">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">

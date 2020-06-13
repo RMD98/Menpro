@@ -1,5 +1,5 @@
 <?php  
- class surat extends CI_Model  
+ class Surat extends CI_Model  
  {
     function get_properties_surat($idSurat)
     {
@@ -38,7 +38,6 @@
         }
         return $temp;
     }
-    
     function listJurusan(){
         $query = $this->db->get('tbl_department');
         $temp = [];
@@ -82,19 +81,67 @@
         $this->db->where('IdStaffSurat',$IdSurat);
          $this->db->update('tbl_staff_surat',$data);
     }
-    function insertSurat($idSK,$value,$Topik,$NoSurat){
+    function insertSurat($idSK,$value,$Topik,$NoSurat,$lokasi){
         $data = array(
             'IdSK' => $idSK,
             'NoSurat' =>$NoSurat,
             'Topik' => $Topik,
             'TglDibuat' =>date("Y-m-d"),
-            'Value' => $value
-        );//belum insert ke tabel anak
+            'Value' => $value,
+            'File' => $lokasi
+        );
         $this->db->insert('tbl_surat',$data);
     }
     function getValueSurat($idSurat){
         $this->db->where('IdSurat', $idSurat);
         $query = $this->db->get('tbl_Surat');
         return $query->row();
+    }
+    function insertDetailSurat($idSurat,$idPegawai){
+        $data = array(
+            'IdSurat' => $idSurat,
+            'NIP' => $idPegawai,
+            'StatusSurat' => 'N'
+        );
+        $this->db->insert('tbl_staff_surat',$data);
+    }
+    function getWhere($table,$where,$value){
+        $this->db->where($where, $value);
+        $query = $this->db->get($table);
+        return $query->row();
+    }
+    function getLast($table,$order){
+        $this->db->order_by($order, 'DESC');
+        $query = $this->db->get($table);
+        return $query->row();
+    }
+    function getDetailAccount($idakun){
+        $this->db->select('*');    
+        $this->db->from('tbl_account');
+        $this->db->join('tbl_pegawai', 'tbl_account.NIP = tbl_pegawai.NIP');
+        $this->db->join('tbl_staff_departement', 'tbl_pegawai.NIP = tbl_staff_departement.NIP');
+        $this->db->join('tbl_department', 'tbl_staff_departement.idDepartement = tbl_department.idDepartment');
+        $this->db->where('id', $idakun);
+        $query = $this->db->get()->row_array();
+        return $query;
+    }
+    function generateWord($mulai,$selesai,$data,$parameter){
+        
+        // $user = $this->getDetailAccount($this->session->userdata('id'));
+        \PhpOffice\PhpWord\Settings::setZipClass(\PhpOffice\PhpWord\Settings::PCLZIP);
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($mulai);
+        foreach($parameter as $key=>$Parameter){
+            if($key != 'date'){
+                $templateProcessor->setValue($key, $data["$Parameter"]);    
+            }
+            else{
+                $templateProcessor->setValue($key, date("$Parameter"));    
+            }
+        }
+        
+        $templateProcessor->saveAs($selesai);
+        // // save as a random file in temp file
+    
+        return $selesai;
     }
  }

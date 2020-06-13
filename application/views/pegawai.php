@@ -4,7 +4,6 @@
 <div class="wrapper">
   <!-- Navbar -->
   <!-- /.navbar -->
-
   <!-- Main Sidebar Container -->
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -24,7 +23,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-    
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -78,7 +76,6 @@
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
-
             <!-- /.card-header -->
             <!-- /.card-body -->
           </div>
@@ -91,8 +88,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
- 
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -100,7 +95,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <script>
   $(function () {

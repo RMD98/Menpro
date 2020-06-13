@@ -24,10 +24,7 @@
 <div class="wrapper">
   <!-- Navbar -->
   <!-- /.navbar -->
-
   <!-- Main Sidebar Container -->
-  
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -46,7 +43,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -94,7 +90,6 @@
                   <!-- /btn-group -->
                   <div class="input-group">
                     <input id="new-event" type="text" class="form-control" placeholder="Event Title">
-
                     <div class="input-group-append">
                     <a href="<?php echo site_url()?>/welcome/add_agenda">    
                       <button  type="button" class="btn btn-primary">Add</button>
@@ -126,7 +121,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -134,7 +128,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
 <!-- Bootstrap -->
@@ -155,33 +148,26 @@
 <!-- Page specific script -->
 <script>
   $(function () {
-
     /* initialize the external events
      -----------------------------------------------------------------*/
     function ini_events(ele) {
       ele.each(function () {
-
         // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
         // it doesn't need to have a start or end
         var eventObject = {
           title: $.trim($(this).text()) // use the element's text as the event title
         }
-
         // store the Event Object in the DOM element so we can get to it later
         $(this).data('eventObject', eventObject)
-
         // make the event draggable using jQuery UI
         $(this).draggable({
           zIndex        : 1070,
           revert        : true, // will cause the event to go back to its
           revertDuration: 0  //  original position after the drag
         })
-
       })
     }
-
     ini_events($('#external-events div.external-event'))
-
     /* initialize the calendar
      -----------------------------------------------------------------*/
     //Date for the calendar events (dummy data)
@@ -189,17 +175,13 @@
     var d    = date.getDate(),
         m    = date.getMonth(),
         y    = date.getFullYear()
-
     var Calendar = FullCalendar.Calendar;
     var Draggable = FullCalendarInteraction.Draggable;
-
     var containerEl = document.getElementById('external-events');
     var checkbox = document.getElementById('drop-remove');
     var calendarEl = document.getElementById('calendar');
-
     // initialize the external events
     // -----------------------------------------------------------------
-
     new Draggable(containerEl, {
       itemSelector: '.external-event',
       eventData: function(eventEl) {
@@ -212,7 +194,6 @@
         };
       }
     });
-
     var calendar = new Calendar(calendarEl, {
       plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid' ],
       header    : {
@@ -266,10 +247,8 @@
         }
       }    
     });
-
     calendar.render();
     // $('#calendar').fullCalendar()
-
     /* ADDING EVENTS */
     var currColor = '#3c8dbc' //Red by default
     //Color chooser button
@@ -291,7 +270,6 @@
       if (val.length == 0) {
         return
       }
-
       //Create events
       var event = $('<div />')
       event.css({
@@ -301,10 +279,8 @@
       }).addClass('external-event')
       event.html(val)
       $('#external-events').prepend(event)
-
       //Add draggable funtionality
       ini_events(event)
-
       //Remove event from text input
       $('#new-event').val('')
     })

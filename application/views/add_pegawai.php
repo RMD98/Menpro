@@ -6,7 +6,6 @@
   <title>AdminLTE 3 | DataTables</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url('plugins/fontawesome-free/css/all.min.css')?>">
   <!-- Ionicons -->
@@ -20,9 +19,7 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-
   <!-- Main Sidebar Container -->
- 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -41,7 +38,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
     <div class="col-md-6">
@@ -96,26 +92,20 @@
                   </div>
                 </div>
                 <!-- /.card-body -->
-
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form>
             </div>
             <!-- /.card -->
-
             <!-- Form Element sizes -->
-            
             <!-- /.card -->
-
           </div>
       <!-- /.row -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -123,7 +113,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
 <!-- Bootstrap 4 -->

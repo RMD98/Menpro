@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Welcome extends CI_Controller {
      /**
       * Index Page for this controller.
@@ -21,7 +20,8 @@ class Welcome extends CI_Controller {
           parent::__construct();
           $this->load->model('main_models');
           $this->load->model('surat');
-          
+          $this->load->model('test');
+          date_default_timezone_set("Asia/Jakarta");
       }
      public function index()
 	{
@@ -73,21 +73,18 @@ class Welcome extends CI_Controller {
                               //     }
                          }
                          public function logedin_user(){
-               
                               $this->load->view('temp/head');
                $this->load->view('index2');
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
           }
           public function logedin_dosen(){
-               
                $this->load->view('temp/head');
                $this->load->view('temp/sidebar_dosen');
                $this->load->view('index2');
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
           }
-          
           public function getPegawai(){
                header('Content-Type: application/json');
                $data = json_encode($this->surat->listPegawai(),true);
@@ -103,18 +100,34 @@ class Welcome extends CI_Controller {
                $data = json_encode($this->surat->listJurusan(),true);
                echo $data;
           }
-          
           public function generateWord($id){
                $Topik = $this->surat->get_properties_surat($id)->Tema;
+               $Parameter = json_decode($this->surat->get_properties_surat($id)->Parameter);
                $Temp = json_encode($this->input->post());
-               $NoSurat = "test"; //belum dinamis           
+               $NoSurat = "test"; //belum dinamis        
+               $unik = date("Y-m-d_h-i-s");
+               $template = 'resource/fakultas_BimbinganTugasAkhir.docx';
+               $hasil = "results/fakultas_BimbinganTugasAkhir_{$unik}.docx";
+               // $data = $this->input->post();
+               // $user = $this->surat->getDetailAccount($this->session->userdata('id'));
+               $data = array_merge($this->input->post(), $this->surat->getDetailAccount($this->session->userdata('id')));
+               $lokasi = $this->surat->generateWord($template,$hasil,$data,$Parameter);   
                //generate word
-               $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat);
+               // $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat,$lokasi);
+               $idSurat = $this->surat->getLast('tbl_surat','IdSurat')->IdSurat;
+               foreach ($this->input->post() as $val=>$key) {
+                    if(count($val) > 1 or $val == 'dosen' or $val == 'tujuan' ){
+                         foreach($key as $key ){
+                              $NIP = $this->surat->getWhere('tbl_pegawai','NamaPegawai',$key)->Nip;
+                              // $this->surat->insertDetailSurat($idSurat,$NIP);
+                         } 
+                    }
+               }
+               
                $this->session->set_flashdata('statusInsert','sukses' );
                redirect("welcome/add_surat/$id");
           }
           public function statusSurat($idSurat){
-               $idSurat = 13;
                $data['DetailSurat'] = $this->surat->listDetailSurat($idSurat);
                $this->load->view('temp/head');
                $this->load->view('temp/js');
@@ -135,7 +148,6 @@ class Welcome extends CI_Controller {
                }
                $this->load->view('detail_surat',$data);
                $this->load->view('temp/footer');
-               
           }
           public function detailSurat($role){
                $data['DetailSurat'] = $this->surat->listSurat();
@@ -158,7 +170,6 @@ class Welcome extends CI_Controller {
                }
                $this->load->view('list_sk',$data);
                $this->load->view('temp/footer');
-               
           }
           public function changeStatusSurat($IdSuratStaff=0,$IdSurat=0){
                $this->surat->updateStatusSurat($IdSuratStaff);
@@ -167,7 +178,6 @@ class Welcome extends CI_Controller {
           }
           public function pegawai()
           {
-               $this->load->model('main_models');
                $data['tbl_pegawai'] = $this->main_models->daftar_pegawai();
                $this->load->view('temp/head');
                $this->load->view('temp/sidebar');
@@ -196,10 +206,8 @@ class Welcome extends CI_Controller {
                $this->load->view('inbox',$data);
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
-               
           }
           public function outbox(){
-               
                $data['SuratKeluar'] = $this->surat->listSuratKeluar();
                $this->load->view('temp/head');
                if($this->session->userdata('status') == 'admin') {
@@ -266,20 +274,15 @@ class Welcome extends CI_Controller {
                $this->load->view('surat',$data);
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
-               
 	}
 	public function data_surat(){
-          $this->load->model('main_models');
-          
           $this->load->view('temp/head');
           $this->load->view('temp/sidebar');
           $this->load->view('data_surat');
-          
           $this->load->view('temp/footer');
           $this->load->view('temp/js');
      }
      public function account(){
-          $this->load->model('main_models');
           $data['tbl_account'] = $this->main_models->daftar_account();
           $this->load->view('temp/head');
           $this->load->view('temp/sidebar');
@@ -288,24 +291,19 @@ class Welcome extends CI_Controller {
           $this->load->view('temp/js');
      }
      public function add_departmen(){
-          $this->load->model('main_models');
           $this->load->view('temp/head');
           $this->load->view('temp/sidebar');
           $this->load->view('add_departmen');
-         
           $this->load->view('temp/footer');
           $this->load->view('temp/js');
      }
      public function add_pegawai(){
-          $this->load->model('main_models');
           $this->load->view('temp/head');
           $this->load->view('temp/sidebar');
           $this->load->view('add_pegawai');
-         
           $this->load->view('temp/footer');
           $this->load->view('temp/js');
      }
-     
      public function add_surat($key){
           $this->load->view('temp/head');
           if($this->session->userdata('status') == 'admin') {
@@ -323,31 +321,26 @@ class Welcome extends CI_Controller {
           {
                $this->load->view('temp/sidebar_unit');
           }
-         
-          $this->load->view('temp/js');
+          // $this->load->view('temp/js');
           $data['templateSK'] = json_decode($this->surat->get_properties_surat($key)->Input);
           $data['IdSK'] = $this->surat->get_properties_surat($key)->IdSK;
           $data['JudulSK'] = $this->surat->get_properties_surat($key)->Tema;
           $this->load->view('add_surat',$data);
      }
      public function mom(){
-          $this->load->model('main_models');
           $this->load->view('temp/head');
           $this->load->view('temp/sidebar');
           $this->load->view('mom');
-          
           $this->load->view('temp/footer');
           $this->load->view('temp/js');
      }
      public function departemen(){
-          $this->load->model('main_models');
           $data['departement'] = $this->main_models->daftar_departement();
           $this->load->view('temp/head');
           $this->load->view('temp/sidebar');
           $this->load->view('departemen',$data);
           $this->load->view('temp/footer');
           $this->load->view('temp/js');
-          
      }
      public function agenda(){
           $this->load->view('temp/head');
@@ -384,7 +377,6 @@ class Welcome extends CI_Controller {
                 $username = $this->input->post('Username');  
                 $password = $this->input->post('Password');  
                 //model function  
-                $this->load->model('main_models');  
                 $login_data = $this->main_models->can_login($username, $password);
                 if($login_data['Status'] != '')  
                 {  
@@ -407,6 +399,8 @@ class Welcome extends CI_Controller {
                     $this->session->set_flashdata('error', 'Invalid Username and Password');  
                     redirect(site_url() . '/welcome/index');  
                    }  
-               
+      }
+      function test(){
+           $this->test->test1();
       }
 }

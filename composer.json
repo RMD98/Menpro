@@ -12,7 +12,8 @@
 	},
 	"require": {
 		"php": ">=5.3.7",
-		"phpoffice/phpword": "^0.17.0"
+		"phpoffice/phpword": "^0.17.0",
+		"longman/telegram-bot": "^0.61.1"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

@@ -6,7 +6,6 @@
   <title>AdminLTE 3 | DataTables</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url('plugins/fontawesome-free/css/all.min.css')?>">
   <!-- Ionicons -->
@@ -21,7 +20,6 @@
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
-  
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -40,19 +38,16 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-12">
           <div class="card">
-            
             <!-- /.card-header -->
             <div class="card-body">
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  
                   <th>No Surat</th>
                   <th>Kategori</th>
                   <th>Pengirim</th>
@@ -61,21 +56,18 @@
                 </thead>
                 <tbody>
                 <tr>
-                  
                   <td>SK/01/XXIX</td>
                   <td>Surat Keputusan</td>
                   <td>Rektorat</td>
                   <td>Kajur IF</td>
                 </tr>
                 <tr>
-                  
                   <td>SK/01/XXIX</td>
                   <td>Surat Keputusan</td>
                   <td>Rektorat</td>
                   <td>Kajur Elektro</td>
                 </tr>
                 <tr>
-                  
                   <td>SK/01/XXIX</td>
                   <td>Surat Keputusan</td>
                   <td>Rektorat</td>
@@ -98,8 +90,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -107,7 +97,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
 <!-- Bootstrap 4 -->

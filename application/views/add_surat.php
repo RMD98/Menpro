@@ -6,30 +6,24 @@
   <title>Itenise</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url('plugins/fontawesome-free/css/all.min.css')?>">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo base_url('plugins/datatables-bs4/css/dataTables.bootstrap4.css')?>">
-  
   <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('dist/css/adminlte.min.css')?>">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
-  
-  
   <!-- /.navbar -->
-
   <!-- Main Sidebar Container -->
-  
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -48,7 +42,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
     <div class="col-md-6">
@@ -59,8 +52,15 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="POST" action="<?php echo base_url()?>/welcome/generateWord/<?=$IdSK?>">
+              <form role="form" method="POST" action="<?php echo base_url()?>index.php/welcome/generateWord/<?=$IdSK?>">
                 <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Jenis</label>
+                    <select type="formcontrol" class="btn btn-primary form-control" name="jenis">
+                  <option> Surat Keputusan </option>
+                  <option> Surat Keterangan </option>
+                </Select> 
+                  </div>         
               <?php foreach ($templateSK as $key=>$Input):
                 if($Input->type =='text'):?>
                   <div class="form-group">
@@ -70,14 +70,18 @@
                   <?php elseif ($Input->type =='textSugestion'):?>
                     <div class="form-group">
                     <label for="exampleInputEmail1"><?=$Input->label?></label>
-                    <select class="<?=$Input->source?> form-control" name="<?=$key?>[]"></select>
+                    <select class="<?=$Input->source?> form-control" name="<?=$key?>"></select>
                   </div>
                   <?php elseif ($Input->type =='array'):?>
                     <div class="form-group">
                     <label for="exampleInputEmail1"><?=$Input->label?></label>
                     <select class="<?=$Input->source?> form-control" name="<?=$key?>[]" multiple="multiple"></select>
                   </div>
-                  
+                  <?php elseif ($Input->type =='datePicker'):?>
+                    <div class="form-group">
+                    <label for="exampleInputEmail1"><?=$Input->label?></label>
+                    <input type="text" name="<?=$key?>" value="" class="form-control"/> 
+                  </div>
                   <?php elseif ($Input->type =='longText'):?>
                   <div class="form-group">
                   <label for="exampleInputEmail1"><?=$Input->label?></label>
@@ -92,7 +96,6 @@
                 <!-- </div> -->
                   <!-- /.card-body -->
                 <!-- </div> -->
-                  
                 <!--<div class="form-group">
                   <input type="text" class="form-control">
                 </div> -->
@@ -111,27 +114,20 @@
                       </div>
                     </div>
                   </div>
-
                 <!-- /.card-body -->
-                
               </div>
               </form>
               </div>
             </div>
               <!-- /.card -->
-              
               <!-- Form Element sizes -->
-            
             <!-- /.card -->
-
           </div>
       <!-- /.row -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -139,38 +135,58 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
+
+<!-- Bootstrap 4 -->
 <script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
 <!-- Bootstrap 4 -->
 <script src="<?php echo base_url('plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
-<!-- DataTables -->
-<script src="<?php echo base_url('plugins/datatables/jquery.dataTables.js')?>"></script>
-<script src="<?php echo base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.js')?>"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url('dist/js/demo.js')?>"></script>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- page script -->
 <script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
+  
+  $(document).ready(function() {
+    $(function() {
+  $('input[name="rangeTanggal"]').daterangepicker({
+      autoUpdateInput: false,
+      locale: {
+          cancelLabel: 'Clear'
+      }
   });
 
-  $(document).ready(function() {
+  $('input[name="rangeTanggal"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('DD-MM-YYYY') + ' - ' + picker.endDate.format('DD-MM-YYYY'));
+  });
+
+  $('input[name="rangeTanggal"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+  $('input[name="rangeTanggalWaktu"]').daterangepicker({
+    timePicker: true,
+    timePicker24Hour:true,
+    startDate: moment().startOf('hour'),
+    endDate: moment().startOf('hour').add(32, 'hour'),
+    locale: {
+      format: 'M/DD hh:mm'
+    }
+  });
+  $('input[name="tanggalWaktu"]').daterangepicker({
+    timePicker: true,
+    timePicker24Hour:true,
+    singleDatePicker: true,
+    showDropdowns: true,
+    locale: {
+      format: 'M/DD hh:mm'
+    }
+  });
+
+   
+});
     var dataDosen;
     var dataJurusan;
     var dataMatkul;
@@ -199,8 +215,6 @@
 });
       });
 });
-
 </script>
-
 </body>
 </html>
