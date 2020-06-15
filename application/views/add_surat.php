@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Itenise</title>
   <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url('plugins/fontawesome-free/css/all.min.css')?>">
   <!-- Ionicons -->
@@ -80,7 +80,7 @@
                   <?php elseif ($Input->type =='datePicker'):?>
                     <div class="form-group">
                     <label for="exampleInputEmail1"><?=$Input->label?></label>
-                    <input type="text" name="<?=$key?>" value="" class="form-control"/> 
+                    <input id=<?=$Input->name?> type="text" name="<?=$key?>" value="" class="form-control"/> 
                   </div>
                   <?php elseif ($Input->type =='longText'):?>
                   <div class="form-group">
@@ -152,21 +152,21 @@
   
   $(document).ready(function() {
     $(function() {
-  $('input[name="rangeTanggal"]').daterangepicker({
+  $('#rangeTanggal').daterangepicker({
       autoUpdateInput: false,
       locale: {
           cancelLabel: 'Clear'
       }
   });
 
-  $('input[name="rangeTanggal"]').on('apply.daterangepicker', function(ev, picker) {
+  $('#rangeTanggal').on('apply.daterangepicker', function(ev, picker) {
       $(this).val(picker.startDate.format('DD-MM-YYYY') + ' - ' + picker.endDate.format('DD-MM-YYYY'));
   });
 
-  $('input[name="rangeTanggal"]').on('cancel.daterangepicker', function(ev, picker) {
+  $('#rangeTanggal').on('cancel.daterangepicker', function(ev, picker) {
       $(this).val('');
   });
-  $('input[name="rangeTanggalWaktu"]').daterangepicker({
+  $('#rangeTanggalWaktu').daterangepicker({
     timePicker: true,
     timePicker24Hour:true,
     startDate: moment().startOf('hour'),
@@ -175,7 +175,7 @@
       format: 'M/DD hh:mm'
     }
   });
-  $('input[name="tanggalWaktu"]').daterangepicker({
+  $('#tanggalWaktu').daterangepicker({
     timePicker: true,
     timePicker24Hour:true,
     singleDatePicker: true,
@@ -184,7 +184,14 @@
       format: 'M/DD hh:mm'
     }
   });
-
+  $('#tanggal').daterangepicker({
+    timePicker: true,
+    singleDatePicker: true,
+    showDropdowns: true,
+    locale: {
+      format: 'DD-MM-YYYY'
+    }
+  });
    
 });
     var dataDosen;

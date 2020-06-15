@@ -38,14 +38,11 @@
         }
         return $temp;
     }
-    function listJurusan(){
-        $query = $this->db->get('tbl_department');
-        $temp = [];
-        foreach ($query->result() as $key=>$row){
-        $temp[$key]['id'] = $row->NamaDepartement;
-        $temp[$key]['text'] = $row->NamaDepartement;
-        }
-        return $temp;
+    function getmatkul($nama,$jenis){
+        $this->db->where("Matakuliah", $nama);
+        $this->db->where("Jenis", $jenis);
+        $query = $this->db->get('tbl_matkul');
+        return $query->row();
     }
     function listSuratMasuk(){
         $this->db->where('IdSK', '26');
@@ -92,6 +89,7 @@
         );
         $this->db->insert('tbl_surat',$data);
     }
+    
     function getValueSurat($idSurat){
         $this->db->where('IdSurat', $idSurat);
         $query = $this->db->get('tbl_Surat');
@@ -115,6 +113,13 @@
         $query = $this->db->get($table);
         return $query->row();
     }
+    function getDetailDosen($param,$value){
+        $this->db->select('*');    
+        $this->db->from('tbl_pegawai');
+        $this->db->where($param, $value);
+        $query = $this->db->get()->row_array();
+        return $query;
+    }
     function getDetailAccount($idakun){
         $this->db->select('*');    
         $this->db->from('tbl_account');
@@ -125,21 +130,54 @@
         $query = $this->db->get()->row_array();
         return $query;
     }
-    function generateWord($mulai,$selesai,$data,$parameter){
+    function generateWord($mulai,$selesai,$data,$parameter,$NoSurat){
         
         // $user = $this->getDetailAccount($this->session->userdata('id'));
-        \PhpOffice\PhpWord\Settings::setZipClass(\PhpOffice\PhpWord\Settings::PCLZIP);
+        // \PhpOffice\PhpWord\Settings::setCompatibility(false);
+        // \PhpOffice\PhpWord\Settings::setZipClass(\PhpOffice\PhpWord\Settings::PCLZIP);
+        $this->load->helper('download');
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($mulai);
+        // var_dump($data);
+        // die;
         foreach($parameter as $key=>$Parameter){
-            if($key != 'date'){
-                $templateProcessor->setValue($key, $data["$Parameter"]);    
-            }
-            else{
+            if($key == 'date'){
                 $templateProcessor->setValue($key, date("$Parameter"));    
+            }elseif($key=='No'){
+                $templateProcessor->setValue($key, $NoSurat);  
+            }elseif($key == 'thn'){
+                $templateProcessor->setValue($key, date("Y"));    
+            }elseif($key == 'arrayofDosen'){
+                $templateProcessor->cloneRow('rowValue', sizeof($data['dosen']));
+                foreach($data['dosen'] as $i=>$NamaDosen){ 
+                    $number = $i+1;
+                    if(array_key_exists("ketuaDosen",$data)){
+                        $templateProcessor->setValue("X#{$number}", $i+2);
+                    }else{
+                        $templateProcessor->setValue("X#{$number}", $i+1);
+                    }
+                    $templateProcessor->setValue("rowValue#{$number}", $NamaDosen);
+                    }
+            }elseif($key == 'arrayofMatkul'){
+                $templateProcessor->cloneRow('kdNama', sizeof($data['matkul']));
+                foreach($data['matkul'] as $i=>$matkul){ 
+                    $number = $i+1;
+                    $nama=rtrim($matkul,'ResponsiKuliahkuliahresponsi');
+                    $nama=rtrim($nama);
+                    $jenis=substr($matkul, strrpos($matkul, ' ' )+1);
+                    $cek = $this->getmatkul($nama,$jenis);
+                    $templateProcessor->setValue("kdNama#{$number}", "{$nama} {$cek->Kode}");
+                    $templateProcessor->setValue("jenis#{$number}", $jenis);
+                    $templateProcessor->setValue("sks#{$number}", $cek->SKS);
+                    $templateProcessor->setValue("jmlh#{$number}", $cek->JumlahKelas);
+                }
+            }else{
+                $templateProcessor->setValue($key, $data["$Parameter"]);   
             }
         }
-        
+        ob_clean();
         $templateProcessor->saveAs($selesai);
+        force_download($selesai, NULL);
+        // $templateProcessor->save('php://output');
         // // save as a random file in temp file
     
         return $selesai;
