@@ -25,11 +25,6 @@
   <!-- Navbar -->
   <!-- /.navbar -->
   <!-- Main Sidebar Container -->
-<<<<<<< HEAD
-  
-
-=======
->>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
