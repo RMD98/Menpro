@@ -49,18 +49,20 @@
                 </tr>
                 </thead>
                 <tbody>
+                <?php foreach ($dprt as $dprt) :?>
                 <tr>
-                  <td>1</td>
-                  <td>FTI</td>
-                  <td>Fakultas Teknologi Industri</td>
+                  <td><?php echo $dprt->idDepartment;?></td>
+                  <td><?php echo $dprt->KodeDepartement;?></td>
+                  <td><?php echo $dprt->NamaDepartement;?></td>
                   <td><a href="<?php echo site_url()?>/welcome/add_departmen">
                    <button type="submit" class="btn btn-warning float-right">Edit</button>
                   </a>
                   <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
                   <button type="submit" class="btn btn-danger float-right" >Delete</button>
                   </a>
-                  </td>
+                  </td>  
                 </tr>
+                <?php endforeach;?>
                 </tbody>
               </table>
             </div>

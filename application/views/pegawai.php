@@ -33,7 +33,7 @@
             <!-- /.card-header -->
             <div class="card-header">
             <!-- <div class="col-6"> -->
-              <a href="<?php echo site_url()?>/welcome/add_surat/26">
+              <a href="<?php echo site_url()?>/welcome/add_pegawai">
               <button type="submit" class="btn btn-primary float-right">Add</button>
               </a>  
             </div>

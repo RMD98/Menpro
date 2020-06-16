@@ -8,9 +8,17 @@
            $query = $this->db->get('tbl_account')->row_array();
            return $query;
       } 
+      function daftar_departemen()
+      {
+        return $this->db->get('tbl_department')->result();
+      }
       function daftar_pegawai()
       {
         return $this->db->get('tbl_pegawai')->result();
+      }
+      function tambah_pegawai($data)
+      {
+        $this->db->insert('tbl_pegawai',$data);
       }
       function daftar_account()
       {
