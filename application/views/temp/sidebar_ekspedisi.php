@@ -81,7 +81,7 @@
             </a>
             </li>
             <li class="nav-item">
-            <a href="<?php echo site_url()?>/welcome/index" class="nav-link">
+            <a href="<?php echo site_url()?>/welcome/logout" class="nav-link">
               <i class="nav-icon fas fa-power-off"></i>
               <p>
                 Logout

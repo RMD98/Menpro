@@ -127,18 +127,14 @@
               </p>
             </a>
             </li>
-<<<<<<< HEAD
-            <a href="<?php echo site_url()?>/welcome/logout"> Logout </a>
-=======
             <li class="nav-item">
-            <a href="<?php echo site_url()?>/welcome/index" class="nav-link">
+            <a href="<?php echo site_url()?>/welcome/logout" class="nav-link">
               <i class="nav-icon fas fa-power-off"></i>
               <p>
                 Logout
               </p>
             </a>
             </li>
->>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
