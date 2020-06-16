@@ -40,12 +40,8 @@
             <?php foreach ($listSK as $key=>$listSK): 
               if (($key % 3 == 0)):
               ?>
-<<<<<<< HEAD
               
               <a href="<?php echo base_url()?>welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
-=======
-              <a href="<?php echo base_url()?>index.php/welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
->>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
           <!-- <div class="col-lg-3 col-6 ml-3 mt-3"> -->
             <!-- small box -->
             <div class="small-box bg-info">
