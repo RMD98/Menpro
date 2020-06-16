@@ -11,7 +11,6 @@
         <a href="#" class="nav-link">Contact</a>
       </li>
     </ul>
-
     <!-- SEARCH FORM -->
     <form class="form-inline ml-3">
       <div class="input-group input-group-sm">
@@ -23,7 +22,6 @@
         </div>
       </div>
     </form>
-
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->

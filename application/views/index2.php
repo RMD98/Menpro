@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
   <!-- Navbar -->
-  
   <!-- /.navbar -->
-
   <!-- Main Sidebar Container -->
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -29,7 +24,6 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -40,7 +34,6 @@
             <div class="small-box bg-info">
               <div class="inner">
                 <h3>100</h3>
-
                 <p>Total Surat</p>
               </div>
             </div>
@@ -51,10 +44,8 @@
             <div class="small-box bg-success">
               <div class="inner">
                 <h3>50</sup></h3>
-
                 <p>Surat Keputusa</p>
               </div>
-             
             </div>
           </div>
           <!-- ./col -->
@@ -63,7 +54,6 @@
             <div class="small-box bg-warning">
               <div class="inner">
                 <h3>50</h3>
-
                 <p>Surat Pemberitahuan</p>
               </div>
             </div>
@@ -74,12 +64,10 @@
             <div class="small-box bg-danger">
               <div class="inner">
                 <h3>60</h3>
-
                 <p>Agenda</p>
               </div>
               </div>
           </div>
-          
           <!-- ./col -->
         </div>
         <!-- /.row -->
@@ -91,7 +79,6 @@
                   <i class="ion ion-clipboard mr-1"></i>
                   To Do List
                 </h3>
-
                 <div class="card-tools">
                   <ul class="pagination pagination-sm">
                     <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
@@ -186,8 +173,6 @@
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
           <section class="col-lg-5 connectedSortable">
-
-            
             <!-- Calendar -->
                 <!-- /. tools -->
               </div>
@@ -208,7 +193,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -216,7 +200,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 </body>
 </html>

@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Welcome extends CI_Controller {
      /**
       * Index Page for this controller.
@@ -21,8 +20,14 @@ class Welcome extends CI_Controller {
           parent::__construct();
           $this->load->model('main_models');
           $this->load->model('surat');
+<<<<<<< HEAD
           $this->load->library('session');
           
+=======
+          $this->load->model('test');
+          $this->load->helper('download');
+          date_default_timezone_set("Asia/Jakarta");
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
       }
      public function index(){
           // parent::__construct();
@@ -45,6 +50,7 @@ class Welcome extends CI_Controller {
           // $this->load->model('main_models');
           //   $data['produk'] = $this->main_models->daftar_produk();
           $this->load->view('temp/head');
+<<<<<<< HEAD
           if($this->session->userdata('id') == '') 
           {
                $this->load->view('login');
@@ -69,10 +75,31 @@ class Welcome extends CI_Controller {
                {
                     $this->load->view('temp/sidebar_unit');
                }
+=======
+          if($this->session->userdata('status') == 'admin') {
+               $data['nama'] = $this->session->userdata('Nama');
+               $this->load->view('temp/sidebar',$data);
+          } 
+          elseif($this->session->userdata('status') == 'dosen') 
+          {
+               $data['nama'] = $this->session->userdata('Nama');
+               $this->load->view('temp/sidebar_dosen',$data);
+          }
+          elseif($this->session->userdata('status') == 'ekspedisi') 
+          {
+               $data['nama'] = $this->session->userdata('Nama');
+               $this->load->view('temp/sidebar_ekspedisi',$data);
+          }
+          elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+          {
+               $data['nama'] = $this->session->userdata('Nama');
+               $this->load->view('temp/sidebar_unit',$data);
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
           }
           $this->load->view('index2');
           $this->load->view('temp/footer');
           $this->load->view('temp/js');
+<<<<<<< HEAD
           // else {
                // $this->load->view("temp");
                // redirect(site_url().'/welcome/index',$session_data);
@@ -87,13 +114,33 @@ class Welcome extends CI_Controller {
           $this->load->view('temp/js');
      }
      public function logedin_dosen(){
+=======
+          //           else {
+               //                // $this->load->view("temp");
+               //                redirect(site_url().'/welcome/index',$session_data);
+                              //                // $this->index();
+                              //     }
+                         }
+                         public function logedin_user(){
+                              $this->load->view('temp/head');
+               $this->load->view('index2');
+               $this->load->view('temp/footer');
+               $this->load->view('temp/js');
+          }
+          public function logedin_dosen(){
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
                $this->load->view('temp/head');
                $this->load->view('temp/sidebar_dosen');
                $this->load->view('index2');
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
+<<<<<<< HEAD
      }
      public function getPegawai(){
+=======
+          }
+          public function getPegawai(){
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
                header('Content-Type: application/json');
                $data = json_encode($this->surat->listPegawai(),true);
                echo $data;
@@ -107,14 +154,48 @@ class Welcome extends CI_Controller {
                header('Content-Type: application/json');
                $data = json_encode($this->surat->listJurusan(),true);
                echo $data;
+<<<<<<< HEAD
      }   
      public function generateWord($id){
+=======
+          }
+          public function generateWord($id){
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
                $Topik = $this->surat->get_properties_surat($id)->Tema;
+               $Parameter = json_decode($this->surat->get_properties_surat($id)->Parameter);
+               // var_dump($Parameter);
+               // die;
                $Temp = json_encode($this->input->post());
-               $NoSurat = "test"; //belum dinamis           
+               $NoSurat = ($this->surat->getlast("tbl_surat","IdSurat")->IdSurat)+1;    
+               $unik = date("Y-m-d_h-i-s");
+               $filename = $this->surat->get_properties_surat($id)->FileTemplate;
+               $template = "resource/{$filename}";
+               $hasil = "results/{$unik} {$filename}";
+               // $data = $this->input->post();
+               // $user = $this->surat->getDetailAccount($this->session->userdata('id'));
+               $data = array_merge($this->input->post(), $this->surat->getDetailAccount($this->session->userdata('id')));
+               try{
+                    $data['NipSurat']=$this->surat->getDetailDosen('NamaPegawai',$this->input->post()['dosenSurat'])['Nip'];
+               }
+               catch(Exception $e) {
+                    echo 'Message: ' .$e->getMessage();
+                  }
+               $lokasi = $this->surat->generateWord($template,$hasil,$data,$Parameter,$NoSurat);   
                //generate word
-               $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat);
+               $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat,$lokasi);
+               $idSurat = $this->surat->getLast('tbl_surat','IdSurat')->IdSurat;
+               foreach ($this->input->post() as $val=>$key) {
+                    if(count($val) > 1 or $val == 'dosen' or $val == 'tujuan' ){
+                         foreach($key as $key ){
+                              $NIP = $this->surat->getWhere('tbl_pegawai','NamaPegawai',$key)->Nip;
+                              // $this->surat->insertDetailSurat($idSurat,$NIP);
+                         } 
+                    }
+               }
+               
                $this->session->set_flashdata('statusInsert','sukses' );
+               $this->session->set_flashdata('download',$lokasi );
+               force_download($lokasi, NULL);
                redirect("welcome/add_surat/$id");
      }
      public function statusSurat($idSurat){
@@ -122,22 +203,27 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/head');
                $this->load->view('temp/js');
                if($this->session->userdata('status') == 'admin') {
-                    $this->load->view('temp/sidebar');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar',$data);
                } 
                elseif($this->session->userdata('status') == 'dosen') 
                {
-                    $this->load->view('temp/sidebar_dosen');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_dosen',$data);
                }
                elseif($this->session->userdata('status') == 'ekspedisi') 
                {
-                    $this->load->view('temp/sidebar_ekspedisi');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_ekspedisi',$data);
                }
                elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
                {
-                    $this->load->view('temp/sidebar_unit');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_unit',$data);
                }
                $this->load->view('detail_surat',$data);
                $this->load->view('temp/footer');
+<<<<<<< HEAD
                
      }
      public function changeStatusSurat($IdSuratStaff=0,$IdSurat=0){
@@ -147,6 +233,42 @@ class Welcome extends CI_Controller {
      }
      public function pegawai() {
                $this->load->model('main_models');
+=======
+          }
+          public function detailSurat($role){
+               $data['DetailSurat'] = $this->surat->listSurat();
+               $this->load->view('temp/head');
+               $this->load->view('temp/js');
+               if($this->session->userdata('status') == 'admin') {
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar',$data);
+               } 
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_dosen',$data);
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_ekspedisi',$data);
+               }
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_unit',$data);
+               }
+               $this->load->view('list_sk',$data);
+               $this->load->view('temp/footer');
+          }
+          public function changeStatusSurat($IdSuratStaff=0,$IdSurat=0){
+               $this->surat->updateStatusSurat($IdSuratStaff);
+               $this->session->set_flashdata('statusInsert','sukses' );
+               redirect("welcome/statusSurat/$IdSurat");
+          }
+          public function pegawai()
+          {
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
                $data['tbl_pegawai'] = $this->main_models->daftar_pegawai();
                $this->load->view('temp/head');
                $this->load->view('temp/sidebar');
@@ -167,20 +289,25 @@ class Welcome extends CI_Controller {
           { 
                // redirect(site_url().'/welcome/logedin',$session_data);
                if($this->session->userdata('status') == 'admin') {
-                    $this->load->view('temp/sidebar');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar',$data);
                } 
                elseif($this->session->userdata('status') == 'dosen') 
                {
-                    $this->load->view('temp/sidebar_dosen');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_dosen',$data);
                }
                elseif($this->session->userdata('status') == 'ekspedisi') 
                {
-                    $this->load->view('temp/sidebar_ekspedisi');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_ekspedisi',$data);
                }
                elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
                {
-                    $this->load->view('temp/sidebar_unit');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_unit',$data);
                }
+<<<<<<< HEAD
           }
           $this->load->view('inbox',$data);
           $this->load->view('temp/footer');
@@ -199,20 +326,33 @@ class Welcome extends CI_Controller {
           else 
           { 
                // redirect(site_url().'/welcome/logedin',$session_data);
+=======
+               $this->load->view('inbox',$data);
+               $this->load->view('temp/footer');
+               $this->load->view('temp/js');
+          }
+          public function outbox(){
+               $data['SuratKeluar'] = $this->surat->listSuratKeluar();
+               $this->load->view('temp/head');
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
                if($this->session->userdata('status') == 'admin') {
-                    $this->load->view('temp/sidebar');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar',$data);
                } 
                elseif($this->session->userdata('status') == 'dosen') 
                {
-                    $this->load->view('temp/sidebar_dosen');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_dosen',$data);
                }
                elseif($this->session->userdata('status') == 'ekspedisi') 
                {
-                    $this->load->view('temp/sidebar_ekspedisi');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_ekspedisi',$data);
                }
                elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
                {
-                    $this->load->view('temp/sidebar_unit');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_unit',$data);
                }
           }
                $this->load->view('outbox',$data);
@@ -222,19 +362,23 @@ class Welcome extends CI_Controller {
      public function ekspedisi(){
                $data['SuratEkspedisi'] = $this->surat->listSurat();
                if($this->session->userdata('status') == 'admin') {
-                    $this->load->view('temp/sidebar');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar',$data);
                } 
                elseif($this->session->userdata('status') == 'dosen') 
                {
-                    $this->load->view('temp/sidebar_dosen');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_dosen',$data);
                }
                elseif($this->session->userdata('status') == 'ekspedisi') 
                {
-                    $this->load->view('temp/sidebar_ekspedisi');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_ekspedisi',$data);
                }
                elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
                {
-                    $this->load->view('temp/sidebar_unit');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_unit',$data);
                }
                $this->load->view('temp/head');
                $this->load->view('ekspedisi',$data);
@@ -246,31 +390,37 @@ class Welcome extends CI_Controller {
                // print_r($data);
                $this->load->view('temp/head');
                if($this->session->userdata('status') == 'admin') {
-                    $this->load->view('temp/sidebar');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar',$data);
                } 
                elseif($this->session->userdata('status') == 'dosen') 
                {
-                    $this->load->view('temp/sidebar_dosen');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_dosen',$data);
                }
                elseif($this->session->userdata('status') == 'ekspedisi') 
                {
-                    $this->load->view('temp/sidebar_ekspedisi');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_ekspedisi',$data);
                }
                elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
                {
-                    $this->load->view('temp/sidebar_unit');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_unit',$data);
                }
                // $this->load->view('index2');
                $this->load->view('surat',$data);
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
-               
 	}
 	public function data_surat(){
+          $this->load->view('temp/head');
+          $this->load->view('temp/sidebar');
           $this->load->view('data_surat');
+          $this->load->view('temp/footer');
+          $this->load->view('temp/js');
      }
      public function account(){
-          $this->load->model('main_models');
           $data['tbl_account'] = $this->main_models->daftar_account();
           $this->load->view('temp/head');
           $this->load->view('temp/sidebar');
@@ -279,27 +429,41 @@ class Welcome extends CI_Controller {
           $this->load->view('temp/js');
      }
      public function add_departmen(){
+          $this->load->view('temp/head');
+          $this->load->view('temp/sidebar');
           $this->load->view('add_departmen');
+          $this->load->view('temp/footer');
+          $this->load->view('temp/js');
+     }
+     public function add_pegawai(){
+          $this->load->view('temp/head');
+          $this->load->view('temp/sidebar');
+          $this->load->view('add_pegawai');
+          $this->load->view('temp/footer');
+          $this->load->view('temp/js');
      }
      public function add_surat($key){
           $this->load->view('temp/head');
           if($this->session->userdata('status') == 'admin') {
-               $this->load->view('temp/sidebar');
+               $data['nama'] = $this->session->userdata('Nama');
+               $this->load->view('temp/sidebar',$data);
           } 
           elseif($this->session->userdata('status') == 'dosen') 
           {
-               $this->load->view('temp/sidebar_dosen');
+               $data['nama'] = $this->session->userdata('Nama');
+               $this->load->view('temp/sidebar_dosen',$data);
           }
           elseif($this->session->userdata('status') == 'ekspedisi') 
           {
-               $this->load->view('temp/sidebar_ekspedisi');
+               $data['nama'] = $this->session->userdata('Nama');
+               $this->load->view('temp/sidebar_ekspedisi',$data);
           }
           elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
           {
-               $this->load->view('temp/sidebar_unit');
+               $data['nama'] = $this->session->userdata('Nama');
+               $this->load->view('temp/sidebar_unit',$data);
           }
-         
-          $this->load->view('temp/js');
+          // $this->load->view('temp/js');
           $data['templateSK'] = json_decode($this->surat->get_properties_surat($key)->Input);
           $data['IdSK'] = $this->surat->get_properties_surat($key)->IdSK;
           $data['JudulSK'] = $this->surat->get_properties_surat($key)->Tema;
@@ -357,15 +521,32 @@ class Welcome extends CI_Controller {
           $this->load->view('temp/footer');
      }
      public function mom(){
+          $this->load->view('temp/head');
+          $this->load->view('temp/sidebar');
           $this->load->view('mom');
+          $this->load->view('temp/footer');
+          $this->load->view('temp/js');
      }
      public function departemen(){
+<<<<<<< HEAD
           $this->load->model('main_models');
           $data['dprt'] = $this->main_models->daftar_departemen();
+=======
+          $data['departement'] = $this->main_models->daftar_departement();
+          $this->load->view('temp/head');
+          $this->load->view('temp/sidebar');
+          $this->load->view('departemen',$data);
+          $this->load->view('temp/footer');
+          $this->load->view('temp/js');
+     }
+     public function agenda(){
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
           $this->load->view('temp/head');
           if($this->session->userdata('status') == 'admin') {
-               $this->load->view('temp/sidebar');
+               $data['nama'] = $this->session->userdata('Nama');
+               $this->load->view('temp/sidebar',$data);
           } 
+<<<<<<< HEAD
           elseif($this->session->userdata('status') == 'dosen') 
           {
                $this->load->view('temp/sidebar_dosen');
@@ -392,13 +573,22 @@ class Welcome extends CI_Controller {
           if($this->session->userdata('status') == 'admin') {
                $this->load->view('temp/sidebar');
           } 
+=======
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
           elseif($this->session->userdata('status') == 'dosen') 
           {
-               $this->load->view('temp/sidebar_dosen');
+               $data['nama'] = $this->session->userdata('Nama');
+               $this->load->view('temp/sidebar_dosen',$data);
           }
           elseif($this->session->userdata('status') == 'ekspedisi') 
           {
-               $this->load->view('temp/sidebar_ekspedisi');
+               $data['nama'] = $this->session->userdata('Nama');
+               $this->load->view('temp/sidebar_ekspedisi',$data);
+          }
+          elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+          {
+               $data['nama'] = $this->session->userdata('Nama');
+               $this->load->view('temp/sidebar_unit',$data);
           }
           elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
           {
@@ -409,6 +599,10 @@ class Welcome extends CI_Controller {
           // echo $this->session->userd?ata('status');
           // $this->load->view('temp/js');
           $this->load->view('temp/footer');
+<<<<<<< HEAD
+=======
+          // $this->load->view('temp/js');
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
      }
 	function login(){  
            $this->load->helper(array('form','url'));
@@ -421,14 +615,19 @@ class Welcome extends CI_Controller {
                 $username = $this->input->post('Username');  
                 $password = $this->input->post('Password');  
                 //model function  
-                $this->load->model('main_models');  
                 $login_data = $this->main_models->can_login($username, $password);
                 if($login_data['Status'] != '')  
+<<<<<<< HEAD
                 {  
+=======
+                {   
+                     
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
                      $session_data = array(  
                           'id'           => $login_data['id'],
                           'username'     => $username,
-                          'status'       => $login_data['Status']
+                          'status'       => $login_data['Status'],
+                          'Nama'         => ($this->surat->getDetailAccount($login_data['id'])['NamaPegawai'])
                      );  
                      $this->session->set_userdata($session_data);  
                      redirect(site_url().'/welcome/logedin',$session_data);
@@ -439,6 +638,7 @@ class Welcome extends CI_Controller {
                      redirect(site_url() . '/welcome/index');  
                     }  
                }  
+<<<<<<< HEAD
           else  
                {  
                      $this->session->set_flashdata('error', 'Invalid Username and Password');  
@@ -523,3 +723,15 @@ class Welcome extends CI_Controller {
 
      }
 }
+=======
+               else  
+               {  
+                    $this->session->set_flashdata('error', 'Invalid Username and Password');  
+                    redirect(site_url() . '/welcome/index');  
+                   }  
+      }
+      function test(){
+           $this->test->test1();
+      }
+}
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15

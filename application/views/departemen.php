@@ -3,6 +3,8 @@
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
+  <!-- /.navbar -->
+  <!-- Main Sidebar Container -->
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -10,7 +12,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Data Pegawai</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -21,30 +23,24 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header col-12">
-            <div class="col-6">
-             <h3 class="card-title">DataTable with minimal features & hover style</h3>
-            </div>
+            <!-- /.card-header -->
+            <div class="card-header">
             <!-- <div class="col-6"> -->
             <a href="<?php echo site_url()?>/welcome/add_departmen">
-              <button type="submit" class="btn btn-primary float-right">Add</button>
-              </a>
-            <!-- </div> -->
-            </div>
-            <!-- /.card-header -->
+            <button type="submit" class="btn btn-primary float-right">Add</button>
+            </a>  
+          </div>
             <div class="card-body">
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Id</th>
-                  <th>Kode</th>
-                  <th>Nama Departemen</th>
+                  <th>Kode departement</th>
+                  <th>Nama departement</th>
                   <th></th>
                 </tr>
                 </thead>
@@ -69,8 +65,10 @@
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
-
-         <!-- /.card -->
+            <!-- /.card-header -->
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
         </div>
         <!-- /.col -->
       </div>
@@ -79,7 +77,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -87,7 +84,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <script>
   $(function () {

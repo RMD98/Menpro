@@ -15,18 +15,21 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>tambah pegawai</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Departemen</li>
+              <li class="breadcrumb-item active">Pegawai</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
     <!-- Main content -->
     <section class="content">
     <div class="col-md-6">
@@ -37,64 +40,64 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action='<?php echo site_url()?>/welcome/tmbh_pegawai' method="post">
+              <form role="form">
                 <div class="card-body">
                   <div class="form-group">
-                    <label>NIP</label>
-                    <input type="text" class="form-control" name="nip" >
+                    <label for="exampleInputEmail1">NIP</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="NIP">
                   </div>
                   <div class="form-group">
-                    <label>Nama</label>
-                    <input type="text" class="form-control" name="nama" >
+                    <label for="exampleInputPassword1">Nama</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Nama">
                   </div>
                   <div class="form-group">
-                    <label>Tanggal Lahir</label>
-                    <input type="text" class="form-control" name="tgl" >
+                    <label for="exampleInputPassword1">Tanggal Lahir</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Tanggal Lahir">
                   </div>
                   <div class="form-group">
-                    <label>Tempat Lahir</label>
-                    <input type="text" class="form-control" name="tpt" >
+                    <label for="exampleInputPassword1">Tempat Lahir</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Tempat Lahit">
                   </div>
                   <div class="form-group">
-                    <label>Alamat</label>
-                    <input type="text" class="form-control" name="alamat" >
+                    <label for="exampleInputPassword1">Alamat</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Alamat">
                   </div>
                   <div class="form-group">
-                    <label>Nomor Hp</label>
-                    <input type="text" class="form-control" name="nope" >
+                    <label for="exampleInputPassword1">No HP</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="No HP">
                   </div>
                   <div class="form-group">
-                    <label>Email</label>
-                    <input type="text" class="form-control" name="email" >
+                    <label for="exampleInputPassword1">Email</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Email">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Jurusan</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="jurusan">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Username</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="username">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
                   </div>
                 </div>
                 <!-- /.card-body -->
-
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form>
             </div>
             <!-- /.card -->
-
             <!-- Form Element sizes -->
-            
             <!-- /.card -->
-
           </div>
       <!-- /.row -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.2
-    </div>
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-    reserved.
-  </footer>
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -102,7 +105,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
 <!-- Bootstrap 4 -->

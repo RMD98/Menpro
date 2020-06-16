@@ -1,7 +1,5 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    
-
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -14,9 +12,8 @@
         <a><span class="glyphicon glyphicon-user"></span> &nbsp<?php echo $this->session->userdata('username'); ?> </a>
         </div>
       </div>
-
       <!-- Sidebar Menu -->
-      <nav class="mt-2">
+      <nav class="mt-4">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -123,14 +120,25 @@
             </a>
             </li>
             <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo site_url()?>/welcome/mom" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Mom
               </p>
             </a>
             </li>
+<<<<<<< HEAD
             <a href="<?php echo site_url()?>/welcome/logout"> Logout </a>
+=======
+            <li class="nav-item">
+            <a href="<?php echo site_url()?>/welcome/index" class="nav-link">
+              <i class="nav-icon fas fa-power-off"></i>
+              <p>
+                Logout
+              </p>
+            </a>
+            </li>
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

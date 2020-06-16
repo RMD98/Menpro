@@ -5,7 +5,6 @@
            style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a> -->
-
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -104,9 +103,16 @@
               </p>
             </a>
             </li>
-            <a href="<?php echo site_url()?>/welcome/logout"> Logout </a>
-          </ul>
-        </nav>
+            <li class="nav-item">
+            <a href="<?php echo site_url()?>/welcome/index" class="nav-link">
+              <i class="nav-icon fas fa-power-off"></i>
+              <p>
+                Logout
+              </p>
+            </a>
+            </li>
+        </ul>
+      </nav>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

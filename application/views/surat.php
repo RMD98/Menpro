@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
-
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -22,7 +20,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -30,11 +27,12 @@
           <div class="card">
             <div class="card-header">
             <!-- <div class="col-6"> -->
+            <a href="<?php echo site_url()?>/welcome/detailSurat/<?= $this->session->userdata('status') ?>">
+            <button type="submit" class="btn btn-primary float-right">list SK</button>
+            </a>  
+            <!-- <div class="col-6"> -->
             <!-- <a href="<?php echo site_url()?>/welcome/add_surat"> -->
-            <select type="formcontrol" class="btn btn-primary float-left">
-            <option> Surat Keputusan </option>
-            <option> Surat Keterangan </option>
-            </Select>
+            
             <!-- </a>   -->
           </div>
             <!-- /.card-header -->
@@ -42,8 +40,12 @@
             <?php foreach ($listSK as $key=>$listSK): 
               if (($key % 3 == 0)):
               ?>
+<<<<<<< HEAD
               
               <a href="<?php echo base_url()?>welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
+=======
+              <a href="<?php echo base_url()?>index.php/welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
           <!-- <div class="col-lg-3 col-6 ml-3 mt-3"> -->
             <!-- small box -->
             <div class="small-box bg-info">
@@ -70,8 +72,7 @@
           <!-- ./col -->
           <!-- <div class="col-lg-3 col-6 ml-3 mt-3"> -->
             <!-- small box -->
-            <a href="<?php echo base_url()?>/welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
-
+            <a href="<?php echo base_url()?>index.php/welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
             <div class="small-box bg-danger">
               <div class="inner" style="height:220;">
                 <h5 style ='text-align: center; margin-top:50%'><?=$listSK->Tema?></sup></h5>
@@ -82,8 +83,6 @@
           <!-- </div> -->
           <?php endif; 
               endforeach ?>
-         
-                    
           <!-- ./col -->
         </div>
             </div>
@@ -101,7 +100,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -109,7 +107,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <!-- page script -->
 <script>

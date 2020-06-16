@@ -5,7 +5,6 @@
            style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a> -->
-
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -14,11 +13,14 @@
           <img src="<?php echo base_url('dist/img/user2-160x160.jpg')?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
+<<<<<<< HEAD
         <!-- <a href="<?php echo site_url();?>main/profil"><span class="glyphicon glyphicon-user"></span> &nbsp<?php echo $this->session->userdata('username'); ?> </a> -->
         <a><span class="glyphicon glyphicon-user"></span> &nbsp<?php echo $this->session->userdata('username'); ?> </a>
+=======
+          <a href="#" class="d-block"><?= $nama?></a>
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
         </div>
       </div>
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -78,7 +80,14 @@
               </p>
             </a>
             </li>
-            <a href="<?php echo site_url()?>/welcome/index"> Logout </a>
+            <li class="nav-item">
+            <a href="<?php echo site_url()?>/welcome/index" class="nav-link">
+              <i class="nav-icon fas fa-power-off"></i>
+              <p>
+                Logout
+              </p>
+            </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

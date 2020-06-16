@@ -4,7 +4,6 @@
 <div class="wrapper">
   <!-- Navbar -->
   <!-- /.navbar -->
-
   <!-- Main Sidebar Container -->
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -13,7 +12,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Data Pegawai</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -24,7 +23,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -78,7 +76,6 @@
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
-
             <!-- /.card-header -->
             <!-- /.card-body -->
           </div>
@@ -91,6 +88,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+<<<<<<< HEAD
   <!-- <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.0.2
@@ -99,6 +97,8 @@
     reserved.
   </footer> -->
 
+=======
+>>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -106,7 +106,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <script>
   $(function () {
