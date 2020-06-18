@@ -11,7 +11,7 @@
  Target Server Version : 50719
  File Encoding         : 65001
 
- Date: 16/06/2020 05:43:21
+ Date: 19/06/2020 01:41:38
 */
 
 SET NAMES utf8mb4;
@@ -38,7 +38,7 @@ CREATE TABLE `tbl_account`  (
 INSERT INTO `tbl_account` VALUES (1, '1', 'admin', '1', 'admin');
 INSERT INTO `tbl_account` VALUES (2, '2', 'rektor', '1', 'rektor');
 INSERT INTO `tbl_account` VALUES (3, '1', 'dosen', '1', 'dosen');
-INSERT INTO `tbl_account` VALUES (4, '2', 'Fakultas Informatika', '1', 'fakultas');
+INSERT INTO `tbl_account` VALUES (4, '2', 'FAKULTAS TEKNOLOGI INDUSTRI', '1', 'fakultas');
 INSERT INTO `tbl_account` VALUES (5, '2', 'jurusan', '1', 'jurusan');
 INSERT INTO `tbl_account` VALUES (6, '1', 'ekspedisi', '1', 'ekspedisi');
 
@@ -142,6 +142,11 @@ CREATE TABLE `tbl_rapat`  (
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data rapat digunakan menyimpan data rapat' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of tbl_rapat
+-- ----------------------------
+INSERT INTO `tbl_rapat` VALUES (0, '1', 'test rapat', '2020-06-16', '2020-06-16', '11:30:00', '11:35:00', '-');
+
+-- ----------------------------
 -- Table structure for tbl_sk
 -- ----------------------------
 DROP TABLE IF EXISTS `tbl_sk`;
@@ -221,13 +226,19 @@ CREATE TABLE `tbl_staff_surat`  (
   INDEX `FK_tbl_staff_surat_tbl_surat`(`IdSurat`) USING BTREE,
   CONSTRAINT `FK_tbl_staff_surat_tbl_pegawai` FOREIGN KEY (`NIP`) REFERENCES `tbl_pegawai` (`Nip`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_tbl_staff_surat_tbl_surat` FOREIGN KEY (`IdSurat`) REFERENCES `tbl_surat` (`IdSurat`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data tujuan surat digunakan untuk detail surat' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data tujuan surat digunakan untuk detail surat' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tbl_staff_surat
 -- ----------------------------
 INSERT INTO `tbl_staff_surat` VALUES (1, 13, '1', 'Y');
 INSERT INTO `tbl_staff_surat` VALUES (2, 13, '2', 'N');
+INSERT INTO `tbl_staff_surat` VALUES (3, 29, '1', 'N');
+INSERT INTO `tbl_staff_surat` VALUES (4, 30, '1', 'N');
+INSERT INTO `tbl_staff_surat` VALUES (5, 32, '1', 'Y');
+INSERT INTO `tbl_staff_surat` VALUES (6, 32, '2', 'N');
+INSERT INTO `tbl_staff_surat` VALUES (7, 33, '1', 'N');
+INSERT INTO `tbl_staff_surat` VALUES (8, 33, '2', 'N');
 
 -- ----------------------------
 -- Table structure for tbl_surat
@@ -245,7 +256,7 @@ CREATE TABLE `tbl_surat`  (
   PRIMARY KEY (`IdSurat`) USING BTREE,
   INDEX `FK_tbl_surat_tbl_sk`(`IdSK`) USING BTREE,
   CONSTRAINT `FK_tbl_surat_tbl_sk` FOREIGN KEY (`IdSK`) REFERENCES `tbl_sk` (`IdSK`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data surat digunakan untuk menyimpan data surat' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data surat digunakan untuk menyimpan data surat' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tbl_surat
@@ -271,5 +282,17 @@ INSERT INTO `tbl_surat` VALUES (18, '26', 'test', 'Surat Masuk', '2020-03-23', N
 INSERT INTO `tbl_surat` VALUES (19, '15', 'test', 'Penugasan Sebagai Tim Akreditasi', '2020-03-23', NULL, '{\"dosen\":[\"ujank\",\"asep\"]}', NULL);
 INSERT INTO `tbl_surat` VALUES (20, '2', 'test', 'sk dosen', '2020-06-15', 'results/fakultas_BimbinganTugasAkhir_2020-06-15_11', '{\"jenis\":\"Surat Keputusan\",\"lokasi\":\"Informatika\",\"tujuan\":[\"ujank\"],\"isi\":\"asd\"}', NULL);
 INSERT INTO `tbl_surat` VALUES (21, '3', 'test', 'Pelaksanaan Bimbingan Tugas Akhir', '2020-06-15', 'results/fakultas_BimbinganTugasAkhir_2020-06-15_11', '{\"jenis\":\"Surat Keputusan\",\"NamaDosen\":\"ujank\",\"NamaMahasiswa\":\"asd\",\"NRP\":\"123\",\"Jurusan\":\"Informatika\",\"JudulTA\":\"asd\"}', NULL);
+INSERT INTO `tbl_surat` VALUES (22, '21', '22', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-06-16', 'results/2020-06-16_08-46-00 lppkm_pkm.docx', '{\"jenis\":\"Surat Keputusan\",\"dosenSurat\":\"ujank\",\"kegiatan\":\"asd\",\"jabatan\":\"asdasd\",\"lokasi\":\"asd\",\"waktu\":\"16-06-2020\",\"sumberDana\":\"asd\"}', NULL);
+INSERT INTO `tbl_surat` VALUES (23, '21', '23', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-06-16', 'results/2020-06-16_08-46-32 lppkm_pkm.docx', '{\"jenis\":\"Surat Keputusan\",\"dosenSurat\":\"ujank\",\"kegiatan\":\"asd\",\"jabatan\":\"asd\",\"lokasi\":\"asd\",\"waktu\":\"16-06-2020 - 16-06-2020\",\"sumberDana\":\"asd\"}', NULL);
+INSERT INTO `tbl_surat` VALUES (24, '21', '24', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-06-16', 'results/2020-06-16_08-49-30 lppkm_pkm.docx', '{\"jenis\":\"Surat Keputusan\",\"dosenSurat\":\"ujank\",\"kegiatan\":\"asd\",\"jabatan\":\"asd\",\"lokasi\":\"asd\",\"waktu\":\"asd\",\"sumberDana\":\"asd\"}', NULL);
+INSERT INTO `tbl_surat` VALUES (25, '21', '25', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-06-16', 'results/2020-06-16_08-50-13 lppkm_pkm.docx', '{\"jenis\":\"Surat Keputusan\",\"dosenSurat\":\"ujank\",\"kegiatan\":\"asd\",\"jabatan\":\"asd\",\"lokasi\":\"asd\",\"waktu\":\"asd\",\"sumberDana\":\"asd\"}', NULL);
+INSERT INTO `tbl_surat` VALUES (26, '21', '26', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-06-16', 'results/2020-06-16_08-50-53 lppkm_pkm.docx', '{\"jenis\":\"Surat Keputusan\",\"dosenSurat\":\"ujank\",\"kegiatan\":\"asd\",\"jabatan\":\"asd\",\"lokasi\":\"asd\",\"waktu\":\"asd\",\"sumberDana\":\"asd\"}', NULL);
+INSERT INTO `tbl_surat` VALUES (27, '21', '27', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-06-16', 'results/2020-06-16_08-54-35 lppkm_pkm.docx', '{\"jenis\":\"Surat Keputusan\",\"dosenSurat\":\"ujank\",\"kegiatan\":\"asd\",\"jabatan\":\"asd\",\"lokasi\":\"asd\",\"waktu\":\"16-06-2020\",\"sumberDana\":\"asd\"}', NULL);
+INSERT INTO `tbl_surat` VALUES (28, '21', '28', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-06-16', 'results/2020-06-16_08-54-49 lppkm_pkm.docx', '{\"jenis\":\"Surat Keputusan\",\"dosenSurat\":\"ujank\",\"kegiatan\":\"asd\",\"jabatan\":\"asd\",\"lokasi\":\"asd\",\"waktu\":\"asd\",\"sumberDana\":\"sad\"}', NULL);
+INSERT INTO `tbl_surat` VALUES (29, '21', '29', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-06-16', 'results/2020-06-16_08-55-01 lppkm_pkm.docx', '{\"jenis\":\"Surat Keputusan\",\"dosenSurat\":\"ujank\",\"kegiatan\":\"asd\",\"jabatan\":\"asd\",\"lokasi\":\"sd\",\"waktu\":\"asd\",\"sumberDana\":\"asd\"}', NULL);
+INSERT INTO `tbl_surat` VALUES (30, '21', '30', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-06-16', 'results/2020-06-16_08-55-38 lppkm_pkm.docx', '{\"jenis\":\"Surat Keputusan\",\"dosenSurat\":\"ujank\",\"kegiatan\":\"asd\",\"jabatan\":\"asd\",\"lokasi\":\"sd\",\"waktu\":\"asd\",\"sumberDana\":\"asd\"}', NULL);
+INSERT INTO `tbl_surat` VALUES (31, '14', '31', 'Penugasan Melaksanakan Penelitian', '2020-06-16', 'results/2020-06-16_08-56-45 jurusan_Penugasan Melaksanakan Penelitian.docx', '{\"jenis\":\"Surat Keterangan\",\"dosen\":[\"ujank\",\"asep\"]}', NULL);
+INSERT INTO `tbl_surat` VALUES (32, '14', '32', 'Penugasan Melaksanakan Penelitian', '2020-06-16', 'results/2020-06-16_08-58-47 jurusan_Penugasan Melaksanakan Penelitian.docx', '{\"jenis\":\"Surat Keterangan\",\"dosen\":[\"ujank\",\"asep\"]}', NULL);
+INSERT INTO `tbl_surat` VALUES (33, '14', '33', 'Penugasan Melaksanakan Penelitian', '2020-06-16', 'results/2020-06-16_11-12-10 jurusan_Penugasan Melaksanakan Penelitian.docx', '{\"jenis\":\"Surat Keputusan\",\"dosen\":[\"ujank\",\"asep\"]}', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
