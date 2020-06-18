@@ -70,7 +70,6 @@
              
                   <!-- /btn-group -->
                   <div class="input-group">
-                    <input id="new-event" type="text" class="form-control" placeholder="Event Title">
                     <div class="input-group-append">
                     <a href="<?php echo site_url()?>/welcome/add_agenda">    
                       <button  type="button" class="btn btn-primary">Add</button>

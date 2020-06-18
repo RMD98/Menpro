@@ -61,10 +61,10 @@
                   <td><?php echo $tbl_pegawai->NoHP?></td>
                   <td><?php echo $tbl_pegawai->Email?></td>
                   <td><?php echo $tbl_pegawai->Aktif?></td>
-                  <td><a href="<?php echo site_url()?>/welcome/add_departmen">
+                  <td><a href="<?php echo site_url()?>/welcome/edit_pegawai/<?php echo $tbl_pegawai->Nip?>">
                    <button type="submit" class="btn btn-warning float-right">Edit</button>
                   </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
+                  <a href="<?php echo site_url()?>/welcome/delete_pegawai/<?php echo $tbl_pegawai->Nip?>" type="color:red;">
                   <button type="submit" class="btn btn-danger float-right" >Delete</button>
                   </a>
                   </td>

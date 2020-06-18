@@ -36,35 +36,36 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method='post' action="<?php echo site_url()?>/welcome/tmbh_pegawai">
+              <?php foreach ($pgw as $pgw) :?>
+              <form role="form" method='post' action="<?php echo site_url()?>/welcome/edt_pegawai">
                 <div class="card-body">
                   <div class="form-group">
                     <label >NIP</label>
-                    <input type="text" class="form-control" name="nip">
+                    <input type="text" class="form-control" name="nip" value="<?php echo $pgw->Nip?>">
                   </div>
                   <div class="form-group">
                     <label >Nama</label>
-                    <input type="text" class="form-control" name="nama">
+                    <input type="text" class="form-control" name="nama" value="<?php echo $pgw->NamaPegawai?>">
                   </div>
                   <div class="form-group">
                     <label >Tanggal Lahir</label>
-                    <input type="text" class="form-control" name="tgl">
+                    <input type="text" class="form-control" name="tgl" value="<?php echo $pgw->TanggalLahir?>">
                   </div>
                   <div class="form-group">
                     <label >Tempat Lahir</label>
-                    <input type="text" class="form-control" name="tpt">
+                    <input type="text" class="form-control" name="tpt" value="<?php echo $pgw->TempatLahir?>">
                   </div>
                   <div class="form-group">
                     <label >Alamat</label>
-                    <input type="text" class="form-control" name="alamat">
+                    <input type="text" class="form-control" name="alamat" value="<?php echo $pgw->Alamat?>">
                   </div>
                   <div class="form-group">
                     <label >No HP</label>
-                    <input type="text" class="form-control" name="Nope">
+                    <input type="text" class="form-control" name="nope" value="<?php echo $pgw->NoHP?>">
                   </div>
                   <div class="form-group">
                     <label >Email</label>
-                    <input type="text" class="form-control" name="email">
+                    <input type="text" class="form-control" name="email" value="<?php echo $pgw->Email?>">
                   </div>
                   <!-- <div class="form-group">
                     <label >Jurusan</label>
@@ -84,6 +85,7 @@
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form>
+              <?php endforeach;?>
             </div>
             <!-- /.card -->
             <!-- Form Element sizes -->

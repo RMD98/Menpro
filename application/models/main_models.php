@@ -8,9 +8,28 @@
            $query = $this->db->get('tbl_account')->row_array();
            return $query;
       } 
-      function daftar_departemen()
+      function daftar_departement()
       {
         return $this->db->get('tbl_department')->result();
+      }
+      function find_departement($id)
+      {
+        $this->db->where('idDepartment',$id);
+        return $this->db->get('tbl_department')->result();
+      }
+      function edit_departement($id,$data)
+      {
+        $this->db->where('idDepartment',$id);
+        $this->db->update('tbl_department',$data);
+      }
+      function tambah_departement($data)
+      {
+        $this->db->insert('tbl_department',$data);
+      }
+      function delete_departement($id)
+      {
+        $this->db->where('idDepartment',$id);
+        $this->db->delete('tbl_department');
       }
       function daftar_pegawai()
       {
@@ -19,6 +38,20 @@
       function tambah_pegawai($data)
       {
         $this->db->insert('tbl_pegawai',$data);
+      }
+      function find_pegawai($id){
+        $this->db->where('Nip',$id);
+        return $this->db->get('tbl_pegawai')->result();
+      }
+      function delete_pegawai($id)
+      {
+        $this->db->where('Nip',$id);
+        $this->db->delete('tbl_pegawai');
+      }
+      function edit_pegawai($id,$data)
+      {
+        $this->db->where('Nip',$id);
+        $this->db->update('tbl_pegawai',$data);
       }
       function daftar_account()
       {

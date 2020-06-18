@@ -1,13 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html>>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-  <!-- Navbar -->
- 
-  <!-- /.navbar -->
-
   <!-- Main Sidebar Container -->
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -15,12 +10,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>tambah pegawai</h1>
+            <h1>tambah departement</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Pegawai</li>
+              <li class="breadcrumb-item active">Departemen</li>
             </ol>
           </div>
         </div>
@@ -36,54 +31,24 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method='post' action="<?php echo site_url()?>/welcome/tmbh_pegawai">
+              <?php foreach ($dprt as $dprt): ?>
+              <form role="form" method='post' action="<?php echo site_url()?>/welcome/edt_departement/<?php echo $dprt->idDepartment;?>">
                 <div class="card-body">
                   <div class="form-group">
-                    <label >NIP</label>
-                    <input type="text" class="form-control" name="nip">
+                    <label >Kode Departemen</label>
+                    <input type="text" class="form-control"  placeholder="Kode Departement" name="kd" value="<?php echo $dprt->KodeDepartement;?>">
                   </div>
                   <div class="form-group">
-                    <label >Nama</label>
-                    <input type="text" class="form-control" name="nama">
+                    <label >Nama Departemen</label>
+                    <input type="text" class="form-control"  placeholder="Nama Departement" name="nama" value="<?php echo $dprt->NamaDepartement;?>">
                   </div>
-                  <div class="form-group">
-                    <label >Tanggal Lahir</label>
-                    <input type="text" class="form-control" name="tgl">
-                  </div>
-                  <div class="form-group">
-                    <label >Tempat Lahir</label>
-                    <input type="text" class="form-control" name="tpt">
-                  </div>
-                  <div class="form-group">
-                    <label >Alamat</label>
-                    <input type="text" class="form-control" name="alamat">
-                  </div>
-                  <div class="form-group">
-                    <label >No HP</label>
-                    <input type="text" class="form-control" name="Nope">
-                  </div>
-                  <div class="form-group">
-                    <label >Email</label>
-                    <input type="text" class="form-control" name="email">
-                  </div>
-                  <!-- <div class="form-group">
-                    <label >Jurusan</label>
-                    <input type="email" class="form-control" placeholder="jurusan">
-                  </div>
-                  <div class="form-group">
-                    <label >Username</label>
-                    <input type="email" class="form-control" placeholder="username">
-                  </div>
-                  <div class="form-group">
-                    <label >password</label>
-                    <input type="password" class="form-control" placeholder="password">
-                  </div> -->
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form>
+              <?php endforeach;?>
             </div>
             <!-- /.card -->
             <!-- Form Element sizes -->

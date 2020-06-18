@@ -423,7 +423,7 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/js');
           }
           public function departemen(){
-               $data['departement'] = $this->main_models->daftar_departement();
+               $data['dprt'] = $this->main_models->daftar_departement();
                $this->load->view('temp/head');
                $this->load->view('temp/sidebar');
                $this->load->view('departemen',$data);
@@ -563,7 +563,94 @@ class Welcome extends CI_Controller {
                //  redirect(site_url().'/welcome/add_agenda');
                // }
           }
+          function tmbh_departement(){
+               $departement = array(
+                    'KodeDepartement'       => $this->input->post('kd'),
+                    'NamaDepartement'       => $this->input->post('nama')
+               );
+               $this->load->model('main_models');
+               $this->main_models->tambah_departement($departement);
+               redirect(site_url().'/welcome/departemen');
+          }
+          function delete_departement($id){
+               $this->load->model('main_models');
+               $this->main_models->delete_departement($id);
+               redirect(site_url().'/welcome/departemen');
+          }
+          function edit_departement($id){
+               $this->load->view('temp/head');
+               if($this->session->userdata('status') == 'admin') {
+                    $this->load->view('temp/sidebar');
+               } 
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $this->load->view('temp/sidebar_unit');
+               }
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $this->load->view('temp/sidebar_dosen');
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $this->load->view('temp/sidebar_ekspedisi');
+               }
+               $this->load->model('main_models');
+               $data['dprt'] = $this->main_models->find_departement($id);
+               $this->load->view('edit_departmen',$data);
+               // $this->load->view('index2');
+               // echo $this->session->userd?ata('status');
+               // $this->load->view('temp/js');
+               $this->load->view('temp/footer');
+          }
           function tmbh_pegawai(){
+               $pegawai = array(
+                    'Nip'               => $this->input->post('nip'),
+                    'NamaPegawai'       => $this->input->post('nama'),
+                    'TanggalLahir'      => $this->input->post('tgl'),
+                    'TempatLahir'       => $this->input->post('tpt'),
+                    'Alamat'            => $this->input->post('alamat'),
+                    'NoHP'              => $this->input->post('Nope'),
+                    'Email'             => $this->input->post('email')
+               );
+               $this->load->model('main_models');
+               $this->main_models->tambah_pegawai($pegawai);
+               redirect(site_url().'/welcome/pegawai');
+          }
+          function edt_departement($id){
+               $department = array(
+                    'KodeDepartement'       => $this->input->post('kd'),
+                    'NamaDepartement'       => $this->input->post('nama'),
+               );
+               $this->load->model('main_models');
+               $this->main_models->edit_departement($id,$department);
+               redirect(site_url().'/welcome/departemen');
+          }
+          function edit_pegawai($id){
+               $this->load->view('temp/head');
+               if($this->session->userdata('status') == 'admin') {
+                    $this->load->view('temp/sidebar');
+               } 
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $this->load->view('temp/sidebar_unit');
+               }
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $this->load->view('temp/sidebar_dosen');
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $this->load->view('temp/sidebar_ekspedisi');
+               }
+               $this->load->model('main_models');
+               $data['pgw'] = $this->main_models->find_pegawai($id);
+               $this->load->view('edit_pegawai',$data);
+               // $this->load->view('index2');
+               // echo $this->session->userd?ata('status');
+               // $this->load->view('temp/js');
+               $this->load->view('temp/footer');
+          }
+          function edt_pegawai(){
                $pegawai = array(
                     'Nip'               => $this->input->post('nip'),
                     'NamaPegawai'       => $this->input->post('nama'),
@@ -573,8 +660,14 @@ class Welcome extends CI_Controller {
                     'NoHP'              => $this->input->post('nope'),
                     'Email'             => $this->input->post('email')
                );
+               $id = $this->input->post('nip');
                $this->load->model('main_models');
-               $this->main_models->tambah_pegawai($pegawai);
+               $this->main_models->edit_pegawai($id,$pegawai);
+               redirect(site_url().'/welcome/pegawai');
+          }
+          function delete_pegawai($id){
+               $this->load->model('main_models');
+               $this->main_models->delete_pegawai($id);
                redirect(site_url().'/welcome/pegawai');
           }
           function det_agenda($Id){
