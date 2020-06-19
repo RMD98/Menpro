@@ -41,7 +41,7 @@
       }
       function find_pegawai($id){
         $this->db->where('Nip',$id);
-        return $this->db->get('tbl_pegawai')->result();
+        return $this->db->get('tbl_pegawai')->row_array();
       }
       function delete_pegawai($id)
       {

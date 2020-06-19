@@ -502,11 +502,13 @@ class Welcome extends CI_Controller {
                     $login_data = $this->main_models->can_login($username, $password);
                     if($login_data['Status'] != '')  
                     {  
+                         $data = $this->main_models->find_pegawai($login_data['NIP']);
                          $session_data = array(  
                               'id'           => $login_data['id'],
+                              'nip'          => $login_data['NIP'],
                               'username'     => $username,
                               'status'       => $login_data['Status'],
-                              'Nama'         => ($this->surat->getDetailAccount($login_data['id'])['NamaPegawai'])
+                              'nama'         => $data['NamaPegawai']
                          );  
                          $this->session->set_userdata($session_data);  
                          redirect(site_url().'/welcome/logedin',$session_data);

@@ -13,12 +13,9 @@
           <img src="<?php echo base_url('dist/img/user2-160x160.jpg')?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-<<<<<<< HEAD
          <!-- <a href="<?php echo site_url();?>main/profil"><span class="glyphicon glyphicon-user"></span> &nbsp<?php echo $this->session->userdata('username'); ?> </a> -->
-        <a><span class="glyphicon glyphicon-user"></span> &nbsp<?php echo $this->session->userdata('username'); ?> </a>
-=======
-          <a href="#" class="d-block"><?= $nama?></a>
->>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
+         <a><span class="glyphicon glyphicon-user"></span> &nbsp<?php echo $this->session->userdata('nama'); ?> 
+        <span>(<?php echo $this->session->userdata('status');?>) </span> </a>
         </div>
       </div>
       <!-- Sidebar Menu -->
