@@ -59,11 +59,11 @@
                    <button type="submit" class="btn btn-primary float-right">Status</button>
                   </a>
                   <!-- <a href="<?php echo site_url()?>/welcome/add_departmen"> -->
-                   <button type="submit" class="btn btn-warning float-right">Edit</button>
-                  </a>
+                   <!-- <button type="submit" class="btn btn-warning float-right">Edit</button>
+                  </a> -->
                   <!-- <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;"> -->
-                  <button type="submit" class="btn btn-danger float-right" >Delete</button>
-                  </a>
+                  <!-- <button type="submit" class="btn btn-danger float-right" >Delete</button>
+                  </a> -->
                   </td>
                 </tr>  
                 <?php endforeach ?>  

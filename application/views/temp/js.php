@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-  <script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
-=======
 <script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
->>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 // <script>
 //   $.widget.bridge('uibutton', $.ui.button)
@@ -33,11 +29,11 @@
 <script src="<?php echo base_url('dist/js/pages/dashboard.js')?>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('dist/js/demo.js')?>"></script>
-<script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
+
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script>
 <!-- fullCalendar 2.2.5 -->
-<script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
+
 
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script>

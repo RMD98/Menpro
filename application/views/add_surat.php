@@ -102,7 +102,7 @@
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Generate</button>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="exampleInputFile">File input</label>
                     <div class="input-group">
                       <div class="custom-file">
@@ -113,7 +113,7 @@
                         <span class="input-group-text" id="">Upload</span>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 <!-- /.card-body -->
               </div>
               </form>

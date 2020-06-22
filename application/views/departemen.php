@@ -39,7 +39,6 @@
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Id departement</th>
                   <th>Kode departement</th>
                   <th>Nama departement</th>
                   <th></th>
@@ -51,10 +50,10 @@
                   <td><?php echo $dprt->idDepartment;?></td>
                   <td><?php echo $dprt->KodeDepartement;?></td>
                   <td><?php echo $dprt->NamaDepartement;?></td>
-                  <td><a href="<?php echo site_url()?>/welcome/edit_departement/<?php echo $dprt->idDepartment;?>">
+                  <td><a href="<?php echo site_url()?>/welcome/add_departmen">
                    <button type="submit" class="btn btn-warning float-right">Edit</button>
                   </a>
-                  <a href="<?php echo site_url()?>/welcome/delete_departement/<?php echo $dprt->idDepartment;?>" type="color:red;">
+                  <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
                   <button type="submit" class="btn btn-danger float-right" >Delete</button>
                   </a>
                   </td>  

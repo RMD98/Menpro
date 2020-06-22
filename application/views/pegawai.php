@@ -61,10 +61,10 @@
                   <td><?php echo $tbl_pegawai->NoHP?></td>
                   <td><?php echo $tbl_pegawai->Email?></td>
                   <td><?php echo $tbl_pegawai->Aktif?></td>
-                  <td><a href="<?php echo site_url()?>/welcome/edit_pegawai/<?php echo $tbl_pegawai->Nip?>">
+                  <td><a href="<?php echo site_url()?>/welcome/add_departmen">
                    <button type="submit" class="btn btn-warning float-right">Edit</button>
                   </a>
-                  <a href="<?php echo site_url()?>/welcome/delete_pegawai/<?php echo $tbl_pegawai->Nip?>" type="color:red;">
+                  <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
                   <button type="submit" class="btn btn-danger float-right" >Delete</button>
                   </a>
                   </td>
@@ -88,17 +88,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-<<<<<<< HEAD
-  <!-- <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.2
-    </div>
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-    reserved.
-  </footer> -->
-
-=======
->>>>>>> 8301e84ce100ac7f0aad7288cc533694480edf15
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
