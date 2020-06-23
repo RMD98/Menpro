@@ -36,47 +36,47 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form">
+              <form role="form" method='Post' action="<?php echo base_url()?>/welcome/tmbh_pegawai">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">NIP</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="NIP">
+                    <label >NIP</label>
+                    <input type="email" class="form-control" placeholder="NIP" name="nip">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Nama</label>
-                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Nama">
+                    <label >Nama</label>
+                    <input type="email" class="form-control" placeholder="Nama" name="nama">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Tanggal Lahir</label>
-                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Tanggal Lahir">
+                    <label >Tanggal Lahir</label>
+                    <input type="email" class="form-control" placeholder="Tanggal Lahir" name="tgl">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Tempat Lahir</label>
-                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Tempat Lahit">
+                    <label >Tempat Lahir</label>
+                    <input type="email" class="form-control" placeholder="Tempat Lahit" name="tpt">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Alamat</label>
-                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Alamat">
+                    <label >Alamat</label>
+                    <input type="email" class="form-control" placeholder="Alamat" name="alamat">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">No HP</label>
-                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="No HP">
+                    <label >No HP</label>
+                    <input type="email" class="form-control" placeholder="No HP" name="nope">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Email</label>
-                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Email">
+                    <label >Email</label>
+                    <input type="email" class="form-control" placeholder="Email" name="email">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Jurusan</label>
-                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="jurusan">
+                    <label >Jurusan</label>
+                    <input type="email" class="form-control" placeholder="jurusan" name="jrs">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Username</label>
-                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="username">
+                    <label >Username</label>
+                    <input type="email" class="form-control" placeholder="username" name="uname">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
+                    <label >password</label>
+                    <input type="password" class="form-control" placeholder="password" name="pass">
                   </div>
                 </div>
                 <!-- /.card-body -->

@@ -16,6 +16,11 @@
       {
         return $this->db->get('tbl_pegawai')->result();
       }
+      function get_pegawai($nip)
+      {
+        $this->db->where('Nip',$nip);
+        return $this->db->get('tbl_pegawai')->row_array();
+      }
       function tambah_pegawai($data)
       {
         $this->db->insert('tbl_pegawai',$data);
@@ -42,6 +47,12 @@
         $this->db->where('IdRapat',$id);
         $this->db->delete('tbl_rapat');
       }
+      function filter_rapat(){
+        $this->db->where('NIP',$this->session->userdata('NIP'));
+        $surat = $this->db->get('tbl_staff_surat')->row();
+        $this->db->where('IdSurat',$surat->IdSurat);
+        return $this->db->get('tbl_rapat')->result();
+      }
       function trans_id()
       {
         $this->db->where('user',$this->session->userdata('username'));  
@@ -54,7 +65,7 @@
       }
       function tambah_user($data)
       {
-        $this->db->insert('users',$data);
+        $this->db->insert('tbl_account',$data);
       }
       function stok()
       {

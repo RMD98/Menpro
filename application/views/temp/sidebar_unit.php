@@ -14,8 +14,7 @@
         </div>
         <div class="info">
 
-         <!-- <a href="<?php echo site_url();?>main/profil"><span class="glyphicon glyphicon-user"></span> &nbsp<?php echo $this->session->userdata('username'); ?> </a> -->
-        <a><span class="glyphicon glyphicon-user"></span> &nbsp<?php echo $this->session->userdata('username'); ?> </a>
+        <a><span class="glyphicon glyphicon-user"></span> &nbsp<?php echo $this->session->userdata('username'); ?> (<?php echo $this->session->userdata('Nama');?>) </a>
 
      
 
