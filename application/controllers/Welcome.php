@@ -457,25 +457,25 @@ class Welcome extends CI_Controller {
           }
           public function agenda(){
                $this->load->model('main_models');
+               $data['agenda'] = $this->main_models->daftar_rapat();
                $this->load->view('temp/head');
                if($this->session->userdata('status') == 'admin') {
                     // $data['nama'] = $this->session->userdata('Nama');
-                    $data['agenda'] = $this->main_models->daftar_rapat();
                     $this->load->view('temp/sidebar');
                } 
                elseif($this->session->userdata('status') == 'dosen') 
                {   
-                    $data['agenda'] = $this->main_models->filter_rapat($this->session->userdata('NIP'));
+                    // $data['agenda'] = $this->main_models->filter_rapat($this->session->userdata('NIP'));
                     $this->load->view('temp/sidebar_dosen');
                }
                elseif($this->session->userdata('status') == 'ekspedisi') 
                {   
-                    $data['agenda'] = $this->main_models->filter_rapat();
+                    // $data['agenda'] = $this->main_models->filter_rapat();
                     $this->load->view('temp/sidebar_ekspedisi');
                }
                elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
                {
-                    $data['agenda'] = $this->main_models->filter_rapat();
+                    // $data['agenda'] = $this->main_models->filter_rapat();
                     $this->load->view('temp/sidebar_unit');
                }
              
