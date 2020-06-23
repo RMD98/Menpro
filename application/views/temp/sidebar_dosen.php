@@ -13,6 +13,7 @@
           <img src="<?php echo base_url('dist/img/user2-160x160.jpg')?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
+
         <!-- <a href="<?php echo site_url();?>main/profil"><span class="glyphicon glyphicon-user"></span> &nbsp<?php echo $this->session->userdata('username'); ?> </a> -->
         <a href="<?php echo site_url();?>/welcome/index"><span class="glyphicon glyphicon-user"></span> &nbsp<?php echo $this->session->userdata('nama'); ?> </a>
         </div>

@@ -36,48 +36,48 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method='post' action="<?php echo site_url()?>/welcome/tmbh_pegawai">
+              <form role="form">
                 <div class="card-body">
                   <div class="form-group">
-                    <label >NIP</label>
-                    <input type="text" class="form-control" name="nip">
+                    <label for="exampleInputEmail1">NIP</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="NIP">
                   </div>
                   <div class="form-group">
-                    <label >Nama</label>
-                    <input type="text" class="form-control" name="nama">
+                    <label for="exampleInputPassword1">Nama</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Nama">
                   </div>
                   <div class="form-group">
-                    <label >Tanggal Lahir</label>
-                    <input type="text" class="form-control" name="tgl">
+                    <label for="exampleInputPassword1">Tanggal Lahir</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Tanggal Lahir">
                   </div>
                   <div class="form-group">
-                    <label >Tempat Lahir</label>
-                    <input type="text" class="form-control" name="tpt">
+                    <label for="exampleInputPassword1">Tempat Lahir</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Tempat Lahit">
                   </div>
                   <div class="form-group">
-                    <label >Alamat</label>
-                    <input type="text" class="form-control" name="alamat">
+                    <label for="exampleInputPassword1">Alamat</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Alamat">
                   </div>
                   <div class="form-group">
-                    <label >No HP</label>
-                    <input type="text" class="form-control" name="Nope">
+                    <label for="exampleInputPassword1">No HP</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="No HP">
                   </div>
                   <div class="form-group">
-                    <label >Email</label>
-                    <input type="text" class="form-control" name="email">
-                  </div>
-                  <!-- <div class="form-group">
-                    <label >Jurusan</label>
-                    <input type="email" class="form-control" placeholder="jurusan">
+                    <label for="exampleInputPassword1">Email</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Email">
                   </div>
                   <div class="form-group">
-                    <label >Username</label>
-                    <input type="email" class="form-control" placeholder="username">
+                    <label for="exampleInputPassword1">Jurusan</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="jurusan">
                   </div>
                   <div class="form-group">
-                    <label >password</label>
-                    <input type="password" class="form-control" placeholder="password">
-                  </div> -->
+                    <label for="exampleInputPassword1">Username</label>
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="username">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
+                  </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

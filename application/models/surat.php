@@ -44,9 +44,13 @@
         $query = $this->db->get('tbl_matkul');
         return $query->row();
     }
-    function listSuratMasuk(){
-        $this->db->where('IdSK', '26');
-        return $this->db->get('tbl_surat')->result();
+    function listSuratMasuk($id){
+        $this->db->select('*');
+        $this->db->from('tbl_staff_surat');
+        $this->db->join('tbl_pegawai', 'tbl_staff_surat.NIP = tbl_pegawai.NIP');
+        $this->db->join('tbl_surat', 'tbl_staff_surat.IdSurat = tbl_surat.IdSurat');
+        $this->db->where('tbl_staff_surat.NIP', $id);
+        return $this->db->get()->result();
     }
     function listSurat(){
         $this->db->limit('5');
@@ -176,7 +180,7 @@
         }
         ob_clean();
         $templateProcessor->saveAs($selesai);
-        force_download($selesai, NULL);
+        
         // $templateProcessor->save('php://output');
         // // save as a random file in temp file
     

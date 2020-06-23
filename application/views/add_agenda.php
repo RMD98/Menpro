@@ -13,7 +13,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Rapat</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -99,7 +99,7 @@
                   </div>
                   <!-- /.form group -->
                   <div class="form-group">
-                    <label >MOM</label>
+                    <label >Deskripsi</label>
                     <input type="text" class="form-control" id="mom" name="mom">
                   </div>
                 </div>

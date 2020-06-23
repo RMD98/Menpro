@@ -16,11 +16,13 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
       * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
           public function __construct() {
                parent::__construct();
                $this->load->model('main_models');
                $this->load->model('surat');
                $this->load->model('test');
+               $this->load->model('notif');
                $this->load->helper('download');
                date_default_timezone_set("Asia/Jakarta");
           }
@@ -40,6 +42,7 @@ class Welcome extends CI_Controller {
           }
           public function register(){
                $this->load->view('register');
+
           }
           public function logedin(){
                // $this->load->model('main_models');
@@ -96,9 +99,13 @@ class Welcome extends CI_Controller {
           }   
           public function generateWord($id){
                $Topik = $this->surat->get_properties_surat($id)->Tema;
+               $tipe = $this->input->post()['jenis'];
+               $response = $this->notif->sendMessage($Topik,$tipe,'asd');
+               
                $Parameter = json_decode($this->surat->get_properties_surat($id)->Parameter);
                // var_dump($Parameter);
                // die;
+               
                $Temp = json_encode($this->input->post());
                $NoSurat = ($this->surat->getlast("tbl_surat","IdSurat")->IdSurat)+1;    
                $unik = date("Y-m-d_h-i-s");
@@ -118,12 +125,23 @@ class Welcome extends CI_Controller {
                //generate word
                $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat,$lokasi);
                $idSurat = $this->surat->getLast('tbl_surat','IdSurat')->IdSurat;
+               
                foreach ($this->input->post() as $val=>$key) {
-                    if(count($val) > 1 or $val == 'dosen' or $val == 'tujuan' ){
-                         foreach($key as $key ){
+                    if(count($val) > 1 or $val == 'dosenSurat' or $val == 'tujuan' or $val =='dosen' or $val =='pimpinan' or $val == 'rekan' or $val =='ketuaDosen' ){
+                         if(is_array($key)){
+                              foreach($key as $x ){
+                                   $NIP = $this->surat->getWhere('tbl_pegawai','NamaPegawai',$x)->Nip;
+                                   $this->surat->insertDetailSurat($idSurat,$NIP);
+                                   
+                              }
+                         }else{
+                              // die;
                               $NIP = $this->surat->getWhere('tbl_pegawai','NamaPegawai',$key)->Nip;
-                              // $this->surat->insertDetailSurat($idSurat,$NIP);
-                         } 
+                              $this->surat->insertDetailSurat($idSurat,$NIP);
+                              
+                         }
+                         
+                          
                     }
                }
                
@@ -155,6 +173,8 @@ class Welcome extends CI_Controller {
                     $data['nama'] = $this->session->userdata('Nama');
                     $this->load->view('temp/sidebar_unit',$data);
                }
+               // var_dump($data);
+               // die;
                $this->load->view('detail_surat',$data);
                $this->load->view('temp/footer');
           }
@@ -199,7 +219,7 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/js');
           }
           public function inbox(){
-               $data['SuratMasuk'] = $this->surat->listSuratMasuk();
+               $data['SuratMasuk'] = $this->surat->listSuratMasuk($this->session->userdata('NIP'));
                $this->load->view('temp/head');
                if($this->session->userdata('id') == '') 
                {
@@ -235,7 +255,7 @@ class Welcome extends CI_Controller {
                }
           }
           public function outbox(){
-               $data['SuratKeluar'] = $this->surat->listSuratKeluar();
+               $data['SuratKeluar'] = $this->surat->listSuratMasuk($this->session->userdata('NIP'));
                $this->load->view('temp/head');
                if($this->session->userdata('status') == 'admin') {
                     $data['nama'] = $this->session->userdata('Nama');
@@ -368,7 +388,8 @@ class Welcome extends CI_Controller {
                
                $this->load->view('temp/head');
                if($this->session->userdata('status') == 'admin') {
-                    $this->load->view('temp/sidebar');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar',$data);
                } 
                elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
                {
@@ -376,11 +397,13 @@ class Welcome extends CI_Controller {
                }
                elseif($this->session->userdata('status') == 'dosen') 
                {
-                    $this->load->view('temp/sidebar_dosen');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_dosen',$data);
                }
                elseif($this->session->userdata('status') == 'ekspedisi') 
                {
-                    $this->load->view('temp/sidebar_ekspedisi');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_ekspedisi',$data);
                }
                $this->load->model('main_models');
                $data['pgw'] = $this->main_models->daftar_pegawai();
@@ -397,7 +420,8 @@ class Welcome extends CI_Controller {
                } 
                elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
                {
-                    $this->load->view('temp/sidebar_unit');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_unit',$data);
                }
                elseif($this->session->userdata('status') == 'dosen') 
                {
@@ -424,7 +448,7 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/js');
           }
           public function departemen(){
-               $data['dprt'] = $this->main_models->daftar_departement();
+               $data['departement'] = $this->main_models->daftar_departement();
                $this->load->view('temp/head');
                $this->load->view('temp/sidebar');
                $this->load->view('departemen',$data);
@@ -436,7 +460,8 @@ class Welcome extends CI_Controller {
                $data['agenda'] = $this->main_models->daftar_rapat();
                $this->load->view('temp/head');
                if($this->session->userdata('status') == 'admin') {
-                    $this->load->view('temp/sidebar');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar',$data);
                } 
                elseif($this->session->userdata('status') == 'dosen') 
                {
@@ -455,7 +480,8 @@ class Welcome extends CI_Controller {
                }
                elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
                {
-                    $this->load->view('temp/sidebar_unit');
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_unit',$data);
                }
                $this->load->view('agenda',$data);
                // $this->load->view('index2');
@@ -478,13 +504,12 @@ class Welcome extends CI_Controller {
                     $login_data = $this->main_models->can_login($username, $password);
                     if($login_data['Status'] != '')  
                     {  
-                         $data = $this->main_models->find_pegawai($login_data['NIP']);
                          $session_data = array(  
                               'id'           => $login_data['id'],
-                              'nip'          => $login_data['NIP'],
                               'username'     => $username,
                               'status'       => $login_data['Status'],
-                              'nama'         => $data['NamaPegawai']
+                              'Nama'         => ($this->surat->getDetailAccount($login_data['id'])['NamaPegawai']),
+                              'NIP'         => ($this->surat->getDetailAccount($login_data['id'])['Nip'])
                          );  
                          $this->session->set_userdata($session_data);  
                          redirect(site_url().'/welcome/logedin',$session_data);
@@ -535,100 +560,14 @@ class Welcome extends CI_Controller {
                );
                $this->load->model('main_models');
                $this->main_models->tambah_rapat($agenda);
+               $response = $this->notif->sendMessage($agenda['TopikRapat'],"Rapat",'asd');
                redirect(site_url().'/welcome/agenda');
                // }
                // else {
                //  redirect(site_url().'/welcome/add_agenda');
                // }
           }
-          function tmbh_departement(){
-               $departement = array(
-                    'KodeDepartement'       => $this->input->post('kd'),
-                    'NamaDepartement'       => $this->input->post('nama')
-               );
-               $this->load->model('main_models');
-               $this->main_models->tambah_departement($departement);
-               redirect(site_url().'/welcome/departemen');
-          }
-          function delete_departement($id){
-               $this->load->model('main_models');
-               $this->main_models->delete_departement($id);
-               redirect(site_url().'/welcome/departemen');
-          }
-          function edit_departement($id){
-               $this->load->view('temp/head');
-               if($this->session->userdata('status') == 'admin') {
-                    $this->load->view('temp/sidebar');
-               } 
-               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
-               {
-                    $this->load->view('temp/sidebar_unit');
-               }
-               elseif($this->session->userdata('status') == 'dosen') 
-               {
-                    $this->load->view('temp/sidebar_dosen');
-               }
-               elseif($this->session->userdata('status') == 'ekspedisi') 
-               {
-                    $this->load->view('temp/sidebar_ekspedisi');
-               }
-               $this->load->model('main_models');
-               $data['dprt'] = $this->main_models->find_departement($id);
-               $this->load->view('edit_departmen',$data);
-               // $this->load->view('index2');
-               // echo $this->session->userd?ata('status');
-               // $this->load->view('temp/js');
-               $this->load->view('temp/footer');
-          }
           function tmbh_pegawai(){
-               $pegawai = array(
-                    'Nip'               => $this->input->post('nip'),
-                    'NamaPegawai'       => $this->input->post('nama'),
-                    'TanggalLahir'      => $this->input->post('tgl'),
-                    'TempatLahir'       => $this->input->post('tpt'),
-                    'Alamat'            => $this->input->post('alamat'),
-                    'NoHP'              => $this->input->post('Nope'),
-                    'Email'             => $this->input->post('email')
-               );
-               $this->load->model('main_models');
-               $this->main_models->tambah_pegawai($pegawai);
-               redirect(site_url().'/welcome/pegawai');
-          }
-          function edt_departement($id){
-               $department = array(
-                    'KodeDepartement'       => $this->input->post('kd'),
-                    'NamaDepartement'       => $this->input->post('nama'),
-               );
-               $this->load->model('main_models');
-               $this->main_models->edit_departement($id,$department);
-               redirect(site_url().'/welcome/departemen');
-          }
-          function edit_pegawai($id){
-               $this->load->view('temp/head');
-               if($this->session->userdata('status') == 'admin') {
-                    $this->load->view('temp/sidebar');
-               } 
-               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
-               {
-                    $this->load->view('temp/sidebar_unit');
-               }
-               elseif($this->session->userdata('status') == 'dosen') 
-               {
-                    $this->load->view('temp/sidebar_dosen');
-               }
-               elseif($this->session->userdata('status') == 'ekspedisi') 
-               {
-                    $this->load->view('temp/sidebar_ekspedisi');
-               }
-               $this->load->model('main_models');
-               $data['pgw'] = $this->main_models->find_pegawai($id);
-               $this->load->view('edit_pegawai',$data);
-               // $this->load->view('index2');
-               // echo $this->session->userd?ata('status');
-               // $this->load->view('temp/js');
-               $this->load->view('temp/footer');
-          }
-          function edt_pegawai(){
                $pegawai = array(
                     'Nip'               => $this->input->post('nip'),
                     'NamaPegawai'       => $this->input->post('nama'),
@@ -638,14 +577,8 @@ class Welcome extends CI_Controller {
                     'NoHP'              => $this->input->post('nope'),
                     'Email'             => $this->input->post('email')
                );
-               $id = $this->input->post('nip');
                $this->load->model('main_models');
-               $this->main_models->edit_pegawai($id,$pegawai);
-               redirect(site_url().'/welcome/pegawai');
-          }
-          function delete_pegawai($id){
-               $this->load->model('main_models');
-               $this->main_models->delete_pegawai($id);
+               $this->main_models->tambah_pegawai($pegawai);
                redirect(site_url().'/welcome/pegawai');
           }
           function delete_rapat($id){

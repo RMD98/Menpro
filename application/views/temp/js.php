@@ -27,11 +27,11 @@
 <script src="<?php echo base_url('dist/js/pages/dashboard.js')?>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('dist/js/demo.js')?>"></script>
-<script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
+
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script>
 <!-- fullCalendar 2.2.5 -->
-<script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
+
 
 <!-- AdminLTE App -->
 <!-- <script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script> -->

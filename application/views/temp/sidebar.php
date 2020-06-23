@@ -9,8 +9,7 @@
         </div>
         <div class="info">
          <!-- <a href="<?php echo site_url();?>main/profil"><span class="glyphicon glyphicon-user"></span> &nbsp<?php echo $this->session->userdata('username'); ?> </a> -->
-        <a><span class="glyphicon glyphicon-user"></span> &nbsp<?php echo $this->session->userdata('nama'); ?> 
-        <span>(<?php echo $this->session->userdata('status');?>) </span> </a>
+        <a><span class="glyphicon glyphicon-user"></span> &nbsp<?php echo $this->session->userdata('username'); ?> </a>
         </div>
       </div>
       <!-- Sidebar Menu -->
