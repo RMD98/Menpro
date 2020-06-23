@@ -70,6 +70,11 @@
       {
         $this->db->insert('tbl_rapat',$data);
       }
+      function delete_rapat($id)
+      {
+        $this->db->where('IdRapat',$id);
+        $this->db->delete('tbl_rapat');
+      }
       function trans_id()
       {
         $this->db->where('user',$this->session->userdata('username'));  

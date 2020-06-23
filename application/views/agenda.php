@@ -105,7 +105,7 @@
 <!-- jQuery UI -->
 <script src="<?php echo base_url('plugins/jquery-ui/jquery-ui.min.js')?>"></script>
 <!-- AdminLTE App -->
-<script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script>
+<!-- <script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('dist/js/demo.js')?>"></script>
 <!-- fullCalendar 2.2.5 -->

@@ -416,9 +416,10 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/footer');
           }
           public function mom(){
+               $data['mom'] = $this->main_models->daftar_rapat();
                $this->load->view('temp/head');
                $this->load->view('temp/sidebar');
-               $this->load->view('mom');
+               $this->load->view('mom',$data);
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
           }
@@ -430,31 +431,6 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
           }
-          // public function agenda(){
-          //      $this->load->view('temp/head');
-          //      if($this->session->userdata('status') == 'admin') {
-          //           $data['nama'] = $this->session->userdata('Nama');
-          //           $this->load->view('temp/sidebar',$data);
-          //      } 
-          //      elseif($this->session->userdata('status') == 'dosen') 
-          //      {
-          //           $this->load->view('temp/sidebar_dosen');
-          //      }
-          //      elseif($this->session->userdata('status') == 'ekspedisi') 
-          //      {
-          //           $this->load->view('temp/sidebar_ekspedisi');
-          //      }
-          //      elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
-          //      {
-          //           $this->load->view('temp/sidebar_unit');
-               // }
-               // $this->load->view('agenda',$data);
-               // $this->load->view('index2');
-               // echo $this->session->userd?ata('status');
-               // $this->load->view('temp/js');
-          //      $this->load->view('departemen',$data);
-          //      $this->load->view('temp/footer');
-          // }
           public function agenda(){
                $this->load->model('main_models');
                $data['agenda'] = $this->main_models->daftar_rapat();
@@ -672,6 +648,11 @@ class Welcome extends CI_Controller {
                $this->main_models->delete_pegawai($id);
                redirect(site_url().'/welcome/pegawai');
           }
+          function delete_rapat($id){
+               $this->load->model('main_models');
+               $this->main_models->delete_rapat($id);
+               redirect(site_url().'/welcome/mom');
+          }
           function det_agenda($Id){
                $this->load->model('main_models');
                $data['agenda'] = $this->main_models->get_rapat($Id);
@@ -694,6 +675,59 @@ class Welcome extends CI_Controller {
                $this->load->view('detail_agenda',$data);
                $this->load->view('temp/footer');
 
+          }
+          function edit_agenda($id){
+               $this->load->view('temp/head');
+               if($this->session->userdata('status') == 'admin') {
+                    $this->load->view('temp/sidebar');
+               } 
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $this->load->view('temp/sidebar_unit');
+               }
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $this->load->view('temp/sidebar_dosen');
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $this->load->view('temp/sidebar_ekspedisi');
+               }
+               $this->load->model('main_models');
+               $data['pgw'] = $this->main_models->find_pegawai($id);
+               $this->load->view('edit_pegawai',$data);
+               // $this->load->view('index2');
+               // echo $this->session->userd?ata('status');
+               // $this->load->view('temp/js');
+               $this->load->view('temp/footer');
+          }
+          function edt_rapat(){
+               // $this->load->library('form_validation');
+               // // $this->load->library('form_validation');
+               // $this->form_validation->set_rules('nip', 'NIP','required');  
+               // $this->form_validation->set_rules('topik', 'TopikRapat', 'required');  
+               // $this->form_validation->set_rules('tgl_awal', 'TglMulai', 'required');  
+               // $this->form_validation->set_rules('wkt_awal', 'WaktuMulai', 'required');  
+               // $this->form_validation->set_rules('tgl_akhir', 'TglAkhir', 'required');  
+               // $this->form_validation->set_rules('wkt_akhir', 'WaktuAkhir', 'required');
+               // $this->form_validation->set_rules('mom', 'MOM', 'required');
+               // if($this->form_validation->run()){
+               $agenda = array(
+                    'NIP'           => $this->input->post('nip'),
+                    'TopikRapat'    => $this->input->post('topik'),
+                    'TglMulai'      => $this->input->post('tgl_mulai'),
+                    'WaktuMulai'    => $this->input->post('wkt_mulai'),
+                    'TglAkhir'      => $this->input->post('tgl_akhir'),
+                    'WaktuAkhir'    => $this->input->post('wkt_akhir'),
+                    'MOM'           => $this->input->post('mom')
+               );
+               $this->load->model('main_models');
+               $this->main_models->tambah_rapat($agenda);
+               redirect(site_url().'/welcome/agenda');
+               // }
+               // else {
+               //  redirect(site_url().'/welcome/add_agenda');
+               // }
           }
           function test(){
                $this->test->test1();

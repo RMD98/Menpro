@@ -44,37 +44,44 @@
     <section class="content">
       <div class="row">
         <div class="col-12">
-            <!-- /.card-header -->
+          <div class="card">  
+            <div class="card-header">
+            <!-- <div class="col-6"> -->
+              <a href="<?php echo site_url()?>/welcome/add_agenda">
+              <button type="submit" class="btn btn-primary float-right">Add</button>
+              </a>
+            </div>  
             <div class="card-body">
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Id</th>
-                  <th>Agenda</th>
-                  <th>Catatan</th>
-                  <th>Created Date</th>
-                  <th>NIP</th>
+                  <th>Id Agenda</th>
+                  <th>Topik Agenda</th>
+                  <th>Waktu Agenda</th>
+                  <th>MOM</th>
                   <th></th>
                 </tr>
                 </thead>
                 <tbody>
+                <?php foreach($mom as $mom) :?>
                 <tr>
-                  <td>1</td>
-                  <td>15</td>
-                  <td>Rapat Akreditasi Jurusan IF</td>
-                  <td>10/03/2020</td>
-                  <td>152016113</td>
+                  <td><?php echo $mom->IdRapat ;?></td>
+                  <td><?php echo $mom->TopikRapat ;?></td>
+                  <td><?php echo $mom->TglMulai ;?> - <?php echo $mom->TglAkhir ;?></td>
+                  <td><?php echo $mom->MOM ;?></td>
                   <td><a href="<?php echo site_url()?>/welcome/add_departmen">
                    <button type="submit" class="btn btn-warning float-right">Edit</button>
                   </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
+                  <a href="<?php echo site_url()?>/welcome/delete_rapat" type="color:red;">
                   <button type="submit" class="btn btn-danger float-right" >Delete</button>
                   </a>
                   </td>
                 </tr>
+                <?php endforeach;?>
                 </tbody>
               </table>
             </div>
+
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
