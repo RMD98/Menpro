@@ -48,10 +48,17 @@
         $this->db->delete('tbl_rapat');
       }
       function filter_rapat(){
-        $this->db->where('NIP',$this->session->userdata('NIP'));
-        $surat = $this->db->get('tbl_staff_surat')->row();
-        $this->db->where('IdSurat',$surat->IdSurat);
-        return $this->db->get('tbl_rapat')->result();
+        // $this->db->where('NIP',$this->session->userdata('NIP'));
+        // $surat = $this->db->get('tbl_staff_surat')->result();
+        // foreach($surat as $surat) :
+        //   $this->db->where('IdSurat',$surat->IdSurat);
+        //   $data = $this->db->get('tbl_rapat')->result();
+        // endforeach;
+        // return $data;
+        $nip = $this->session->userdata('NIP');
+        $data = $this->db->query("SELECT r.IdRapat,r.NIP,r.TopikRapat,r.TglMulai,r.TglAkhir,r.WaktuMulai,r.WaktuAkhir,r.
+        MOM,r.IdSurat,t.IdSurat from tbl_rapat r, tbl_staff_surat t WHERE t.NIP='".$nip."' AND t.IdSurat=r.IdSurat")->result();
+        return $data;
       }
       function trans_id()
       {
