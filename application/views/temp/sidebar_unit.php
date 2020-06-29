@@ -61,7 +61,15 @@
                 Rapat
               </p>
             </a>
-            </li>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo site_url()?>/welcome/validation" class="nav-link">
+              <i class="nav-icon fas fa-calendar-alt"></i>
+              <p>
+                Validasi Surat
+              </p>
+            </a>
+          </li>
             <li class="nav-item">
             <a href="<?php echo site_url()?>/welcome/logout" class="nav-link">
               <i class="nav-icon fas fa-power-off"></i>

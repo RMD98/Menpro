@@ -89,6 +89,10 @@
                   </div>
                   <?php endif?>
               <?php endforeach ?>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Validasi</label>
+                    <select class="dosen form-control" name="validasi"></select>
+                  </div>
                   <!-- <div class="form-group">
                     <label for="exampleInputPassword1">Tanggal Buat</label>
                     <input type="text" class="form-control">
