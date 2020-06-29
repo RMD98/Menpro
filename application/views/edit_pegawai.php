@@ -1,25 +1,14 @@
+@@ -0,0 +1,132 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | DataTables</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url('plugins/fontawesome-free/css/all.min.css')?>">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="<?php echo base_url('plugins/datatables-bs4/css/dataTables.bootstrap4.css')?>">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url('dist/css/adminlte.min.css')?>">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
+  <!-- Navbar -->
+ 
+  <!-- /.navbar -->
+
   <!-- Main Sidebar Container -->
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -27,12 +16,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>tambah departement</h1>
+            <h1>tambah pegawai</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Departemen</li>
+              <li class="breadcrumb-item active">Pegawai</li>
             </ol>
           </div>
         </div>
@@ -48,22 +37,56 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method='post' action="<?php echo site_url()?>/welcome/tmbh_departement">
+              <?php foreach ($pgw as $pgw) :?>
+              <form role="form" method='post' action="<?php echo site_url()?>/welcome/edt_pegawai">
                 <div class="card-body">
                   <div class="form-group">
-                    <label >Kode Departemen</label>
-                    <input type="text" class="form-control"  placeholder="Kode Departement" name="kd">
+                    <label >NIP</label>
+                    <input type="text" class="form-control" name="nip" value="<?php echo $pgw->Nip?>">
                   </div>
                   <div class="form-group">
-                    <label >Nama Departemen</label>
-                    <input type="text" class="form-control"  placeholder="Nama Departement" name="nama">
+                    <label >Nama</label>
+                    <input type="text" class="form-control" name="nama" value="<?php echo $pgw->NamaPegawai?>">
                   </div>
+                  <div class="form-group">
+                    <label >Tanggal Lahir</label>
+                    <input type="text" class="form-control" name="tgl" value="<?php echo $pgw->TanggalLahir?>">
+                  </div>
+                  <div class="form-group">
+                    <label >Tempat Lahir</label>
+                    <input type="text" class="form-control" name="tpt" value="<?php echo $pgw->TempatLahir?>">
+                  </div>
+                  <div class="form-group">
+                    <label >Alamat</label>
+                    <input type="text" class="form-control" name="alamat" value="<?php echo $pgw->Alamat?>">
+                  </div>
+                  <div class="form-group">
+                    <label >No HP</label>
+                    <input type="text" class="form-control" name="nope" value="<?php echo $pgw->NoHP?>">
+                  </div>
+                  <div class="form-group">
+                    <label >Email</label>
+                    <input type="text" class="form-control" name="email" value="<?php echo $pgw->Email?>">
+                  </div>
+                  <!-- <div class="form-group">
+                    <label >Jurusan</label>
+                    <input type="email" class="form-control" placeholder="jurusan">
+                  </div>
+                  <div class="form-group">
+                    <label >Username</label>
+                    <input type="email" class="form-control" placeholder="username">
+                  </div>
+                  <div class="form-group">
+                    <label >password</label>
+                    <input type="password" class="form-control" placeholder="password">
+                  </div> -->
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form>
+              <?php endforeach;?>
             </div>
             <!-- /.card -->
             <!-- Form Element sizes -->
