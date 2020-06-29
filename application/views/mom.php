@@ -69,7 +69,7 @@
                   <td><?php echo $mom->TopikRapat ;?></td>
                   <td><?php echo $mom->TglMulai ;?> - <?php echo $mom->TglAkhir ;?></td>
                   <td><?php echo $mom->MOM ;?></td>
-                  <td><a href="<?php echo site_url()?>/welcome/add_departmen">
+                  <td><a href="<?php echo site_url()?>/welcome/edit_agenda/<?php echo $mom->IdRapat;?>">
                    <button type="submit" class="btn btn-warning float-right">Edit</button>
                   </a>
                   <a href="<?php echo site_url()?>/welcome/delete_rapat" type="color:red;">

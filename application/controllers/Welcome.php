@@ -651,7 +651,7 @@ class Welcome extends CI_Controller {
                     $this->load->view('temp/sidebar_ekspedisi');
                }
                $this->load->model('main_models');
-               $data['pgw'] = $this->main_models->find_pegawai($id);
+               $data['pgw'] = $this->main_models->get_pegawai($id);
                $this->load->view('edit_pegawai',$data);
                // $this->load->view('index2');
                // echo $this->session->userd?ata('status');
@@ -724,7 +724,8 @@ class Welcome extends CI_Controller {
                     $this->load->view('temp/sidebar_ekspedisi');
                }
                $this->load->model('main_models');
-               $data['pgw'] = $this->main_models->find_pegawai($id);
+               $data['pgw'] = $this->main_models->daftar_pegawai();
+               $data['agenda'] = $this->main_models->get_rapat($id);
                $this->load->view('edit_pegawai',$data);
                // $this->load->view('index2');
                // echo $this->session->userd?ata('status');
