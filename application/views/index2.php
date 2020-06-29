@@ -33,7 +33,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>100</h3>
+                <h3><?=$total?></h3>
                 <p>Total Surat</p>
               </div>
             </div>
@@ -43,27 +43,18 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>50</sup></h3>
-                <p>Surat Keputusa</p>
+                <h3><?=$keputusan?></sup></h3>
+                <p>Surat Keputusan</p>
               </div>
             </div>
           </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>50</h3>
-                <p>Surat Pemberitahuan</p>
-              </div>
-            </div>
-          </div>
+         
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>60</h3>
+                <h3><?=$rapat?></h3>
                 <p>Agenda</p>
               </div>
               </div>
@@ -73,7 +64,7 @@
         <!-- /.row -->
         <!-- Main row -->
             <!-- TO DO List -->
-            <div class="card">
+            <!-- <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="ion ion-clipboard mr-1"></i>
@@ -88,27 +79,27 @@
                     <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
                   </ul>
                 </div>
-              </div>
+              </div> -->
               <!-- /.card-header -->
-              <div class="card-body">
+              <!-- <div class="card-body">
                 <ul class="todo-list" data-widget="todo-list">
-                  <li>
+                  <li> -->
                     <!-- drag handle -->
-                    <span class="handle">
+                    <!-- <span class="handle">
                       <i class="fas fa-ellipsis-v"></i>
                       <i class="fas fa-ellipsis-v"></i>
-                    </span>
+                    </span> -->
                     <!-- checkbox -->
-                    <div  class="icheck-primary d-inline ml-2">
+                    <!-- <div  class="icheck-primary d-inline ml-2">
                       <input type="checkbox" value="" name="todo1" id="todoCheck1">
                       <label for="todoCheck1"></label>
-                    </div>
+                    </div> -->
                     <!-- todo text -->
-                    <span class="text">Rapat FTI</span>
+                    <!-- <span class="text">Rapat FTI</span> -->
                     <!-- Emphasis label -->
-                    <small class="badge badge-danger"><i class="far fa-clock"></i> 5/03/2020</small>
+                    <!-- <small class="badge badge-danger"><i class="far fa-clock"></i> 5/03/2020</small> -->
                     <!-- General tools such as edit or delete-->
-                    <div class="tools">
+                    <!-- <div class="tools">
                       <i class="fas fa-edit"></i>
                       <i class="fas fa-trash-o"></i>
                     </div>
@@ -164,10 +155,10 @@
                   </ul>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
+              <!-- <div class="card-footer clearfix">
                 <button type="button" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add item</button>
               </div>
-            </div>
+            </div> -->
             <!-- /.card -->
           </section>
           <!-- /.Left col -->

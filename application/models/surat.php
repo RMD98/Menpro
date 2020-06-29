@@ -18,6 +18,10 @@
             return $query;
         }
     }
+    function getPegawai($id){
+        $this->db->where('NamaPegawai',$id);
+        return $this->db->get('tbl_pegawai')->result();
+    }
     function listPegawai(){
         $query = $this->db->get('tbl_pegawai');
         $temp = [];
@@ -52,6 +56,18 @@
         $this->db->where('tbl_staff_surat.NIP', $id);
         return $this->db->get()->result();
     }
+    function listValidasi($id){
+        $this->db->select('*');
+        $this->db->from('tbl_staff_surat');
+        $this->db->join('tbl_pegawai', 'tbl_staff_surat.NIP = tbl_pegawai.NIP');
+        $this->db->join('tbl_surat', 'tbl_staff_surat.IdSurat = tbl_surat.IdSurat');
+        $this->db->where('tbl_surat.Validator', $id);
+        $this->db->group_start();
+        $this->db->where('tbl_surat.Status', 'belum tervalidasi');
+        $this->db->or_where('tbl_surat.Status', 'tervalidasi');
+        $this->db->group_end();
+        return $this->db->get()->result();
+    }
     function listSurat(){
         $this->db->limit('5');
         $this->db->order_by('IdSurat', 'DESC');
@@ -71,6 +87,16 @@
         $query = $this->db->get()->result();
         return $query;
     }
+    function listDetailSuratValidasi($IdSurat){
+        $this->db->select('*');    
+        $this->db->from('tbl_surat');
+        $this->db->join('tbl_pegawai', 'tbl_surat.Validator = tbl_pegawai.NIP');
+        $this->db->join('tbl_staff_departement', 'tbl_pegawai.NIP = tbl_staff_departement.NIP');
+        $this->db->join('tbl_department', 'tbl_staff_departement.idDepartement = tbl_department.idDepartment');
+        $this->db->where('IdSurat', $IdSurat);
+        $query = $this->db->get()->result();
+        return $query;
+    }
     function listSuratStaff($IdSurat){
         $this->db->where('IdStaffSurat',$IdSurat);
         return $this->db->get('tbl_staff_surat')->result();
@@ -82,14 +108,24 @@
         $this->db->where('IdStaffSurat',$IdSurat);
          $this->db->update('tbl_staff_surat',$data);
     }
-    function insertSurat($idSK,$value,$Topik,$NoSurat,$lokasi){
+    function updateStatusValidasi($IdSurat){
+        $data = array(
+            'Status' => 'tervalidasi'
+        );
+        $this->db->where('IdSurat',$IdSurat);
+         $this->db->update('tbl_surat',$data);
+    }
+    function insertSurat($idSK,$value,$Topik,$NoSurat,$lokasi,$validator,$pembuat){
         $data = array(
             'IdSK' => $idSK,
             'NoSurat' =>$NoSurat,
             'Topik' => $Topik,
             'TglDibuat' =>date("Y-m-d"),
             'Value' => $value,
-            'File' => $lokasi
+            'File' => $lokasi,
+            'Status'=> 'belum tervalidasi',
+            'Pembuats'=>$pembuat,
+            'Validator'=>$validator
         );
         $this->db->insert('tbl_surat',$data);
     }
@@ -136,21 +172,24 @@
     }
     function generateWord($mulai,$selesai,$data,$parameter,$NoSurat){
         
-        // $user = $this->getDetailAccount($this->session->userdata('id'));
-        // \PhpOffice\PhpWord\Settings::setCompatibility(false);
-        // \PhpOffice\PhpWord\Settings::setZipClass(\PhpOffice\PhpWord\Settings::PCLZIP);
+        
         $this->load->helper('download');
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($mulai);
         // var_dump($data);
         // die;
+        
         foreach($parameter as $key=>$Parameter){
             if($key == 'date'){
                 $templateProcessor->setValue($key, date("$Parameter"));    
             }elseif($key=='No'){
                 $templateProcessor->setValue($key, $NoSurat);  
             }elseif($key == 'thn'){
-                $templateProcessor->setValue($key, date("Y"));    
-            }elseif($key == 'arrayofDosen'){
+                $templateProcessor->setValue($key, date("Y"));  
+            }  
+            elseif($key == 'ttd'){
+                // $templateProcessor->setImg($key,array('src' => $data["$Parameter"],'swh'=>'200', 'size'=>array(0=>$width, 1=>$height)));
+            }
+            elseif($key == 'arrayofDosen'){
                 $templateProcessor->cloneRow('rowValue', sizeof($data['dosen']));
                 foreach($data['dosen'] as $i=>$NamaDosen){ 
                     $number = $i+1;
@@ -186,4 +225,12 @@
     
         return $selesai;
     }
+    function validasiSurat($data){
+        
+        $this->load->helper('download');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($data[0]->File);
+        $templateProcessor->setImg('ttd',array('src' => $data[0]->TTD,'swh'=>'200', 'size'=>array(0=>$width, 1=>$height)));
+        $templateProcessor->saveAs($data[0]->File);
+    }
+    
  }

@@ -54,6 +54,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="<?php echo site_url()?>/welcome/validation" class="nav-link">
+              <i class="nav-icon fas fa-calendar-alt"></i>
+              <p>
+                Validasi surat
+              </p>
+            </a>
+          </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon far fa-envelope"></i>
