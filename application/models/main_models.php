@@ -69,8 +69,14 @@
       }
       function get_detail_rapat($id)
       {
-        $this->db->where('IdRapat',$id);
-        return $this->db->get('tbl_staff_rapat')->result();
+        $this->db->select('*');    
+        $this->db->from('tbl_staff_rapat');
+        $this->db->join('tbl_pegawai', 'tbl_staff_rapat.NIP = tbl_pegawai.NIP');
+        $this->db->join('tbl_staff_departement', 'tbl_pegawai.NIP = tbl_staff_departement.NIP');
+        $this->db->join('tbl_department', 'tbl_staff_departement.idDepartement = tbl_department.idDepartment');
+        $this->db->where('IdRapat', $id);
+        $query = $this->db->get()->result();
+        return $query;
       }
       function tambah_rapat($data)
       {

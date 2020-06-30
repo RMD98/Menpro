@@ -62,7 +62,7 @@
                 <thead>
                 <tr>
                   
-                  <th>NIP</th>
+                  <th>Nama</th>
                   <th>Status</th>
                   <!-- <th>Tipe</th> -->
                 </tr>
@@ -71,8 +71,13 @@
                 <?php foreach($anak as $anak): ?>
                 <tr>
                   
-                  <td><?=$anak->NIP?></td>
-                  <td><?=$anak->StatusSurat?></td>
+                  <td><?=$anak->NamaPegawai?></td>
+                  <td><?php if($anak->StatusSurat== 'N'): ?>
+                    Belum Terkirim
+                    <?php elseif($anak->StatusSurat== 'Y'): ?>
+                      Sudah Terkirim
+                  <?php endif ?>
+                  </td>
                   <!-- <td>Single</td> -->
                   <!-- <td> -->
                   <!-- <a href="<?php echo site_url()?>/welcome/statusSurat/<?=$anak->IdSurat?>"> -->
