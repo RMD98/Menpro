@@ -73,7 +73,7 @@ class Welcome extends CI_Controller {
                          $this->load->view('temp/sidebar_unit');
                     }
                }
-               $data['total'] = count($this->surat->listSuratMasuk($this->session->userdata('NIP')));
+               $data['total'] = count($this->surat->listSuratMasuk($this->session->userdata('NIP')))+count($this->main_models->filter_rapat($this->session->userdata('NIP')));
                $data['keputusan'] = count($this->surat->listSuratMasuk($this->session->userdata('NIP')));
                $data['rapat'] = count($this->main_models->filter_rapat($this->session->userdata('NIP')));
                $this->load->view('index2',$data);
@@ -106,8 +106,7 @@ class Welcome extends CI_Controller {
                $response = $this->notif->sendMessage($Topik,$tipe,'asd');
                
                $Parameter = json_decode($this->surat->get_properties_surat($id)->Parameter);
-               // var_dump($Parameter);
-               // die;
+               
                
                $Temp = json_encode($this->input->post());
                $NoSurat = ($this->surat->getlast("tbl_surat","IdSurat")->IdSurat)+1;    
@@ -177,8 +176,7 @@ class Welcome extends CI_Controller {
                     $data['nama'] = $this->session->userdata('Nama');
                     $this->load->view('temp/sidebar_unit',$data);
                }
-               // var_dump($data);
-               // die;
+               
                $this->load->view('detail_surat',$data);
                $this->load->view('temp/footer');
           }
@@ -434,6 +432,7 @@ class Welcome extends CI_Controller {
           public function add_agenda(){
                
                $this->load->view('temp/head');
+               // $this->load->view('temp/js');
                if($this->session->userdata('status') == 'admin') {
                     $data['nama'] = $this->session->userdata('Nama');
                     $this->load->view('temp/sidebar',$data);
@@ -507,7 +506,7 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/head');
                // $surat['srt'] = $this->main_models->filter_rapat();
                if($this->session->userdata('status') == 'admin') {
-                    $data['agenda'] = $this->main_models->daftar_rapat();
+                    $data['agenda'] = $this->main_models->daftar_rapat($this->username);
                     // $data['nama'] = $this->session->userdata('Nama');
                     $this->load->view('temp/sidebar');
                } 
@@ -595,7 +594,7 @@ class Welcome extends CI_Controller {
                // $this->form_validation->set_rules('mom', 'MOM', 'required');
                // if($this->form_validation->run()){
                $agenda = array(
-                    'NIP'           => $this->input->post('nip'),
+                    'NIP'           => $this->session->userdata('NIP'),
                     'TopikRapat'    => $this->input->post('topik'),
                     'TglMulai'      => $this->input->post('tgl_mulai'),
                     'WaktuMulai'    => $this->input->post('wkt_mulai'),
@@ -604,7 +603,12 @@ class Welcome extends CI_Controller {
                     'MOM'           => $this->input->post('mom')
                );
                $this->load->model('main_models');
+               $idRapat = $this->surat->getLast('tbl_rapat','IdRapat')->IdRapat;
                $this->main_models->tambah_rapat($agenda);
+               foreach ($this->input->post('tujuan') as $val=>$key) {
+                    $NIP = $this->surat->getWhere('tbl_pegawai','NamaPegawai',$key)->Nip;
+                    $this->main_models->insert_anak($idRapat,$NIP);
+               }
                $response = $this->notif->sendMessage($agenda['TopikRapat'],"Rapat",'asd');
                redirect(site_url().'/welcome/agenda');
                // }
@@ -733,6 +737,7 @@ class Welcome extends CI_Controller {
           function det_agenda($Id){
                $this->load->model('main_models');
                $data['agenda'] = $this->main_models->get_rapat($Id);
+               $data['anak'] = $this->main_models->get_detail_rapat($Id);
                $this->load->view('temp/head');
                if($this->session->userdata('status') == 'admin') {
                     $this->load->view('temp/sidebar');

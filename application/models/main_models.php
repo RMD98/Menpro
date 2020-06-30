@@ -67,6 +67,11 @@
         $this->db->where('IdRapat',$id);
         return $this->db->get('tbl_rapat')->result();
       }
+      function get_detail_rapat($id)
+      {
+        $this->db->where('IdRapat',$id);
+        return $this->db->get('tbl_staff_rapat')->result();
+      }
       function tambah_rapat($data)
       {
         $this->db->insert('tbl_rapat',$data);
@@ -85,9 +90,8 @@
         // endforeach;
         // return $data;
         $nip = $this->session->userdata('NIP');
-        $data = $this->db->query("SELECT r.IdRapat,r.NIP,r.TopikRapat,r.TglMulai,r.TglAkhir,r.WaktuMulai,r.WaktuAkhir,r.
-        MOM,r.IdSurat,t.IdSurat from tbl_rapat r, tbl_staff_surat t WHERE t.NIP='".$nip."' AND t.IdSurat=r.IdSurat")->result();
-        return $data;
+        $this->db->where('NIP',$nip);
+        return $this->db->get('tbl_rapat')->result();
       }
       function trans_id()
       {
@@ -187,6 +191,13 @@
           $this->produk_model->edit_produk($id,$data);
           redirect('admin/daftarproduk');
         }
+      }function insert_anak($idrapat,$data){
+        $data = array(
+          'IdRapat' => $idrapat,
+          'NIP' => $data,
+          'StatusSurat' => 'N'
+      );
+      $this->db->insert('tbl_staff_rapat',$data);
       }
        function insert_konfirmasi($data)
       {

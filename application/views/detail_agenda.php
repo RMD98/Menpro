@@ -57,6 +57,39 @@
       <!-- /.row -->
     </section>
     <!-- /.content -->
+    <div class="card-body">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  
+                  <th>NIP</th>
+                  <th>Status</th>
+                  <!-- <th>Tipe</th> -->
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach($anak as $anak): ?>
+                <tr>
+                  
+                  <td><?=$anak->NIP?></td>
+                  <td><?=$anak->StatusSurat?></td>
+                  <!-- <td>Single</td> -->
+                  <!-- <td> -->
+                  <!-- <a href="<?php echo site_url()?>/welcome/statusSurat/<?=$anak->IdSurat?>"> -->
+                   <!-- <button type="submit" class="btn btn-primary float-right">Status</button> -->
+                  <!-- </a> -->
+                  <!-- <a href="<?php echo site_url()?>/welcome/add_departmen"> -->
+                   <!-- <button type="submit" class="btn btn-warning float-right">Download</button>  -->
+                  <!-- </a>
+                  <!-- <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;"> -->
+                  <!-- <button type="submit" class="btn btn-danger float-right" >Delete</button> -->
+                  <!-- </a> -->
+                  <!-- </td> -->
+                </tr>  
+                <?php endforeach ?> 
+                </tbody>
+              </table>
+            </div>
   </div>
   <!-- /.content-wrapper -->
  
