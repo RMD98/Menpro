@@ -40,27 +40,27 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label >NIP</label>
-                    <input type="email" class="form-control" placeholder="NIP" name="nip">
+                    <input type="text" class="form-control" placeholder="NIP" name="nip">
                   </div>
                   <div class="form-group">
                     <label >Nama</label>
-                    <input type="email" class="form-control" placeholder="Nama" name="nama">
+                    <input type="text" class="form-control" placeholder="Nama" name="nama">
                   </div>
                   <div class="form-group">
                     <label >Tanggal Lahir</label>
-                    <input type="email" class="form-control" placeholder="Tanggal Lahir" name="tgl">
+                    <input type="text" class="form-control" placeholder="Tanggal Lahir" name="tgl">
                   </div>
                   <div class="form-group">
                     <label >Tempat Lahir</label>
-                    <input type="email" class="form-control" placeholder="Tempat Lahit" name="tpt">
+                    <input type="text" class="form-control" placeholder="Tempat Lahit" name="tpt">
                   </div>
                   <div class="form-group">
                     <label >Alamat</label>
-                    <input type="email" class="form-control" placeholder="Alamat" name="alamat">
+                    <input type="text" class="form-control" placeholder="Alamat" name="alamat">
                   </div>
                   <div class="form-group">
                     <label >No HP</label>
-                    <input type="email" class="form-control" placeholder="No HP" name="nope">
+                    <input type="text" class="form-control" placeholder="No HP" name="nope">
                   </div>
                   <div class="form-group">
                     <label >Email</label>
@@ -68,20 +68,33 @@
                   </div>
                   <div class="form-group">
                     <label >Jurusan</label>
-                    <input type="email" class="form-control" placeholder="jurusan" name="jrs">
+                    <input type="text" class="form-control" placeholder="jurusan" name="jrs">
                   </div>
                   <div class="form-group">
                     <label >Username</label>
-                    <input type="email" class="form-control" placeholder="username" name="uname">
+                    <input type="text" class="form-control" placeholder="username" name="uname">
                   </div>
                   <div class="form-group">
                     <label >password</label>
                     <input type="password" class="form-control" placeholder="password" name="pass">
                   </div>
+                  <div class="form-group">
+                    <label >Digital Signature</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="">Upload</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
+                  <?php echo '<label class="text-danger">'.$this->session->flashdata("error").'</label>';  ?>
                 </div>
               </form>
             </div>

@@ -495,7 +495,7 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/js');
           }
           public function departemen(){
-               $data['departement'] = $this->main_models->daftar_departement();
+               $data['dprt'] = $this->main_models->daftar_departemen();
                $this->load->view('temp/head');
                $this->load->view('temp/sidebar');
                $this->load->view('departemen',$data);
@@ -570,9 +570,6 @@ class Welcome extends CI_Controller {
                          $this->session->set_flashdata('error', 'Invalid Username and Password');  
                          redirect(site_url() . '/welcome/index');  
                          }  
-                    
-                    
-          
           } 
           function logout(){  
                $user_data = $this->session->all_userdata();
@@ -613,32 +610,69 @@ class Welcome extends CI_Controller {
                // }
           }
           function tmbh_pegawai(){
-               $pegawai = array(
-                    'Nip'               => $this->input->post('nip'),
-                    'NamaPegawai'       => $this->input->post('nama'),
-                    'TanggalLahir'      => $this->input->post('tgl'),
-                    'TempatLahir'       => $this->input->post('tpt'),
-                    'Alamat'            => $this->input->post('alamat'),
-                    'NoHP'              => $this->input->post('nope'),
-                    'Email'             => $this->input->post('email')
-               );
-               $this->load->model('main_models');
-               $this->main_models->tambah_pegawai($pegawai);
-               $account = array(
-                    'NIP'          => $this->input->post('nip'),
-                    'Username'     => $this->input->post('uname'),
-                    'Password'     => $this->input->post('pass')
-               );
-               $this->main_models->tambah_user($account);
-               redirect(site_url().'/welcome/pegawai');
+               $this->load->helper(array('form','url'));
+               $this->load->library('form_validation');
+               $this->form_validation->set_rules('nip', 'Nip', 'required');  
+               $this->form_validation->set_rules('nama', 'namaegawai', 'required');  
+               $this->form_validation->set_rules('tgl', 'tanggallahir', 'required');  
+               $this->form_validation->set_rules('tpt', 'tempatlahir', 'required');  
+               $this->form_validation->set_rules('alamat', 'Alamat', 'required');  
+               $this->form_validation->set_rules('nope', 'NoHP', 'required');  
+               $this->form_validation->set_rules('email', 'Email', 'required');  
+               $this->form_validation->set_rules('uname', 'Username', 'required');  
+               $this->form_validation->set_rules('pass', 'namaegawai', 'required');  
+               $this->form_validation->set_rules('nama', 'namaegawai', 'required');  
+               $this->form_validation->set_rules('nama', 'namaegawai', 'required');  
+               if($this->form_validation->run())  
+               {  
+                    //true  
+                    $pegawai = array(
+                         'Nip'               => $this->input->post('nip'),
+                         'NamaPegawai'       => $this->input->post('nama'),
+                         'TanggalLahir'      => $this->input->post('tgl'),
+                         'TempatLahir'       => $this->input->post('tpt'),
+                         'Alamat'            => $this->input->post('alamat'),
+                         'NoHP'              => $this->input->post('nope'),
+                         'Email'             => $this->input->post('email')
+                    );
+                    $this->load->model('main_models');
+                    $this->main_models->tambah_pegawai($pegawai);
+                    $account = array(
+                         'NIP'          => $this->input->post('nip'),
+                         'Username'     => $this->input->post('uname'),
+                         'Password'     => $this->input->post('pass')
+                    );
+                    $this->main_models->tambah_user($account);
+                    redirect(site_url().'/welcome/pegawai');
+               }  
+               else  
+               {  
+                    $this->session->set_flashdata('error', 'Please Fill All Field');  
+                    redirect(site_url() . '/welcome/add_departmen');  
+               }
           }
           function tmbh_departement(){
-               $departement = array(
-                    'KodeDepartement'       => $this->input->post('kd'),
-                    'NamaDepartement'       => $this->input->post('nama')
-               );
-               $this->load->model('main_models');
-               $this->main_models->tambah_departement($departement);
+               $this->load->helper(array('form','url'));
+               $this->load->library('form_validation');
+               $this->form_validation->set_rules('kd', 'kodedepartment', 'required');  
+               $this->form_validation->set_rules('nama', 'namadepartment', 'required');  
+               if($this->form_validation->run())  
+               {  
+                    //true  
+                    $departement = array(
+                         'KodeDepartement'       => $this->input->post('kd'),
+                         'NamaDepartement'       => $this->input->post('nama')
+                    );
+                    // $this->load->model('main_models');
+                    $this->main_models->tambah_departement($departement);
+                    redirect(site_url().'/welcome/departemen');
+               }  
+               else  
+               {  
+                    $this->session->set_flashdata('error', 'Please Fill All Field');  
+                    redirect(site_url() . '/welcome/add_departmen');  
+               }
+               
                redirect(site_url().'/welcome/departemen');
           }
           function delete_departement($id){

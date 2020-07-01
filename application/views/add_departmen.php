@@ -62,6 +62,7 @@
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
+                  <?php echo '<label class="text-danger">'.$this->session->flashdata("error").'</label>';  ?>
                 </div>
               </form>
             </div>
