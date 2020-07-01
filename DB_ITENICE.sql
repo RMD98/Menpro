@@ -11,7 +11,7 @@
  Target Server Version : 50719
  File Encoding         : 65001
 
- Date: 30/06/2020 06:06:08
+ Date: 30/06/2020 10:48:27
 */
 
 SET NAMES utf8mb4;
@@ -144,7 +144,7 @@ CREATE TABLE `tbl_rapat`  (
   INDEX `FK`(`IdSurat`) USING BTREE,
   CONSTRAINT `FK_tbl_rapat_tbl_pegawai` FOREIGN KEY (`NIP`) REFERENCES `tbl_pegawai` (`Nip`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK` FOREIGN KEY (`IdSurat`) REFERENCES `tbl_staff_surat` (`IdSurat`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data rapat digunakan menyimpan data rapat' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data rapat digunakan menyimpan data rapat' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tbl_rapat
@@ -154,6 +154,10 @@ INSERT INTO `tbl_rapat` VALUES (2, '1', 'pembentukan divisi pembasmian ', '2020-
 INSERT INTO `tbl_rapat` VALUES (3, '1', 'test rapat', '2020-06-26', '2020-06-27', '11:35:00', '03:35:00', '', NULL);
 INSERT INTO `tbl_rapat` VALUES (4, '1', 'test ', '2020-06-16', '2020-06-16', '11:35:00', '11:35:00', 'asd', NULL);
 INSERT INTO `tbl_rapat` VALUES (5, '2', 'asd', '2020-06-30', '2020-06-30', '03:24:00', '03:35:00', 'asd', NULL);
+INSERT INTO `tbl_rapat` VALUES (6, '1', '', '2020-06-30', '2020-06-30', '00:00:00', '00:00:00', '', NULL);
+INSERT INTO `tbl_rapat` VALUES (7, '1', '', '2020-06-30', '2020-06-30', '00:00:00', '00:00:00', '', NULL);
+INSERT INTO `tbl_rapat` VALUES (8, '1', '', '2020-06-30', '2020-06-30', '00:00:00', '00:00:00', '', NULL);
+INSERT INTO `tbl_rapat` VALUES (9, '1', 'test rapat', '2020-06-30', '2020-06-30', '11:35:00', '08:35:00', 'test', NULL);
 
 -- ----------------------------
 -- Table structure for tbl_sk
@@ -191,6 +195,7 @@ INSERT INTO `tbl_sk` VALUES ('23', 'Pelaksanaan Penelitian Dosen Muda', 'Rektor_
 INSERT INTO `tbl_sk` VALUES ('24', 'Pembetukan Tim Auditor Internal', NULL, '{\"lokasi\":{\"type\":\"textSugestion\",\"label\":\"Lokasi\",\"source\":\"jurusan\"},\"tujuan\":{\"type\":\"array\",\"label\":\"kepada\",\"source\":\"dosen\"},\"isi\":{\"type\":\"longText\",\"label\":\"isi surat\"}}', 'rektor', NULL);
 INSERT INTO `tbl_sk` VALUES ('25', 'Surat Keluar', NULL, '{\"lokasi\":{\"type\":\"textSugestion\",\"label\":\"Lokasi\",\"source\":\"jurusan\"},\"tujuan\":{\"type\":\"array\",\"label\":\"kepada\",\"source\":\"dosen\"},\"isi\":{\"type\":\"longText\",\"label\":\"isi surat\"}}', 'admin', NULL);
 INSERT INTO `tbl_sk` VALUES ('26', 'Surat Masuk', NULL, '{\"lokasi\":{\"type\":\"textSugestion\",\"label\":\"Lokasi\",\"source\":\"jurusan\"},\"tujuan\":{\"type\":\"array\",\"label\":\"kepada\",\"source\":\"dosen\"},\"isi\":{\"type\":\"longText\",\"label\":\"isi surat\"}}', 'admin', NULL);
+INSERT INTO `tbl_sk` VALUES ('28', 'Rapat', NULL, NULL, 'kosong', NULL);
 INSERT INTO `tbl_sk` VALUES ('3', 'Pelaksanaan Bimbingan Tugas Akhir', 'fakultas_BimbinganTugasAkhir.docx', '{\"NamaDosen\":{\"type\":\"textSugestion\",\"label\":\"Nama Dosen Pembimbing\",\"source\":\"dosen\"},\"NamaMahasiswa\":{\"type\":\"text\",\"label\":\"Nama Mahasiswa\"},\"NRP\":{\"type\":\"text\",\"label\":\"NRP\"},\"Jurusan\":{\"type\":\"textSugestion\",\"label\":\"Jurusan\",\"source\":\"jurusan\"},\"JudulTA\":{\"type\":\"text\",\"label\":\"Judul TA\"}}', 'fakultas', '{\"JenisSurat\":\"jenis\",\"Departement\":\"NamaDepartement\",\"dosen\":\"NamaDosen\",\"mahasiswa\":\"NamaMahasiswa\",\"nrp\":\"NRP\",\"jurusan\":\"Jurusan\",\"judulTA\":\"JudulTA\",\"date\":\"d-m-Y\",\"pembuat\":\"validasi\",\"No\":\"test\",\"thn\":\"Y\",\"ttd\":\"TTD\"}');
 INSERT INTO `tbl_sk` VALUES ('4', 'sk rektor', 'asd', '{\"lokasi\":{\"type\":\"textSugestion\",\"label\":\"Lokasi\",\"source\":\"jurusan\"},\"tujuan\":{\"type\":\"array\",\"label\":\"kepada\",\"source\":\"dosen\"},\"isi\":{\"type\":\"longText\",\"label\":\"isi surat\"}}', 'admin', NULL);
 INSERT INTO `tbl_sk` VALUES ('5', 'sk jurusan', 'asd', '{\"lokasi\":{\"type\":\"textSugestion\",\"label\":\"Lokasi\",\"source\":\"jurusan\"},\"tujuan\":{\"type\":\"array\",\"label\":\"kepada\",\"source\":\"dosen\"},\"isi\":{\"type\":\"longText\",\"label\":\"isi surat\"}}', 'admin', NULL);
@@ -220,6 +225,28 @@ CREATE TABLE `tbl_staff_departement`  (
 -- ----------------------------
 INSERT INTO `tbl_staff_departement` VALUES (1, '1', 1, 'Dosen');
 INSERT INTO `tbl_staff_departement` VALUES (2, '2', 1, 'Kajur');
+
+-- ----------------------------
+-- Table structure for tbl_staff_rapat
+-- ----------------------------
+DROP TABLE IF EXISTS `tbl_staff_rapat`;
+CREATE TABLE `tbl_staff_rapat`  (
+  `IdStaffRapat` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary id staff surat',
+  `IdRapat` int(11) NULL DEFAULT NULL COMMENT 'Id Surat ',
+  `NIP` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT 'penghubung table pegawai',
+  `StatusSurat` enum('Y','N') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT 'Status terkirim surat',
+  PRIMARY KEY (`IdStaffRapat`) USING BTREE,
+  INDEX `FK_tbl_staff_surat_tbl_pegawai`(`NIP`) USING BTREE,
+  INDEX `FK_tbl_staff_surat_tbl_surat`(`IdRapat`) USING BTREE,
+  CONSTRAINT `tbl_staff_rapat_ibfk_1` FOREIGN KEY (`NIP`) REFERENCES `tbl_pegawai` (`Nip`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tbl_staff_rapat_ibfk_2` FOREIGN KEY (`IdRapat`) REFERENCES `tbl_rapat` (`IdRapat`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data tujuan surat digunakan untuk detail surat' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbl_staff_rapat
+-- ----------------------------
+INSERT INTO `tbl_staff_rapat` VALUES (43, 8, '1', 'Y');
+INSERT INTO `tbl_staff_rapat` VALUES (44, 8, '2', 'N');
 
 -- ----------------------------
 -- Table structure for tbl_staff_surat

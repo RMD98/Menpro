@@ -175,8 +175,7 @@
         
         $this->load->helper('download');
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($mulai);
-        // var_dump($data);
-        // die;
+       
         
         foreach($parameter as $key=>$Parameter){
             if($key == 'date'){
