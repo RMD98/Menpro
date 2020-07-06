@@ -87,6 +87,13 @@
         $this->db->where('IdRapat',$id);
         $this->db->delete('tbl_rapat');
       }
+      function rapatNip($Nip){
+        $this->db->from('tbl_rapat');
+        $this->db->join('tbl_pegawai', 'tbl_rapat.NIP = tbl_pegawai.NIP');
+        $this->db->where('tbl_rapat.NIP',$Nip);
+        $this->db->order_by('IdRapat', 'DESC');
+        return $this->db->get()->result();
+      }
       function filter_rapat(){
         // $this->db->where('NIP',$this->session->userdata('NIP'));
         // $surat = $this->db->get('tbl_staff_surat')->result();

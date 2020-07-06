@@ -1,4 +1,5 @@
 <?php  
+
  class Surat extends CI_Model  
  {
     function get_properties_surat($idSurat)
@@ -53,7 +54,9 @@
         $this->db->from('tbl_staff_surat');
         $this->db->join('tbl_pegawai', 'tbl_staff_surat.NIP = tbl_pegawai.NIP');
         $this->db->join('tbl_surat', 'tbl_staff_surat.IdSurat = tbl_surat.IdSurat');
+        $this->db->order_by('tbl_surat.IdSurat', 'DESC');
         $this->db->where('tbl_staff_surat.NIP', $id);
+
         return $this->db->get()->result();
     }
     function listValidasi($id){
@@ -115,7 +118,7 @@
         $this->db->where('IdSurat',$IdSurat);
          $this->db->update('tbl_surat',$data);
     }
-    function insertSurat($idSK,$value,$Topik,$NoSurat,$lokasi,$validator,$pembuat){
+    function insertSurat($idSK,$value,$Topik,$NoSurat,$lokasi,$validator,$pembuat,$pdf){
         $data = array(
             'IdSK' => $idSK,
             'NoSurat' =>$NoSurat,
@@ -125,7 +128,8 @@
             'File' => $lokasi,
             'Status'=> 'belum tervalidasi',
             'Pembuats'=>$pembuat,
-            'Validator'=>$validator
+            'Validator'=>$validator,
+            'FilePdf'=>$pdf
         );
         $this->db->insert('tbl_surat',$data);
     }
@@ -218,10 +222,8 @@
         }
         ob_clean();
         $templateProcessor->saveAs($selesai);
-        
         // $templateProcessor->save('php://output');
         // // save as a random file in temp file
-    
         return $selesai;
     }
     function validasiSurat($data){
@@ -231,5 +233,38 @@
         $templateProcessor->setImg('ttd',array('src' => $data[0]->TTD,'swh'=>'200', 'size'=>array(0=>$width, 1=>$height)));
         $templateProcessor->saveAs($data[0]->File);
     }
-    
+    function converter($letak,$tujuan){
+        
+        $config = Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('Apikey', '0cb3f8d6-ab4d-4a10-9b90-7e77a7fa7e1a');
+        $apiInstance = new Swagger\Client\Api\ConvertDocumentApi(
+            new GuzzleHttp\Client(),
+            $config
+        );
+        $input_file = $letak; // \SplFileObject | Input file to perform the operation on.
+        try {
+            $data = $apiInstance->convertDocumentDocxToPdf($input_file);
+            file_put_contents($tujuan,$data);
+            header('Content-Type: application/pdf');
+            
+        } catch (Exception $e) {
+            echo 'Exception when calling ConvertDocumentApi->convertDocumentDocxToPdf: ', $e->getMessage(), PHP_EOL;
+        }
+    }
+    function converterJpg($letak,$tujuan){
+        
+        $config = Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('Apikey', '0cb3f8d6-ab4d-4a10-9b90-7e77a7fa7e1a');
+        $apiInstance = new Swagger\Client\Api\ConvertDocumentApi(
+            new GuzzleHttp\Client(),
+            $config
+        );
+        $input_file = "results/pdf/2020-07-07_12-10-03lppkm_pkm.pdf"; // \SplFileObject | Input file to perform the operation on.
+        try {
+            $result = $apiInstance->convertDocumentDocxToPng($input_file);
+            header('Content-Type: application/png');
+            // $gambar = $resutl->PngResultPages
+        } catch (Exception $e) {
+            echo 'Exception when calling ConvertDocumentApi->convertDocumentDocxToPng: ', $e->getMessage(), PHP_EOL;
+        }
+    }
  }
+
