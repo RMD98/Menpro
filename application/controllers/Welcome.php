@@ -31,7 +31,7 @@ class Welcome extends CI_Controller {
                // $this->load->library('session');
                if($this->session->userdata('id') == '') 
                {
-                    $this->load->view('login');
+                    $this->load->view('login2');
                     //$data = $this->session->all_userdata();
                     // echo($this->session->userdata());
                }

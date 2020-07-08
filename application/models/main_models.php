@@ -197,22 +197,23 @@
           $this->produk_model->edit_produk($id,$data);
           redirect('admin/daftarproduk');
         }
-      }function insert_anak($idrapat,$data){
+      }
+      function insert_anak($idrapat,$data){
         $data = array(
           'IdRapat' => $idrapat,
           'NIP' => $data,
           'StatusSurat' => 'N'
-      );
-      $this->db->insert('tbl_staff_rapat',$data);
+        );
+        $this->db->insert('tbl_staff_rapat',$data);
       }
-       function insert_konfirmasi($data)
+      function insert_konfirmasi($data)
       {
-      $this->db->insert('konfirmasi',$data);
+        $this->db->insert('konfirmasi',$data);
       }
       function konfirmasi($id)
       {
-      $this->db->where('invoice_id',$id);
-      return $this->db->get('konfirmasi')->result();
+        $this->db->where('invoice_id',$id);
+        return $this->db->get('konfirmasi')->result();
       }
       function sts($id)
       {

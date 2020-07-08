@@ -1,27 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | DataTables</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url('plugins/fontawesome-free/css/all.min.css')?>">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="<?php echo base_url('plugins/datatables-bs4/css/dataTables.bootstrap4.css')?>">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url('dist/css/adminlte.min.css')?>">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
+ 
   <!-- /.navbar -->
+
   <!-- Main Sidebar Container -->
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -29,12 +15,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Data Mom</h1>
+            <h1>tambah pegawai</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active">Pegawai</li>
             </ol>
           </div>
         </div>
@@ -42,52 +28,80 @@
     </section>
     <!-- Main content -->
     <section class="content">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">  
-            <div class="card-header">
-            <!-- <div class="col-6"> -->
-              <a href="<?php echo site_url()?>/welcome/add_agenda">
-              <button type="submit" class="btn btn-primary float-right">Add</button>
-              </a>
-            </div>  
-            <div class="card-body">
-              <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                  <th>Id Agenda</th>
-                  <th>Topik Agenda</th>
-                  <th>Waktu Agenda</th>
-                  <th>MOM</th>
-                  <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                    <?php foreach($agenda as $agenda):?>
-                    <tr>
-                        <td><?php echo $agenda->TopikRapat;?></td>
-                        <td><?php echo $agenda->TglMulai;?> <?php echo $agenda->WaktuMulai;?></td>
-                        <td><?php echo $agenda->TglAkhir;?> <?php echo $agenda->WaktuAkhir;?></td>
-                  <td><a href="<?php echo site_url()?>/welcome/add_departmen">
-                   <button type="submit" class="btn btn-warning float-right">Edit</button>
-                  </a>
-                  <a href="<?php echo site_url()?>/welcome/delete_rapat" type="color:red;">
-                  <button type="submit" class="btn btn-danger float-right" >Delete</button>
-                  </a>
-                  </td>
-                </tr>
-                <?php endforeach;?>
-                </tbody>
-              </table>
+    <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <!-- <h3 class="card-title">Quick Example</h3> -->
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" method='Post' action="<?php echo base_url()?>/welcome/tmbh_pegawai">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label >NIP</label>
+                    <input type="text" class="form-control" placeholder="NIP" name="nip">
+                  </div>
+                  <div class="form-group">
+                    <label >Nama</label>
+                    <input type="text" class="form-control" placeholder="Nama" name="nama">
+                  </div>
+                  <div class="form-group">
+                    <label >Tanggal Lahir</label>
+                    <input type="text" class="form-control" placeholder="Tanggal Lahir" name="tgl">
+                  </div>
+                  <div class="form-group">
+                    <label >Tempat Lahir</label>
+                    <input type="text" class="form-control" placeholder="Tempat Lahit" name="tpt">
+                  </div>
+                  <div class="form-group">
+                    <label >Alamat</label>
+                    <input type="text" class="form-control" placeholder="Alamat" name="alamat">
+                  </div>
+                  <div class="form-group">
+                    <label >No HP</label>
+                    <input type="text" class="form-control" placeholder="No HP" name="nope">
+                  </div>
+                  <div class="form-group">
+                    <label >Email</label>
+                    <input type="email" class="form-control" placeholder="Email" name="email">
+                  </div>
+                  <div class="form-group">
+                    <label >Jurusan</label>
+                    <input type="text" class="form-control" placeholder="jurusan" name="jrs">
+                  </div>
+                  <div class="form-group">
+                    <label >Username</label>
+                    <input type="text" class="form-control" placeholder="username" name="uname">
+                  </div>
+                  <div class="form-group">
+                    <label >password</label>
+                    <input type="password" class="form-control" placeholder="password" name="pass">
+                  </div>
+                  <div class="form-group">
+                    <label >Digital Signature</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="">Upload</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <?php echo '<label class="text-danger">'.$this->session->flashdata("error").'</label>';  ?>
+                </div>
+              </form>
             </div>
-
-            <!-- /.card-body -->
+            <!-- /.card -->
+            <!-- Form Element sizes -->
+            <!-- /.card -->
           </div>
-          <!-- /.card -->
-         <!-- /.card -->
-        </div>
-        <!-- /.col -->
-      </div>
       <!-- /.row -->
     </section>
     <!-- /.content -->
@@ -108,7 +122,7 @@
 <script src="<?php echo base_url('plugins/datatables/jquery.dataTables.js')?>"></script>
 <script src="<?php echo base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.js')?>"></script>
 <!-- AdminLTE App -->
-<!-- <script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script> -->
+<script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('dist/js/demo.js')?>"></script>
 <!-- page script -->
