@@ -90,6 +90,37 @@ class Welcome extends CI_Controller {
                $data = json_encode($this->surat->listPegawai(),true);
                echo $data;
           }
+          
+          public function LoginApi(){
+               header('Content-Type: application/json');
+               $username = $_POST['username'];
+               $password = $_POST['password'];
+               $login_data = $this->main_models->can_login($username, $password);
+               if($login_data['Status'] != ''){
+                    $data = $this->main_models->get_pegawai($login_data['NIP']);
+                    $userData = array(  
+                         'id'           => $login_data['id'],
+                         'username'     => $_POST['username'],
+                         'status'       => $login_data['Status'],
+                         'Nama'         => $data['NamaPegawai'],
+                         'NIP'          => $login_data['NIP'] 
+                    ); 
+                    $send = array(
+                         'status'  =>200,
+                         'error'   =>false,
+                         'user'    =>$userData,
+                         'message' =>'sukses'
+                    );
+               }else{
+                    $send = array(
+                         'error'=>true,
+                         'status' => 500,
+                         'message'=> 'password salah'
+                    );
+               }
+               $kirim = json_encode($send);
+               echo $kirim;
+          }
           public function getMatkul(){
                header('Content-Type: application/json');
                $data = json_encode($this->surat->listMatkul(),true);
@@ -114,6 +145,9 @@ class Welcome extends CI_Controller {
                $filename = $this->surat->get_properties_surat($id)->FileTemplate;
                $template = "resource/{$filename}";
                $hasil = "results/{$unik}{$filename}";
+               $pdf = "results/pdf/{$unik}{$filename}";
+               $x = explode('.',$pdf);
+               $pdf = $x[0].'.pdf';
                // $data = $this->input->post();
                // $user = $this->surat->getDetailAccount($this->session->userdata('id'));
                $data = array_merge($this->input->post(), $this->surat->getDetailAccount($this->session->userdata('id')));
@@ -124,9 +158,10 @@ class Welcome extends CI_Controller {
                     echo 'Message: ' .$e->getMessage();
                   }
                $NipValidator = $this->surat->getPegawai($this->input->post()['validasi'])[0]->Nip;
-               $lokasi = $this->surat->generateWord($template,$hasil,$data,$Parameter,$NoSurat);   
+               $lokasi = $this->surat->generateWord($template,$hasil,$data,$Parameter,$NoSurat);
+               $this->surat->converter($hasil,$pdf);  
                //generate word
-               $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat,$lokasi,$NipValidator,$this->session->userdata('NIP'));
+               $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat,$lokasi,$NipValidator,$this->session->userdata('NIP'),$pdf);
                $idSurat = $this->surat->getLast('tbl_surat','IdSurat')->IdSurat;
                
                foreach ($this->input->post() as $val=>$key) {
@@ -226,6 +261,31 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
           }
+          public function getSuratMasuk(){
+               header('Content-Type: application/json');
+               $data = $this->surat->listSuratMasuk($_POST['NIP']);
+               $send = array(
+                    'status'  =>200,
+                    'error'   =>false,
+                    'surat'    =>$data,
+                    'message' =>'sukses'
+               );
+               $kirim = json_encode($send);
+               echo $kirim;
+          }
+          public function getRapat(){
+               header('Content-Type: application/json');
+               $Nip = $_POST['NIP'];
+               $data = $this->main_models->rapatNip($Nip);
+               $send = array(
+                    'status'  =>200,
+                    'error'   =>false,
+                    'rapat'    =>$data,
+                    'message' =>'sukses'
+               );
+               $kirim = json_encode($send);
+               echo $kirim;
+          }
           public function inbox(){
                $data['SuratMasuk'] = $this->surat->listSuratMasuk($this->session->userdata('NIP'));
                $this->load->view('temp/head');
@@ -263,6 +323,7 @@ class Welcome extends CI_Controller {
                }
           }
           public function validation(){
+               $this->surat->converterJpg('asd','asd');
                $data['validasi'] = $this->surat->listValidasi($this->session->userdata('NIP'));
                $this->load->view('temp/head');
                $this->load->view('temp/js');
@@ -850,4 +911,24 @@ class Welcome extends CI_Controller {
                force_download($lokasi.'/'.$lokasi2, NULL);
                redirect(site_url().'/welcome/validation');
            }
+           public function downloadPdf(){
+               
+               // // $posisi = $_POST['posisi'];
+               $posisi = "results/pdf/2020-07-07_12-10-03lppkm_pkm.pdf";
+               $data = file_get_contents($posisi);
+               force_download($posisi, $data);
+               
+               
+               
+               // header('Content-Type: application/json');
+               // $b64Doc = chunk_split(base64_encode(file_get_contents($posisi)));
+               // $send = array(
+               //      'status'  =>200,
+               //      'error'   =>false,
+               //      'pdf'    =>$b64Doc,
+               //      'message' =>'sukses'
+               // );
+               // $kirim = json_encode($send);
+               // echo $kirim;
      }
+}
