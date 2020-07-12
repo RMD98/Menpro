@@ -118,7 +118,7 @@
         $this->db->where('IdSurat',$IdSurat);
          $this->db->update('tbl_surat',$data);
     }
-    function insertSurat($idSK,$value,$Topik,$NoSurat,$lokasi,$validator,$pembuat,$pdf){
+    function insertSurat($idSK,$value,$Topik,$NoSurat,$lokasi,$validator,$pembuat,$pdf,$idGdrive){
         $data = array(
             'IdSK' => $idSK,
             'NoSurat' =>$NoSurat,
@@ -129,7 +129,8 @@
             'Status'=> 'belum tervalidasi',
             'Pembuats'=>$pembuat,
             'Validator'=>$validator,
-            'FilePdf'=>$pdf
+            'FilePdf'=>$pdf,
+            'FileGdrive'=>$idGdrive
         );
         $this->db->insert('tbl_surat',$data);
     }
@@ -235,6 +236,7 @@
     }
     function converter($letak,$tujuan){
         
+        
         $config = Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('Apikey', '0cb3f8d6-ab4d-4a10-9b90-7e77a7fa7e1a');
         $apiInstance = new Swagger\Client\Api\ConvertDocumentApi(
             new GuzzleHttp\Client(),
@@ -244,27 +246,98 @@
         try {
             $data = $apiInstance->convertDocumentDocxToPdf($input_file);
             file_put_contents($tujuan,$data);
-            header('Content-Type: application/pdf');
+            // header('Content-Type: application/pdf');
             
         } catch (Exception $e) {
             echo 'Exception when calling ConvertDocumentApi->convertDocumentDocxToPdf: ', $e->getMessage(), PHP_EOL;
         }
-    }
-    function converterJpg($letak,$tujuan){
+        // $tujuan = "results/pdf/2020-07-07_12-04-32lppkm_pkm.pdf";
         
-        $config = Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('Apikey', '0cb3f8d6-ab4d-4a10-9b90-7e77a7fa7e1a');
-        $apiInstance = new Swagger\Client\Api\ConvertDocumentApi(
-            new GuzzleHttp\Client(),
-            $config
-        );
-        $input_file = "results/pdf/2020-07-07_12-10-03lppkm_pkm.pdf"; // \SplFileObject | Input file to perform the operation on.
-        try {
-            $result = $apiInstance->convertDocumentDocxToPng($input_file);
-            header('Content-Type: application/png');
-            // $gambar = $resutl->PngResultPages
-        } catch (Exception $e) {
-            echo 'Exception when calling ConvertDocumentApi->convertDocumentDocxToPng: ', $e->getMessage(), PHP_EOL;
+        $idGdrive=$this->uploadGDrive($tujuan);
+        return $idGdrive;
+    }
+    function setGdrive(){
+        $url_array = explode('?', 'http://'.$_SERVER ['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+        $url = $url_array[0];
+
+        require_once 'google-api-php-client/src/Google_Client.php';
+        require_once 'google-api-php-client/src/contrib/Google_DriveService.php';
+        $client = new Google_Client();
+        $client->setClientId('884287143758-8ijne85l8hshui9tganmog921edc8jj6.apps.googleusercontent.com');
+        $client->setClientSecret('mkVoLL4NBnf_oVvjODtwLAte');
+        $client->setRedirectUri($url);
+        $client->setScopes(array('https://www.googleapis.com/auth/drive'));
+
+        if (isset($_GET['code'])) {
+            $_SESSION['accessToken'] = $client->authenticate($_GET['code']);
+            header('location:'.$url);exit;
+        } elseif (!isset($_SESSION['accessToken'])) {
+            $client->authenticate();
         }
+        return $_SESSION['accessToken'];
+    }
+    function uploadGDrive($nama){
+        
+        $url_array = explode('?', 'http://'.$_SERVER ['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+        $url = $url_array[0];
+
+require_once 'google-api-php-client/src/Google_Client.php';
+require_once 'google-api-php-client/src/contrib/Google_DriveService.php';
+$client = new Google_Client();
+$client->setClientId('884287143758-8ijne85l8hshui9tganmog921edc8jj6.apps.googleusercontent.com');
+$client->setClientSecret('mkVoLL4NBnf_oVvjODtwLAte');
+$client->setRedirectUri($url);
+$client->setScopes(array('https://www.googleapis.com/auth/drive'));
+
+if (isset($_GET['code'])) {
+    $_SESSION['accessToken'] = $client->authenticate($_GET['code']);
+    header('location:'.$url);exit;
+} elseif (!isset($_SESSION['accessToken'])) {
+    $client->authenticate();
+}
+// $files= array();
+// $dir = dir('files');
+// while ($file = $dir->read()) {
+//     if ($file != '.' && $file != '..') {
+//         $files[] = $file;
+//     }
+// }
+// $dir->close();
+if (!empty($_POST)) {
+    $client->setAccessToken($_SESSION['accessToken']);
+    $service = new Google_DriveService($client);
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $file = new Google_DriveFile();
+    
+    $file_path = $nama;
+    $mime_type = finfo_file($finfo, $file_path);
+    $file->setTitle($nama);
+    $file->setDescription('This is a '.$mime_type.' document');
+    $file->setMimeType($mime_type);
+    $test = $service->files->insert(
+        $file,
+        array(
+            'data' => file_get_contents($file_path),
+            'mimeType' => $mime_type
+        )
+    );
+        $newPermission = new Google_Permission();
+        //$newPermission->setValue($value);
+        $newPermission->setType('anyone');
+        $newPermission->setRole('reader');
+try 
+{
+    $service->permissions->insert($test['id'], $newPermission);
+} 
+catch (Exception $e) 
+{
+    print "An error occurred: " . $e->getMessage();
+}
+    
+    finfo_close($finfo);
+    
+}
+    return $test['id'];
     }
  }
 
