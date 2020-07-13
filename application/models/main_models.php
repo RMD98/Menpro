@@ -127,9 +127,10 @@
         // $this->db->update_string('tbl_pegawai',$data,$where);
       }
       function reset_pass($id,$data){
-        $this->db->set($data);
+        $this->db->set('Password',$data);
         $this->db->where('id',$id);
         $this->db->update('tbl_account');
+        //  $this->db->query("UPDATE tbl_account SET Password=".$data." WHERE id=".$id.";");
       }
       function trans_id()
       {

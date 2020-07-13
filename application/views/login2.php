@@ -26,7 +26,7 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Masukan Username Anda</p>
-      <form action="<?php echo site_url()?>/Welcome/forget_password" method="post">
+      <form action="<?php echo site_url()?>/welcome/forget_password" method="post">
         <div class="input-group mb-3">
           <input name="uname" type="text" class="form-control" placeholder="Username">
           <div class="input-group-append">

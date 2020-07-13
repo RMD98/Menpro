@@ -696,16 +696,14 @@ class Welcome extends CI_Controller {
                $data['code'] = $id; 
                $this->load->view('reset_pass',$data);
                // echo $id;//$this->encryption->decrypt($id);
-               // echo $this->encryption->decrypt($id);
+               echo $this->encryption->decrypt($id);
           }
           function reset_password($id){
-               $nip = $this->encryption->decrypt($id);
+               $code = $this->encryption->decrypt($id);
                if($this->input->post('nP')==$this->input->post('cP'))
                {
-                    $data = array(
-                         'Password' => $this->input->post('nP')
-                    );
-                    $this->main_models->reset_pass($nip,$data);
+                    $data =$this->input->post('nP');
+                    $this->main_models->reset_pass($id,$data);
                     redirect(site_url());
                }
                else

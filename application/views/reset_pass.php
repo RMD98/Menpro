@@ -27,9 +27,7 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Input Your New Password</p>
-      <!-- <?php foreach ($pgw as $pgw) : ?>
-        <?php echo $pgw->Nip?> -->
-      <form action="<?php echo site_url()?>/Welcome/reset_password/4" method="post">
+      <form action="<?php echo site_url()?>/Welcome/reset_password/<?php echo $code?>" method="post">
         <div class="input-group mb-3">
           <input name="nP" type="password" class="form-control" placeholder="New Password">
           <div class="input-group-append">
@@ -54,7 +52,6 @@
           <!-- /.col -->
         </div>
       </form>
-      <!-- <?php endforeach;?> -->
       <!-- /.social-auth-links -->
     </div>
     <!-- /.login-card-body -->
