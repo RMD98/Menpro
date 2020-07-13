@@ -45,7 +45,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner" style="height:220;">
-                <h5 style ='text-align: center; margin-top:50%' ><?=$listSK->Tema?></h5>
+                <h5 style ='text-align: center; margin-top:33%;margin-botom:33%;' ><?=$listSK->Tema?></h5>
               </div>
             </div>
           <!-- </div> -->
@@ -57,7 +57,7 @@
             <a href="<?php echo base_url()?>/welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
             <div class="small-box bg-success col-12">
               <div class="inner" style="height:220;">
-                <h5 style ='text-align: center;'><?=$listSK->Tema?></sup></h5>
+                <h5 style ='text-align: center;  margin-top:33%;margin-botom:33%;'><?=$listSK->Tema?></sup></h5>
                 
               </div>
             </div>
@@ -70,7 +70,7 @@
             <a href="<?php echo base_url()?>index.php/welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
             <div class="small-box bg-danger">
               <div class="inner" style="height:220;">
-                <h5 style ='text-align: center; margin-top:50%'><?=$listSK->Tema?></sup></h5>
+                <h5 style ='text-align: center;  margin-top:33%;margin-botom:33%;'><?=$listSK->Tema?></sup></h5>
                 
               </div>
             </div>

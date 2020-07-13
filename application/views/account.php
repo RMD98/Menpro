@@ -33,6 +33,7 @@
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
+                  <th>Username</th>
                   <th>Password</th>
                   <th>Status</th>
                   <th></th>
@@ -41,6 +42,7 @@
                 <tbody>
                 <?php foreach($tbl_account as $tbl_account): ?>
                 <tr>
+                  <td><?php echo $tbl_account->Username?>
                   <td>*****</td>
                   <td><?php echo $tbl_account->Status?></td>
                   <td><a href="<?php echo site_url()?>/welcome/add_departmen">

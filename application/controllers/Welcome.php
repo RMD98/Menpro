@@ -23,6 +23,7 @@ class Welcome extends CI_Controller {
                $this->load->model('surat');
                $this->load->model('test');
                $this->load->model('notif');
+               $this->load->library('encryption');
                $this->load->helper('download');
                date_default_timezone_set("Asia/Jakarta");
           }
@@ -31,7 +32,7 @@ class Welcome extends CI_Controller {
                // $this->load->library('session');
                if($this->session->userdata('id') == '') 
                {
-                    $this->load->view('login2');
+                    $this->load->view('login');
                     //$data = $this->session->all_userdata();
                     // echo($this->session->userdata());
                }
@@ -567,7 +568,7 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/head');
                // $surat['srt'] = $this->main_models->filter_rapat();
                if($this->session->userdata('status') == 'admin') {
-                    $data['agenda'] = $this->main_models->daftar_rapat($this->username);
+                    $data['agenda'] = $this->main_models->daftar_rapat();
                     // $data['nama'] = $this->session->userdata('Nama');
                     $this->load->view('temp/sidebar');
                } 
@@ -609,14 +610,16 @@ class Welcome extends CI_Controller {
                     $data = $this->main_models->get_pegawai($login_data['NIP']);
                     if($login_data['Status'] != '')  
                     {  
-                         $session_data = array(  
-                              'id'           => $login_data['id'],
-                              'username'     => $username,
-                              'status'       => $login_data['Status'],
-                              'Nama'         => $data['NamaPegawai'],
-                              'NIP'          => $login_data['NIP'] 
-                         );  
-                         $this->session->set_userdata($session_data);  
+                        foreach ($data as $data) :
+                              $session_data = array(  
+                                   'id'           => $login_data['id'],
+                                   'username'     => $username,
+                                   'status'       => $login_data['Status'],
+                                   'Nama'         => $data->NamaPegawai,
+                                   'NIP'          => $login_data['NIP'] 
+                              );  
+                              $this->session->set_userdata($session_data);  
+                         endforeach;
                          redirect(site_url().'/welcome/logedin',$session_data);
                     }  
                     else  
@@ -639,6 +642,56 @@ class Welcome extends CI_Controller {
                     }
                }
                $this->index();
+          }
+          function forget_pass(){
+               $this->load->view('login2');
+          }
+          public function forget_password(){
+               $uname = $this->input->post('uname');
+               $data=$this->main_models->find_emails($uname);
+               foreach ($data as $data) :
+                    echo $data['Username'];
+                    if($data['id']!='')
+                    {
+                         $message = 'Click the link to reset password';
+                         $this->sendmail($data['Email'],site_url().'/welcome/reset_pass/'.$this->encryption->encrypt($data['id']),$message);
+               //      $encrypt=$this->encryption->encrypt($data['Nip']);
+               //      $decrypt = $this->encryption->decrypt($encrypt);
+               //      // // echo $encrypt;
+               //      echo $decrypt;
+               //      // echo $data['Email'];
+               
+                    }
+                    else
+                    {
+                         $this->session->set_flashdata('error', 'Email not Found');  
+                         redirect(site_url() . '/welcome/forget_pass'); 
+                    }
+               endforeach;
+               
+          }
+          public function reset_pass($id){
+               $data['acc'] = $this->main_models->get_account($this->encryption->decrypt($id));
+               $data['code'] = $id; 
+               $this->load->view('reset_pass',$data);
+               // echo $id;//$this->encryption->decrypt($id);
+               // echo $this->encryption->decrypt($id);
+          }
+          function reset_password($id){
+               $nip = $this->encryption->decrypt($id);
+               if($this->input->post('nP')==$this->input->post('cP'))
+               {
+                    $data = array(
+                         'Password' => $this->input->post('nP')
+                    );
+                    $this->main_models->reset_pass($nip,$data);
+                    redirect(site_url());
+               }
+               else
+               {
+                    $this->session->set_flashdata('error', 'Password did not match');  
+                    redirect(site_url() . '/welcome/reset_pass/'.$this->encryption->encrypt($id)); 
+               }
           }  
           function add_rapat(){
                // $this->load->library('form_validation');
@@ -677,43 +730,75 @@ class Welcome extends CI_Controller {
           function tmbh_pegawai(){
                $this->load->helper(array('form','url'));
                $this->load->library('form_validation');
-               $this->form_validation->set_rules('nip', 'Nip', 'required');  
-               $this->form_validation->set_rules('nama', 'namaegawai', 'required');  
+               $this->form_validation->set_rules('nip', 'NIP', 'required');  
+               $this->form_validation->set_rules('nama', 'namapegawai', 'required');  
                $this->form_validation->set_rules('tgl', 'tanggallahir', 'required');  
                $this->form_validation->set_rules('tpt', 'tempatlahir', 'required');  
                $this->form_validation->set_rules('alamat', 'Alamat', 'required');  
                $this->form_validation->set_rules('nope', 'NoHP', 'required');  
                $this->form_validation->set_rules('email', 'Email', 'required');  
                $this->form_validation->set_rules('uname', 'Username', 'required');  
-               $this->form_validation->set_rules('pass', 'namaegawai', 'required');  
-               $this->form_validation->set_rules('nama', 'namaegawai', 'required');  
-               $this->form_validation->set_rules('nama', 'namaegawai', 'required');  
+               $this->form_validation->set_rules('pass', 'Password', 'required');  
+               $this->form_validation->set_rules('jbt', 'Jabatan', 'required');  
+               $this->form_validation->set_rules('ttd', 'TTD');
+                 
                if($this->form_validation->run())  
                {  
                     //true  
-                    $pegawai = array(
-                         'Nip'               => $this->input->post('nip'),
-                         'NamaPegawai'       => $this->input->post('nama'),
-                         'TanggalLahir'      => $this->input->post('tgl'),
-                         'TempatLahir'       => $this->input->post('tpt'),
-                         'Alamat'            => $this->input->post('alamat'),
-                         'NoHP'              => $this->input->post('nope'),
-                         'Email'             => $this->input->post('email')
-                    );
-                    $this->load->model('main_models');
-                    $this->main_models->tambah_pegawai($pegawai);
-                    $account = array(
-                         'NIP'          => $this->input->post('nip'),
-                         'Username'     => $this->input->post('uname'),
-                         'Password'     => $this->input->post('pass')
-                    );
-                    $this->main_models->tambah_user($account);
-                    redirect(site_url().'/welcome/pegawai');
+                    $img = $_FILES['ttd'];
+                    $config['upload_path']          = './uploads/ttd';
+                    $config['allowed_types']        = 'jpg|png|jpeg';
+                    $config['file_name']            = $this->input->post('nama');
+                    $this->load->library('upload', $config);
+                    $this->upload->initialize($config);
+                    if (!$this->upload->do_upload('ttd'))
+                    {
+                         // $id = $this->input->post('id');
+                         $this->session->set_flashdata('error', $this->upload->display_errors());
+                         redirect(site_url().'/welcome/add_pegawai');
+                    }
+                    else
+                    {
+                         // $gambar = $this->upload->data();
+                         // $data['kategori'] = $this->input->post('kategori',true);
+                         // $data['brand'] = $this->input->post('brand',true);
+                         // $data['model'] = $this->input->post('model',true);
+                         // $data['dimensi'] = $this->input->post('dimensi',true);
+                         // $data['keterangan'] = $this->input->post('keterangan',true);
+                         // $data['harga'] = $this->input->post('harga',true);
+                         // $data['gambar'] = $gambar['file_name'];
+                         // $id=$this->input->post('id');
+                         // $this->produk_model->edit_produk($id,$data);
+                         // redirect('admin/daftarproduk');
+                         $pegawai = array(
+                              'Nip'               => $this->input->post('nip'),
+                              'NamaPegawai'       => $this->input->post('nama'),
+                              'TanggalLahir'      => $this->input->post('tgl'),
+                              'TempatLahir'       => $this->input->post('tpt'),
+                              'Alamat'            => $this->input->post('alamat'),
+                              'NoHP'              => $this->input->post('nope'),
+                              'Email'             => $this->input->post('email'),
+                              'TTD'               => $this->upload->data('full_path')
+                              
+                         );
+                         $this->load->model('main_models');
+                         $this->main_models->tambah_pegawai($pegawai);
+                         $account = array(
+                              'NIP'          => $this->input->post('nip'),
+                              'Username'     => $this->input->post('uname'),
+                              'Password'     => $this->input->post('pass'),
+                              'Status'       => $this->input->post('jbt')
+                         );
+                         $this->main_models->tambah_user($account);
+                         $message='Hey '.$pegawai['NamaPegawai'].' Pleas verify your Email to complete regristration';
+                         $this->sendmail($pegawai['Email'],site_url().'/welcome/verifikasi/'.$this->encryption->encrypt($pegawai['Nip']),$message);
+                         redirect(site_url().'/welcome/pegawai');
+                    }
                }  
                else  
                {  
                     $this->session->set_flashdata('error', 'Please Fill All Field');  
-                    redirect(site_url() . '/welcome/add_departmen');  
+                    redirect(site_url() . '/welcome/add_pegawai');  
                }
           }
           function tmbh_departement(){
@@ -764,7 +849,7 @@ class Welcome extends CI_Controller {
                }
                $this->load->model('main_models');
                $data['dprt'] = $this->main_models->find_departement($id);
-               $this->load->view('edit_departmen',$data);
+               $this->load->view('edit_departemen',$data);
                // $this->load->view('index2');
                // echo $this->session->userd?ata('status');
                // $this->load->view('temp/js');
@@ -907,7 +992,8 @@ class Welcome extends CI_Controller {
                //  redirect(site_url().'/welcome/add_agenda');
                // }
           }
-          public function downloadSurat($lokasi,$lokasi2){
+          public function downloadSurat($lokasi,$lokasi2)
+          {
                force_download($lokasi.'/'.$lokasi2, NULL);
                redirect(site_url().'/welcome/validation');
            }
@@ -930,5 +1016,51 @@ class Welcome extends CI_Controller {
                // );
                // $kirim = json_encode($send);
                // echo $kirim;
-     }
+          }
+          public function sendmail($email,$url,$message)
+          {
+               $this->load->library('email');
+
+               $config['protocol']    = 'smtp';
+               $config['smtp_host']    = 'smtp.gmail.com';
+               $config['smtp_port']    = '465';
+               $config['smtp_timeout'] = '7';
+               $config['smtp_user'] = 'rizkimaulana0512@gmail.com';
+               $config['smtp_pass'] = '05desember1998';
+               $config['charset']    = 'utf-8';
+               $config['newline']    = "\r\n";
+               $config['mailtype'] = 'text'; // or html
+               $config['validation'] = TRUE; // bool whether to validate email or not      
+               
+               $this->email->initialize($config);
+               
+               $this->email->from('rizkimaulana0512@gmail.com', 'sender_name');
+               $this->email->to('rizkimaulana484@gmail.com'); 
+               $this->email->subject('Email Test');
+               $this->email->message($message."<br><br>".$url);  
+               
+               // $this->email->send();
+               
+               // echo $this->email->print_debugger();
+               // $this->load->config('email');
+               // $this->load->library('email');
+               // // $this->email->initialize($config);
+
+               // $this->email->from($this->config->item('smpt_user'), 'E-Itenice');
+               // $this->email->to('rizkimaulana484@gmail.com');
+
+               // $this->email->subject('Email Test');
+               // $this->email->message('Testing the email class.');
+
+               if ($this->email->send()) {
+                    echo 'Your Email has successfully been sent.';
+                } else {
+                    show_error($this->email->print_debugger());
+                }
+          }
+          public function verifikasi($id){
+               echo $this->encryption->decrypt($id);
+               $this->main_models->verif($this->encryption->decrypt($id));
+               redirect(site_url() . '/welcome/index'); 
+          }
 }

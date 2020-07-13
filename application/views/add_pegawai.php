@@ -36,7 +36,8 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method='Post' action="<?php echo base_url()?>/welcome/tmbh_pegawai">
+             <?php echo form_open_multipart('/welcome/tmbh_pegawai')?>
+              <!-- <form role="form" method='Post' action="<?php echo site_url()?>/welcome/tmbh_pegawai"> -->
                 <div class="card-body">
                   <div class="form-group">
                     <label >NIP</label>
@@ -67,36 +68,34 @@
                     <input type="email" class="form-control" placeholder="Email" name="email">
                   </div>
                   <div class="form-group">
-                    <label >Jurusan</label>
-                    <input type="text" class="form-control" placeholder="jurusan" name="jrs">
+                    <label >Jabatan</label>
+                    <input type="text" class="form-control" placeholder="jabata" name="jbt">
                   </div>
                   <div class="form-group">
                     <label >Username</label>
                     <input type="text" class="form-control" placeholder="username" name="uname">
                   </div>
                   <div class="form-group">
-                    <label >password</label>
+                    <label >Password</label>
                     <input type="password" class="form-control" placeholder="password" name="pass">
                   </div>
                   <div class="form-group">
                     <label >Digital Signature</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text" id="">Upload</span>
-                      </div>
+                    <!-- <div class="input-group">
+                      <div class="custom-file"> -->
+                        <input type="file" class="form-control" name="ttd">
+                        <!-- <label class="custom-file-label">Choose file</label>
+                      </div> -->
                     </div>
-                  </div>
+                  <!-- </div> -->
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
                   <?php echo '<label class="text-danger">'.$this->session->flashdata("error").'</label>';  ?>
                 </div>
-              </form>
+              <!-- </form> -->
+              <?php echo form_close()?>
             </div>
             <!-- /.card -->
             <!-- Form Element sizes -->

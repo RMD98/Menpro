@@ -38,7 +38,15 @@
       function get_pegawai($nip)
       {
         $this->db->where('Nip',$nip);
-        return $this->db->get('tbl_pegawai')->row_array();
+        return $this->db->get('tbl_pegawai')->result();
+      }
+      function find_emails($uname)
+      {
+        $this->db->from('tbl_account');
+        $this->db->join('tbl_pegawai', 'tbl_account.NIP = tbl_pegawai.NIP');
+        $this->db->where('tbl_account.Username',$uname);
+        // $this->db->order_by('IdRapat', 'DESC');
+        return $this->db->get()->result_array();
       }
       function delete_pegawai($id)
       {
@@ -56,6 +64,11 @@
       }
       function daftar_account()
       {
+        return $this->db->get('tbl_account')->result();
+      }
+      function get_account($id)
+      {
+        $this->db->where('id',$id);
         return $this->db->get('tbl_account')->result();
       }
       function daftar_rapat()
@@ -105,6 +118,18 @@
         $nip = $this->session->userdata('NIP');
         $this->db->where('NIP',$nip);
         return $this->db->get('tbl_rapat')->result();
+      }
+      function verif($id){
+        $this->db->set('Aktif','Y');
+        $this->db->where('Nip',$id);
+        $this->db->update('tbl_pegawai');
+        // $this->db->query("UPDATE tbl_pegawai SET Aktif='Y' WHERE Nip=".$id.";");
+        // $this->db->update_string('tbl_pegawai',$data,$where);
+      }
+      function reset_pass($id,$data){
+        $this->db->set($data);
+        $this->db->where('id',$id);
+        $this->db->update('tbl_account');
       }
       function trans_id()
       {

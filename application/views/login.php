@@ -47,11 +47,11 @@
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                    <a class="small" href="<?php echo site_url('welcome/forget_pass')?>">Forgot Password?</a>
                   </div>
-                  <div class="text-center">
+                  <!-- <div class="text-center">
                     <a class="small" href="<?php echo site_url('welcome/register')?>">Create an Account!</a>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
