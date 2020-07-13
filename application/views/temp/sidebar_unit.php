@@ -45,15 +45,15 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="<?php echo site_url()?>/welcome/outbox" class="nav-link">
               <i class="nav-icon far fa-envelope"></i>
               <p>
                 Surat Keluar
-                <!-- <i class="fas fa-angle-left right"></i> -->
+                 <i class="fas fa-angle-left right"></i> 
               </p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="<?php echo site_url()?>/welcome/agenda" class="nav-link">
               <i class="nav-icon fas fa-calendar-alt"></i>

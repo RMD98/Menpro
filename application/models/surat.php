@@ -69,6 +69,7 @@
         $this->db->where('tbl_surat.Status', 'belum tervalidasi');
         $this->db->or_where('tbl_surat.Status', 'tervalidasi');
         $this->db->group_end();
+        $this->db->order_by('tbl_surat.IdSurat', 'DESC');
         return $this->db->get()->result();
     }
     function listSurat(){
@@ -176,12 +177,8 @@
         return $query;
     }
     function generateWord($mulai,$selesai,$data,$parameter,$NoSurat){
-        
-        
         $this->load->helper('download');
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($mulai);
-       
-        
         foreach($parameter as $key=>$Parameter){
             if($key == 'date'){
                 $templateProcessor->setValue($key, date("$Parameter"));    
@@ -295,14 +292,6 @@ if (isset($_GET['code'])) {
 } elseif (!isset($_SESSION['accessToken'])) {
     $client->authenticate();
 }
-// $files= array();
-// $dir = dir('files');
-// while ($file = $dir->read()) {
-//     if ($file != '.' && $file != '..') {
-//         $files[] = $file;
-//     }
-// }
-// $dir->close();
 if (!empty($_POST)) {
     $client->setAccessToken($_SESSION['accessToken']);
     $service = new Google_DriveService($client);
@@ -322,21 +311,10 @@ if (!empty($_POST)) {
         )
     );
         $newPermission = new Google_Permission();
-        //$newPermission->setValue($value);
         $newPermission->setType('anyone');
         $newPermission->setRole('reader');
-try 
-{
-    $service->permissions->insert($test['id'], $newPermission);
-} 
-catch (Exception $e) 
-{
-    print "An error occurred: " . $e->getMessage();
-}
-    
-    finfo_close($finfo);
-    
-}
+try {$service->permissions->insert($test['id'], $newPermission);} 
+catch (Exception $e) {print "An error occurred: " . $e->getMessage();}finfo_close($finfo);}
     return $test['id'];
     }
  }

@@ -60,7 +60,7 @@
                   <a href="<?php echo site_url()?>/welcome/statusSurat/<?=$SuratMasuk->IdSurat?>">
                    <button type="submit" class="btn btn-primary float-right">Status</button>
                   </a>
-                  <!-- <a href="<?php echo site_url()?>/welcome/add_departmen"> -->
+                  <a href="<?php echo site_url()?>/welcome/downloadSurats/<?=$SuratMasuk->IdSurat?>">
                    <button type="submit" class="btn btn-warning float-right">Download</button> 
                   <!-- </a>
                   <!-- <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;"> -->
