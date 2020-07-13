@@ -122,6 +122,32 @@ class Welcome extends CI_Controller {
                $kirim = json_encode($send);
                echo $kirim;
           }
+          public function tambahSurat(){
+               $this->load->view('temp/head');
+               $this->load->view('temp/js');
+               if($this->session->userdata('status') == 'admin') {
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar',$data);
+               } 
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_dosen',$data);
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_ekspedisi',$data);
+               }
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_unit',$data);
+               }
+               
+               $this->load->view('tambahSurat');
+               $this->load->view('temp/footer');
+          }
           public function getMatkul(){
                header('Content-Type: application/json');
                $data = json_encode($this->surat->listMatkul(),true);
