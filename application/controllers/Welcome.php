@@ -134,7 +134,8 @@ class Welcome extends CI_Controller {
           }   
           public function generateWord($id){
                $Topik = $this->surat->get_properties_surat($id)->Tema;
-               $tipe = $this->input->post()['jenis'];
+               $tipe = $this->input->post('jenis');
+               
                $response = $this->notif->sendMessage($Topik,$tipe,'asd');
                
                $Parameter = json_decode($this->surat->get_properties_surat($id)->Parameter);
@@ -153,16 +154,17 @@ class Welcome extends CI_Controller {
                // $user = $this->surat->getDetailAccount($this->session->userdata('id'));
                $data = array_merge($this->input->post(), $this->surat->getDetailAccount($this->session->userdata('id')));
                try{
-                    $data['NipSurat']=$this->surat->getDetailDosen('NamaPegawai',$this->input->post()['dosenSurat'])['Nip'];
+                    $data['NipSurat']=$this->surat->getDetailDosen('NamaPegawai',$this->input->post('dosenSurat'))['Nip'];
                }
                catch(Exception $e) {
                     echo 'Message: ' .$e->getMessage();
                   }
-               $NipValidator = $this->surat->getPegawai($this->input->post()['validasi'])[0]->Nip;
+               $NipValidator = $this->surat->getPegawai($this->input->post('validasi'))[0]->Nip;
                $lokasi = $this->surat->generateWord($template,$hasil,$data,$Parameter,$NoSurat);
-               $this->surat->converter($hasil,$pdf);  
+               $idGdrive=$this->surat->converter($hasil,$pdf);  
+               
                //generate word
-               $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat,$lokasi,$NipValidator,$this->session->userdata('NIP'),$pdf);
+               $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat,$lokasi,$NipValidator,$this->session->userdata('NIP'),$pdf,$idGdrive);
                $idSurat = $this->surat->getLast('tbl_surat','IdSurat')->IdSurat;
                
                foreach ($this->input->post() as $val=>$key) {
@@ -287,6 +289,22 @@ class Welcome extends CI_Controller {
                $kirim = json_encode($send);
                echo $kirim;
           }
+          public function test(){
+               $tujuan = "results/pdf/2020-07-13_02-24-17lppkm_pkm.pdf";
+               $this->surat->uploadGDrive($tujuan);
+               echo("asd");
+          //      $client = new Google_Client();
+          // $client->setClientId('884287143758-8ijne85l8hshui9tganmog921edc8jj6.apps.googleusercontent.com');
+          // $client->setClientSecret('mkVoLL4NBnf_oVvjODtwLAte');
+          // $client->setRedirectUri("http://localhost/menpro/index.php/welcome/testAja");
+          // $client->setScopes(array('https://www.googleapis.com/auth/drive'));
+          // if (isset($_GET['code'])) {
+          //      $_SESSION['accessToken'] = $client->authenticate($_GET['code']);
+          //      header('location:'.$url);exit;
+          //  } elseif (!isset($_SESSION['accessToken'])) {
+          //      $client->authenticate();
+          //  }
+          }
           public function inbox(){
                $data['SuratMasuk'] = $this->surat->listSuratMasuk($this->session->userdata('NIP'));
                $this->load->view('temp/head');
@@ -324,7 +342,6 @@ class Welcome extends CI_Controller {
                }
           }
           public function validation(){
-               $this->surat->converterJpg('asd','asd');
                $data['validasi'] = $this->surat->listValidasi($this->session->userdata('NIP'));
                $this->load->view('temp/head');
                $this->load->view('temp/js');
@@ -417,6 +434,10 @@ class Welcome extends CI_Controller {
           public function surat(){
                $data['listSK'] = $this->surat->get_template_sk($this->session->userdata('status'));
                // print_r($data);
+               $token = $this->surat->setGdrive();
+               $fp = fopen('results.json', 'w');
+               fwrite($fp, json_encode($token));
+               fclose($fp);
                $this->load->view('temp/head');
                if($this->session->userdata('status') == 'admin') {
                     $data['nama'] = $this->session->userdata('Nama');
@@ -625,13 +646,13 @@ class Welcome extends CI_Controller {
                     else  
                     {  
                          $this->session->set_flashdata('error', 'Invalid Username and Password');  
-                         redirect(site_url() . '/welcome/index');  
+                         redirect(site_url() . '/welcome');  
                          }  
                     }  
                else  
                     {  
                          $this->session->set_flashdata('error', 'Invalid Username and Password');  
-                         redirect(site_url() . '/welcome/index');  
+                         redirect(site_url() . '/welcome');  
                          }  
           } 
           function logout(){  

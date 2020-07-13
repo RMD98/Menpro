@@ -52,7 +52,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="POST" action="<?php echo base_url()?>index.php/welcome/generateWord/<?=$IdSK?>">
+              <form role="form" method="POST" action="<?php echo base_url()?>welcome/generateWord/<?=$IdSK?>">
                 <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Jenis</label>
