@@ -592,7 +592,7 @@ class Welcome extends CI_Controller {
                     $data['agenda'] = $this->main_models->daftar_rapat();
                     // $data['nama'] = $this->session->userdata('Nama');
                     $this->load->view('temp/sidebar');
-               } 
+               }
                elseif($this->session->userdata('status') == 'dosen') 
                {   
                     $data['agenda'] = $this->main_models->filter_rapat();
@@ -647,13 +647,13 @@ class Welcome extends CI_Controller {
                     {  
                          $this->session->set_flashdata('error', 'Invalid Username and Password');  
                          redirect(site_url() . '/welcome');  
-                         }  
                     }  
+               }  
                else  
-                    {  
-                         $this->session->set_flashdata('error', 'Invalid Username and Password');  
-                         redirect(site_url() . '/welcome');  
-                         }  
+               {  
+                    $this->session->set_flashdata('error', 'Invalid Username and Password');  
+                    redirect(site_url() . '/welcome');  
+               }  
           } 
           function logout(){  
                $user_data = $this->session->all_userdata();
@@ -713,38 +713,38 @@ class Welcome extends CI_Controller {
                }
           }  
           function add_rapat(){
+               $this->load->library('form_validation');
                // $this->load->library('form_validation');
-               // // $this->load->library('form_validation');
-               // $this->form_validation->set_rules('nip', 'NIP','required');  
-               // $this->form_validation->set_rules('topik', 'TopikRapat', 'required');  
-               // $this->form_validation->set_rules('tgl_awal', 'TglMulai', 'required');  
-               // $this->form_validation->set_rules('wkt_awal', 'WaktuMulai', 'required');  
-               // $this->form_validation->set_rules('tgl_akhir', 'TglAkhir', 'required');  
-               // $this->form_validation->set_rules('wkt_akhir', 'WaktuAkhir', 'required');
-               // $this->form_validation->set_rules('mom', 'MOM', 'required');
-               // if($this->form_validation->run()){
-               $agenda = array(
-                    'NIP'           => $this->session->userdata('NIP'),
-                    'TopikRapat'    => $this->input->post('topik'),
-                    'TglMulai'      => $this->input->post('tgl_mulai'),
-                    'WaktuMulai'    => $this->input->post('wkt_mulai'),
-                    'TglAkhir'      => $this->input->post('tgl_akhir'),
-                    'WaktuAkhir'    => $this->input->post('wkt_akhir'),
-                    'MOM'           => $this->input->post('mom')
-               );
-               $this->load->model('main_models');
-               $idRapat = $this->surat->getLast('tbl_rapat','IdRapat')->IdRapat;
-               $this->main_models->tambah_rapat($agenda);
-               foreach ($this->input->post('tujuan') as $val=>$key) {
-                    $NIP = $this->surat->getWhere('tbl_pegawai','NamaPegawai',$key)->Nip;
-                    $this->main_models->insert_anak($idRapat,$NIP);
+               $this->form_validation->set_rules('nip', 'NIP','required');  
+               $this->form_validation->set_rules('topik', 'TopikRapat', 'required');  
+               $this->form_validation->set_rules('tgl_awal', 'TglMulai', 'required');  
+               $this->form_validation->set_rules('wkt_awal', 'WaktuMulai', 'required');  
+               $this->form_validation->set_rules('tgl_akhir', 'TglAkhir', 'required');  
+               $this->form_validation->set_rules('wkt_akhir', 'WaktuAkhir', 'required');
+               $this->form_validation->set_rules('mom', 'MOM', 'required');
+               if($this->form_validation->run()){
+                    $agenda = array(
+                         'NIP'           => $this->session->userdata('NIP'),
+                         'TopikRapat'    => $this->input->post('topik'),
+                         'TglMulai'      => $this->input->post('tgl_mulai'),
+                         'WaktuMulai'    => $this->input->post('wkt_mulai'),
+                         'TglAkhir'      => $this->input->post('tgl_akhir'),
+                         'WaktuAkhir'    => $this->input->post('wkt_akhir'),
+                         'MOM'           => $this->input->post('mom')
+                    );
+                    $this->load->model('main_models');
+                    $idRapat = $this->surat->getLast('tbl_rapat','IdRapat')->IdRapat;
+                    $this->main_models->tambah_rapat($agenda);
+                    foreach ($this->input->post('tujuan') as $val=>$key) {
+                         $NIP = $this->surat->getWhere('tbl_pegawai','NamaPegawai',$key)->Nip;
+                         $this->main_models->insert_anak($idRapat,$NIP);
+                    }
+                    $response = $this->notif->sendMessage($agenda['TopikRapat'],"Rapat",'asd');
+                    redirect(site_url().'/welcome/agenda');
                }
-               $response = $this->notif->sendMessage($agenda['TopikRapat'],"Rapat",'asd');
-               redirect(site_url().'/welcome/agenda');
-               // }
-               // else {
-               //  redirect(site_url().'/welcome/add_agenda');
-               // }
+               else {
+                redirect(site_url().'/welcome/add_agenda');
+               }
           }
           function tmbh_pegawai(){
                $this->load->helper(array('form','url'));
@@ -778,17 +778,6 @@ class Welcome extends CI_Controller {
                     }
                     else
                     {
-                         // $gambar = $this->upload->data();
-                         // $data['kategori'] = $this->input->post('kategori',true);
-                         // $data['brand'] = $this->input->post('brand',true);
-                         // $data['model'] = $this->input->post('model',true);
-                         // $data['dimensi'] = $this->input->post('dimensi',true);
-                         // $data['keterangan'] = $this->input->post('keterangan',true);
-                         // $data['harga'] = $this->input->post('harga',true);
-                         // $data['gambar'] = $gambar['file_name'];
-                         // $id=$this->input->post('id');
-                         // $this->produk_model->edit_produk($id,$data);
-                         // redirect('admin/daftarproduk');
                          $pegawai = array(
                               'Nip'               => $this->input->post('nip'),
                               'NamaPegawai'       => $this->input->post('nama'),
@@ -1044,8 +1033,8 @@ class Welcome extends CI_Controller {
                $config['smtp_host']    = 'smtp.gmail.com';
                $config['smtp_port']    = '465';
                $config['smtp_timeout'] = '7';
-               $config['smtp_user'] = 'rizkimaulana0512@gmail.com';
-               $config['smtp_pass'] = '05desember1998';
+               $config['smtp_user'] = 'ADMIN@gmail.com';
+               $config['smtp_pass'] = 'password';
                $config['charset']    = 'utf-8';
                $config['newline']    = "\r\n";
                $config['mailtype'] = 'text'; // or html
@@ -1053,23 +1042,10 @@ class Welcome extends CI_Controller {
                
                $this->email->initialize($config);
                
-               $this->email->from('rizkimaulana0512@gmail.com', 'sender_name');
-               $this->email->to('rizkimaulana484@gmail.com'); 
+               $this->email->from('Admin@gmail.com', 'sender_name');
+               $this->email->to($email); 
                $this->email->subject('Email Test');
                $this->email->message($message."<br><br>".$url);  
-               
-               // $this->email->send();
-               
-               // echo $this->email->print_debugger();
-               // $this->load->config('email');
-               // $this->load->library('email');
-               // // $this->email->initialize($config);
-
-               // $this->email->from($this->config->item('smpt_user'), 'E-Itenice');
-               // $this->email->to('rizkimaulana484@gmail.com');
-
-               // $this->email->subject('Email Test');
-               // $this->email->message('Testing the email class.');
 
                if ($this->email->send()) {
                     echo 'Your Email has successfully been sent.';
