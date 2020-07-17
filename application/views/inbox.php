@@ -27,12 +27,12 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <!-- <div class="card-header"> -->
+            <div class="card-header"> 
             <!-- <div class="col-6"> -->
-            <!-- <a href="<?php echo site_url()?>/welcome/add_surat/26">
-            <button type="submit" class="btn btn-primary float-right">Add</button>
-            </a>  
-          </div> -->
+             <!-- <a href="<?php echo site_url()?>/welcome/tambahSurat">
+            <button type="submit" class="btn btn-primary float-right">scan surat</button>
+            </a>   -->
+          </div>
             <!-- /.card-header -->
             <div class="card-body">
               <table id="example2" class="table table-bordered table-hover">
@@ -60,7 +60,7 @@
                   <a href="<?php echo site_url()?>/welcome/statusSurat/<?=$SuratMasuk->IdSurat?>">
                    <button type="submit" class="btn btn-primary float-right">Status</button>
                   </a>
-                  <!-- <a href="<?php echo site_url()?>/welcome/add_departmen"> -->
+                  <a href="<?php echo site_url()?>/welcome/downloadSurats/<?=$SuratMasuk->IdSurat?>">
                    <button type="submit" class="btn btn-warning float-right">Download</button> 
                   <!-- </a>
                   <!-- <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;"> -->

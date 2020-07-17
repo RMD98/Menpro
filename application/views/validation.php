@@ -62,7 +62,7 @@
                    <button type="submit" class="btn btn-primary float-right">Ubah Status</button>
                   </a>
                   <?php endif ?>
-                  <a href="<?php echo site_url()?>/welcome/downloadSurat/<?=$validasi->File?>">
+                  <a href="<?php echo site_url()?>/welcome/downloadSurat/<?=$validasi->IdSurat?>">
                    <button type="submit" class="btn btn-warning float-right">Download</button> 
                   </a>
                   <!-- <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;"> -->

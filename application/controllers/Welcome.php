@@ -74,17 +74,13 @@ class Welcome extends CI_Controller {
                          $this->load->view('temp/sidebar_unit');
                     }
                }
-               $data['total'] = count($this->surat->listSuratMasuk($this->session->userdata('NIP')))+count($this->main_models->filter_rapat($this->session->userdata('NIP')));
+               $data['total'] = count($this->surat->listSuratMasuk($this->session->userdata('NIP')))+
+                    count($this->main_models->filter_rapat($this->session->userdata('NIP')));
                $data['keputusan'] = count($this->surat->listSuratMasuk($this->session->userdata('NIP')));
                $data['rapat'] = count($this->main_models->filter_rapat($this->session->userdata('NIP')));
                $this->load->view('index2',$data);
                $this->load->view('temp/footer');
                $this->load->view('temp/js');
-               // else {
-                    // $this->load->view("temp");
-                    // redirect(site_url().'/welcome/index',$session_data);
-                              // $this->index();
-                              // }
           }
           public function getPegawai(){
                header('Content-Type: application/json');
@@ -103,7 +99,7 @@ class Welcome extends CI_Controller {
                          'id'           => $login_data['id'],
                          'username'     => $_POST['username'],
                          'status'       => $login_data['Status'],
-                         'Nama'         => $data['NamaPegawai'],
+                         'Nama'         => $data[0]->NamaPegawai,
                          'NIP'          => $login_data['NIP'] 
                     ); 
                     $send = array(
@@ -122,6 +118,32 @@ class Welcome extends CI_Controller {
                $kirim = json_encode($send);
                echo $kirim;
           }
+          public function tambahSurat(){
+               $this->load->view('temp/head');
+               $this->load->view('temp/js');
+               if($this->session->userdata('status') == 'admin') {
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar',$data);
+               } 
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_dosen',$data);
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_ekspedisi',$data);
+               }
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_unit',$data);
+               }
+               
+               $this->load->view('tambahSurat');
+               $this->load->view('temp/footer');
+          }
           public function getMatkul(){
                header('Content-Type: application/json');
                $data = json_encode($this->surat->listMatkul(),true);
@@ -135,12 +157,8 @@ class Welcome extends CI_Controller {
           public function generateWord($id){
                $Topik = $this->surat->get_properties_surat($id)->Tema;
                $tipe = $this->input->post('jenis');
-               
                $response = $this->notif->sendMessage($Topik,$tipe,'asd');
-               
                $Parameter = json_decode($this->surat->get_properties_surat($id)->Parameter);
-               
-               
                $Temp = json_encode($this->input->post());
                $NoSurat = ($this->surat->getlast("tbl_surat","IdSurat")->IdSurat)+1;    
                $unik = date("Y-m-d_h-i-s");
@@ -150,8 +168,6 @@ class Welcome extends CI_Controller {
                $pdf = "results/pdf/{$unik}{$filename}";
                $x = explode('.',$pdf);
                $pdf = $x[0].'.pdf';
-               // $data = $this->input->post();
-               // $user = $this->surat->getDetailAccount($this->session->userdata('id'));
                $data = array_merge($this->input->post(), $this->surat->getDetailAccount($this->session->userdata('id')));
                try{
                     $data['NipSurat']=$this->surat->getDetailDosen('NamaPegawai',$this->input->post('dosenSurat'))['Nip'];
@@ -162,30 +178,23 @@ class Welcome extends CI_Controller {
                $NipValidator = $this->surat->getPegawai($this->input->post('validasi'))[0]->Nip;
                $lokasi = $this->surat->generateWord($template,$hasil,$data,$Parameter,$NoSurat);
                $idGdrive=$this->surat->converter($hasil,$pdf);  
-               
-               //generate word
                $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat,$lokasi,$NipValidator,$this->session->userdata('NIP'),$pdf,$idGdrive);
                $idSurat = $this->surat->getLast('tbl_surat','IdSurat')->IdSurat;
-               
                foreach ($this->input->post() as $val=>$key) {
-                    if(count($val) > 1 or $val == 'dosenSurat' or $val == 'tujuan' or $val =='dosen' or $val =='pimpinan' or $val == 'rekan' or $val =='ketuaDosen' ){
+                    if(count($val) > 1 or $val == 'dosenSurat' or $val == 'tujuan' or $val =='dosen' or $val =='pimpinan' or $val == 'rekan' 
+                         or $val =='ketuaDosen' ){
                          if(is_array($key)){
                               foreach($key as $x ){
                                    $NIP = $this->surat->getWhere('tbl_pegawai','NamaPegawai',$x)->Nip;
-                                   $this->surat->insertDetailSurat($idSurat,$NIP);
-                                   
+                                   $this->surat->insertDetailSurat($idSurat,$NIP);  
                               }
                          }else{
                               // die;
                               $NIP = $this->surat->getWhere('tbl_pegawai','NamaPegawai',$key)->Nip;
                               $this->surat->insertDetailSurat($idSurat,$NIP);
-                              
                          }
-                         
-                          
                     }
                }
-               
                $this->session->set_flashdata('statusInsert','sukses' );
                $this->session->set_flashdata('download',$lokasi );
                force_download($lokasi, NULL);
@@ -253,7 +262,7 @@ class Welcome extends CI_Controller {
                $this->surat->updateStatusValidasi($idSurat);
                $this->surat->validasiSurat($this->surat->listDetailSuratValidasi($idSurat));
                $this->session->set_flashdata('status','sukses' );
-               redirect("welcome/validation");
+               redirect(site_url()."welcome/validation");
           }
           public function pegawai()
           {
@@ -340,6 +349,11 @@ class Welcome extends CI_Controller {
                     $this->load->view('temp/footer');
                     $this->load->view('temp/js');
                }
+          }
+          public function downloadSurats($id){
+               $file = $this->surat->getWhere('tbl_surat','IdSurat',$id);
+               force_download($file->File, NULL);
+               redirect(site_url().'/welcome/inbox');
           }
           public function validation(){
                $data['validasi'] = $this->surat->listValidasi($this->session->userdata('NIP'));
@@ -973,16 +987,6 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/footer');
           }
           function edt_rapat(){
-               // $this->load->library('form_validation');
-               // // $this->load->library('form_validation');
-               // $this->form_validation->set_rules('nip', 'NIP','required');  
-               // $this->form_validation->set_rules('topik', 'TopikRapat', 'required');  
-               // $this->form_validation->set_rules('tgl_awal', 'TglMulai', 'required');  
-               // $this->form_validation->set_rules('wkt_awal', 'WaktuMulai', 'required');  
-               // $this->form_validation->set_rules('tgl_akhir', 'TglAkhir', 'required');  
-               // $this->form_validation->set_rules('wkt_akhir', 'WaktuAkhir', 'required');
-               // $this->form_validation->set_rules('mom', 'MOM', 'required');
-               // if($this->form_validation->run()){
                $agenda = array(
                     'NIP'           => $this->input->post('nip'),
                     'TopikRapat'    => $this->input->post('topik'),
@@ -1000,9 +1004,12 @@ class Welcome extends CI_Controller {
                //  redirect(site_url().'/welcome/add_agenda');
                // }
           }
-          public function downloadSurat($lokasi,$lokasi2)
+          public function downloadSurat($id)
           {
-               force_download($lokasi.'/'.$lokasi2, NULL);
+               $file = $this->surat->getWhere('tbl_surat','IdSurat',$id);
+               // var_dump($file);
+               // die;
+               force_download($file->File, NULL);
                redirect(site_url().'/welcome/validation');
            }
            public function downloadPdf(){
