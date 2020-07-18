@@ -33,6 +33,8 @@
             <button type="submit" class="btn btn-primary float-right">scan surat</button>
             </a>   -->
           </div>
+          
+
             <!-- /.card-header -->
             <div class="card-body">
               <table id="example2" class="table table-bordered table-hover">
@@ -57,6 +59,9 @@
                   <td><?=$SuratMasuk->Status?></td>
                   <!-- <td>Single</td> -->
                   <td>
+                  <a href="<?php echo site_url()?>/welcome/lihatSurat/<?=$SuratMasuk->IdSurat?>">
+                   <button type="submit" class="btn btn-danger float-right">Lihat</button>
+                  </a>
                   <a href="<?php echo site_url()?>/welcome/statusSurat/<?=$SuratMasuk->IdSurat?>">
                    <button type="submit" class="btn btn-primary float-right">Status</button>
                   </a>

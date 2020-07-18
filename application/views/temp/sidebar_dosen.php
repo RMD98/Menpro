@@ -24,15 +24,15 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <!-- <li class="nav-header">EXAMPLES</li> -->
-          <li class="nav-item ">
+          <!-- <li class="nav-item ">
             <a href="<?php echo site_url()?>/welcome/surat" class="nav-link">
               <i class="nav-icon far fa-envelope"></i>
               <p>
                 SK
-                <!-- <i class="fas fa-angle-left right"></i> -->
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item ">
             <a href="<?php echo site_url()?>/welcome/inbox" class="nav-link">
               <i class="nav-icon far fa-envelope"></i>
@@ -50,14 +50,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="<?php echo site_url()?>/welcome/validation" class="nav-link">
-              <i class="nav-icon fas fa-calendar-alt"></i>
-              <p>
-                Validasi surat
-              </p>
-            </a>
-          </li>
+          
           <li class="nav-item">
             <a href="<?php echo site_url()?>/welcome/Ekspedisi" class="nav-link">
               <i class="nav-icon fas fa-book"></i>

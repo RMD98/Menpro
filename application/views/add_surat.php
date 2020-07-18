@@ -91,7 +91,7 @@
               <?php endforeach ?>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Validasi</label>
-                    <select class="dosen form-control" name="validasi"></select>
+                    <select class="username form-control" name="validasi"></select>
                   </div>
                   <!-- <div class="form-group">
                     <label for="exampleInputPassword1">Tanggal Buat</label>
@@ -201,26 +201,34 @@
     var dataDosen;
     var dataJurusan;
     var dataMatkul;
+    var dataUsername;
     <?php if($this->session->flashdata('statusInsert')=='sukses') :?>
       swal("Sukses", "Data berhasil tersimpan", "success");
     <?php endif ?>
     $.get( "http://localhost/menpro/index.php/welcome/getPegawai", function( data ) {
       dataDosen = data;
-      console.log(dataDosen);
+      // console.log(dataDosen);
       $('.dosen').select2({
       data : dataDosen
 });
       });
+      $.get( "http://localhost/menpro//welcome/getUsername", function( data ) {
+      dataUsername = data;
+      console.log(dataUsername);
+      $('.username').select2({
+      data : dataUsername
+});
+      });
       $.get( "http://localhost/menpro/index.php/welcome/getJurusan", function( data ) {
       dataJurusan = data;
-      console.log(dataJurusan);
+      // console.log(dataJurusan);
       $('.jurusan').select2({
       data : dataJurusan
 });
       });
       $.get( "http://localhost/menpro/index.php/welcome/getMatkul", function( data ) {
       dataMatkul = data;
-      console.log(dataJurusan);
+      // console.log(dataJurusan);
       $('.matkul').select2({
       data : dataMatkul
 });

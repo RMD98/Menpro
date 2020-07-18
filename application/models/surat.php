@@ -32,6 +32,21 @@
         }
         return $temp;
     }
+    function listUsername(){
+        $query = $this->db->get('tbl_account');
+        $temp = [];
+        $i=0;
+        foreach ($query->result() as $key=>$row){
+            if ((strpos($row->Username, 'dosen') !== false)||(strpos($row->Username, 'ekspedisi')!== false)||(strpos($row->Username, 'admin')!== false)) {
+                $asd='1';
+            }else{
+                $temp[$i]['id'] = $row->Username;
+            $temp[$i]['text'] = $row->Username;
+            $i=$i+1;
+        }
+    }
+        return $temp;
+    }
     function listMatkul(){
         $query = $this->db->get('tbl_matkul');
         $temp = [];
@@ -40,6 +55,15 @@
             $jenis = $row->Jenis;
         $temp[$key]['id'] = $MK.' '.$jenis;
         $temp[$key]['text'] = $MK.' '.$jenis;
+        }
+        return $temp;
+    }
+    function listJurusan(){
+        $query = $this->db->get('tbl_department');
+        $temp = [];
+        foreach ($query->result() as $key=>$row){
+            $temp[$key]['id'] = $row->NamaDepartement;
+            $temp[$key]['text'] = $row->NamaDepartement;
         }
         return $temp;
     }
@@ -64,7 +88,8 @@
         $this->db->from('tbl_staff_surat');
         $this->db->join('tbl_pegawai', 'tbl_staff_surat.NIP = tbl_pegawai.NIP');
         $this->db->join('tbl_surat', 'tbl_staff_surat.IdSurat = tbl_surat.IdSurat');
-        $this->db->where('tbl_surat.Validator', $id);
+        // $this->db->where('tbl_surat.Validator', $id);
+        $this->db->where('tbl_pegawai.NIP', $id);
         $this->db->group_start();
         $this->db->where('tbl_surat.Status', 'belum tervalidasi');
         $this->db->or_where('tbl_surat.Status', 'tervalidasi');
