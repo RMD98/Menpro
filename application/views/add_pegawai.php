@@ -69,15 +69,23 @@
                   </div>
                   <div class="form-group">
                     <label >Jabatan</label>
-                    <input type="text" class="form-control" placeholder="jabata" name="jbt">
+                    <input type="text" class="form-control" placeholder="Jabatan" name="jbt">
+                  </div>
+                  <div class="form-group">
+                    <label >Program Studi</label>
+                    <select type="text" class="form-control" placeholder="Program Studi" name="prodi">
+                      <?php foreach($prodi as $prodi): ?>
+                        <option><?php echo $prodi->KodeDepartement ?> - <?php echo $prodi->NamaDepartement ?>
+                      <?php endforeach;?>
+                    </select>
                   </div>
                   <div class="form-group">
                     <label >Username</label>
-                    <input type="text" class="form-control" placeholder="username" name="uname">
+                    <input type="text" class="form-control" placeholder="Username" name="uname">
                   </div>
                   <div class="form-group">
                     <label >Password</label>
-                    <input type="password" class="form-control" placeholder="password" name="pass">
+                    <input type="password" class="form-control" placeholder="Password" name="pass">
                   </div>
                   <div class="form-group">
                     <label >Digital Signature</label>

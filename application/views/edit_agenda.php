@@ -4,7 +4,54 @@
 <div class="wrapper">
   <!-- Navbar -->
   <!-- /.navbar -->
-
+<!-- Font Awesome -->
+<link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="../../plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="../../plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<!-- jQuery -->
+<script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
+<!-- Bootstrap 4 -->
+<script src="<?php echo base_url('plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
+<!-- DataTables -->
+<script src="<?php echo base_url('plugins/datatables/jquery.dataTables.js')?>"></script>
+<script src="<?php echo base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.js')?>"></script>
+<!-- AdminLTE App -->
+<script src="<?php echo base_url('plugins/select2/js/select2.full.min.js')?>"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="<?php echo base_url('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')?>"></script>
+<!-- InputMask -->
+<script src="<?php echo base_url('plugins/moment/moment.min.js')?>"></script>
+<script src="<?php echo base_url('plugins/inputmask/min/jquery.inputmask.bundle.min.js')?>"></script>
+<!-- date-range-picker -->
+<script src="<?php echo base_url('plugins/daterangepicker/daterangepicker.js')?>"></script>
+<!-- bootstrap color picker -->
+<script src="<?php echo base_url('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')?>"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="<?php echo base_url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')?>"></script>
+<!-- Bootstrap Switch -->
+<script src="<?php echo base_url('plugins/bootstrap-switch/js/bootstrap-switch.min.js')?>"></script>
+<!-- AdminLTE App -->
+<script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="<?php echo base_url('dist/js/demo.js')?>"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> -->
   <!-- Main Sidebar Container -->
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -35,19 +82,12 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
+              <?php foreach($agenda as $agenda):?>
               <form role="form" action="<?php echo site_url()?>/welcome/add_rapat" method='post'>
                 <div class="card-body">
-                <div class="form-group">
-                  <label>NIP</label>
-                  <select class="form-control select" style="width: 100%;" name="nip">
-                    <?php foreach ($pgw as $pgw) :?>  
-                      <option><?php echo $pgw->Nip;?></option>
-                    <?php endforeach;?>
-                  </select>
-                </div>
                   <div class="form-group">
                     <label >Topik</label>
-                    <input type="text" class="form-control" id="topik" name="topik">
+                    <input type="text" class="form-control" id="topik" name="topik" value="<?php echo $agenda->TopikRapat?>">
                   </div>
                   <div class="form-group">
                     <label >Tanggal Mulai</label>
@@ -57,7 +97,7 @@
                           <i class="far fa-calendar-alt"></i>
                         </span>
                       </div>
-                      <input type="text" class="form-control float-right" id="mulai" name="tgl_mulai">
+                      <input type="text" class="form-control float-right" id="mulai" name="tgl_mulai" value="<?php echo $agenda->TglMulai?>">
                     </div>
                   </div>
                   <div class="bootstrap-timepicker">
@@ -65,7 +105,7 @@
                     <label>Waktu Mulai</label>
 
                     <div class="input-group date" id="timemulai" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input" data-target="#timemulai" name="wkt_mulai"/>
+                      <input type="text" class="form-control datetimepicker-input" data-target="#timemulai" name="wkt_mulai" value="<?php echo $agenda->WaktuMulai?>"/>
                       <div class="input-group-append" data-target="#timemulai" data-toggle="datetimepicker">
                           <div class="input-group-text"><i class="far fa-clock"></i></div>
                       </div>
@@ -82,21 +122,25 @@
                           <i class="far fa-calendar-alt"></i>
                         </span>
                       </div>
-                      <input type="text" class="form-control float-right" id="akhir" name="tgl_akhir">
+                      <input type="text" class="form-control float-right" id="akhir" name="tgl_akhir" value="<?php echo $agenda->TglAkhir?>">
                     </div>
                   </div>
                   <div class="bootstrap-timepicker">
                   <div class="form-group">
                     <label>Waktu Selesai</label>
-
                     <div class="input-group date" id="timeakhir" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input" data-target="#timeakhir" name="wkt_akhir"/>
+                      <input type="text" class="form-control datetimepicker-input" data-target="#timeakhir" name="wkt_akhir" value="<?php echo $agenda->WaktuAkhir?>"/>
                       <div class="input-group-append" data-target="#timeakhir" data-toggle="datetimepicker">
                           <div class="input-group-text"><i class="far fa-clock"></i></div>
                       </div>
                       </div>
                     <!-- /.input group -->
                   </div>
+                  <div class="form-group">
+                  <label>Peserta Rapat</label>
+                  <select class="dosen" multiple="multiple" data-placeholder="pilih dosen" style="width: 100%;" name="tujuan[]">
+                  </select>
+                </div>
                   <!-- /.form group -->
                   <div class="form-group">
                     <label >Deskripsi</label>
@@ -105,12 +149,13 @@
                 </div>
                 </div>
                 <!-- /.card-body -->
-
+                
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
                   <?php echo '<label class="text-danger">'.$this->session->flashdata("error").'</label>';  ?>
                 </div>
               </form>
+              <?php endforeach;?>
             </div>
             <!-- /.card -->
 
@@ -134,32 +179,6 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="<?php echo base_url('plugins/jquery/jquery.min.js')?>"></script>
-<!-- Bootstrap 4 -->
-<script src="<?php echo base_url('plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
-<!-- DataTables -->
-<script src="<?php echo base_url('plugins/datatables/jquery.dataTables.js')?>"></script>
-<script src="<?php echo base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.js')?>"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('plugins/select2/js/select2.full.min.js')?>"></script>
-<!-- Bootstrap4 Duallistbox -->
-<script src="<?php echo base_url('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')?>"></script>
-<!-- InputMask -->
-<script src="<?php echo base_url('plugins/moment/moment.min.js')?>"></script>
-<script src="<?php echo base_url('plugins/inputmask/min/jquery.inputmask.bundle.min.js')?>"></script>
-<!-- date-range-picker -->
-<script src="<?php echo base_url('plugins/daterangepicker/daterangepicker.js')?>"></script>
-<!-- bootstrap color picker -->
-<script src="<?php echo base_url('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')?>"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="<?php echo base_url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')?>"></script>
-<!-- Bootstrap Switch -->
-<script src="<?php echo base_url('plugins/bootstrap-switch/js/bootstrap-switch.min.js')?>"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url('dist/js/demo.js')?>"></script>
 <!-- page script -->
 <!-- <script>
   $(function () {
@@ -176,6 +195,7 @@
   });
 </script> -->
 <script>
+$(document).ready(function() {
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
@@ -261,8 +281,16 @@
     $("input[data-bootstrap-switch]").each(function(){
       $(this).bootstrapSwitch('state', $(this).prop('checked'));
     });
-
-  })
+    
+  }) 
+      $.get( "http://localhost/menpro/index.php/welcome/getPegawai", function( data ) {
+      dataDosen = data;
+      console.log(dataDosen);
+      $('.dosen').select2({
+      data : dataDosen
+});
+});
+    });
 </script>
 </body>
 </html>

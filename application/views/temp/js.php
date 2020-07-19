@@ -13,10 +13,9 @@
 <!-- jQuery Knob Chart -->
 <script src="<?php echo base_url('plugins/jquery-knob/jquery.knob.min.js')?>"></script>
 <!-- daterangepicker -->
-<script src="<?php echo base_url('plugins/moment/moment.min.js')?>"></script>
 <script src="<?php echo base_url('plugins/daterangepicker/daterangepicker.js')?>"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="<?php echo base_url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')?>"></script>
+<!-- <script src="<?php echo base_url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')?>"></script> -->
 <!-- Summernote -->
 <script src="<?php echo base_url('plugins/summernote/summernote-bs4.min.js')?>"></script>
 <!-- overlayScrollbars -->
@@ -26,19 +25,23 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?php echo base_url('dist/js/pages/dashboard.js')?>"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url('dist/js/demo.js')?>"></script>
-
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script>
-<!-- fullCalendar 2.2.5 -->
-
-
-<!-- AdminLTE App -->
-<!-- <script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script> -->
-<!-- fullCalendar 2.2.5 -->
-
-<!-- Bootstrap -->
 <script src="<?php echo base_url('plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
+<script src="<?php echo base_url('plugins/datatables/jquery.dataTables.js')?>"></script>
+<script src="<?php echo base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.js')?>"></script>
+<script src="<?php echo base_url('dist/js/adminlte.min.js')?>"></script>
+<script src="<?php echo base_url('dist/js/demo.js')?>"></script>
+<script>
+  $(function () {
+    $("#example2").DataTable();
+  });
+</script>
+<!-- AdminLTE App -->
+<!-- fullCalendar 2.2.5 -->
+
+
+<!-- AdminLTE App -->
+<!-- fullCalendar 2.2.5 -->
+<!-- Bootstrap -->
 <!-- fullCalendar 2.2.5 -->
 <script src="<?php echo base_url('plugins/moment/moment.min.js')?>"></script>
 <script src="<?php echo base_url('plugins/fullcalendar/main.min.js')?>"></script>

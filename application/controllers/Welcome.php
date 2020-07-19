@@ -87,7 +87,6 @@ class Welcome extends CI_Controller {
                $data = json_encode($this->surat->listPegawai(),true);
                echo $data;
           }
-          
           public function LoginApi(){
                header('Content-Type: application/json');
                $username = $_POST['username'];
@@ -358,7 +357,7 @@ class Welcome extends CI_Controller {
           public function validation(){
                $data['validasi'] = $this->surat->listValidasi($this->session->userdata('NIP'));
                $this->load->view('temp/head');
-               $this->load->view('temp/js');
+               // $this->load->view('temp/js');
                if($this->session->userdata('id') == '') 
                {
                     $this->load->view('login');
@@ -489,7 +488,7 @@ class Welcome extends CI_Controller {
                $this->load->view('temp/head');
                $this->load->view('temp/sidebar');
                $this->load->view('account',$data);
-               $this->load->view('temp/footer');
+               // $this->load->view('temp/footer');
                $this->load->view('temp/js');
           }
           public function add_departmen(){
@@ -575,8 +574,9 @@ class Welcome extends CI_Controller {
                     $this->load->view('temp/sidebar_ekspedisi');
                }
                $this->load->model('main_models');
-               $data['pgw'] = $this->main_models->daftar_pegawai();
-               $this->load->view('add_pegawai');
+               // $data['pgw'] = $this->main_models->daftar_pegawai();
+               $data['prodi'] = $this->main_models->daftar_departemen();
+               $this->load->view('add_pegawai',$data);
                // $this->load->view('index2');
                // echo $this->session->userd?ata('status');
                // $this->load->view('temp/js');
@@ -812,6 +812,10 @@ class Welcome extends CI_Controller {
                               'Status'       => $this->input->post('jbt')
                          );
                          $this->main_models->tambah_user($account);
+                         $staff = array(
+                              'NIP'          => $this->input->post('nip'),
+                              
+                         );
                          $message='Hey '.$pegawai['NamaPegawai'].' Pleas verify your Email to complete regristration';
                          $this->sendmail($pegawai['Email'],site_url().'/welcome/verifikasi/'.$this->encryption->encrypt($pegawai['Nip']),$message);
                          redirect(site_url().'/welcome/pegawai');
@@ -980,7 +984,7 @@ class Welcome extends CI_Controller {
                $this->load->model('main_models');
                $data['pgw'] = $this->main_models->daftar_pegawai();
                $data['agenda'] = $this->main_models->get_rapat($id);
-               $this->load->view('edit_pegawai',$data);
+               $this->load->view('edit_agenda',$data);
                // $this->load->view('index2');
                // echo $this->session->userd?ata('status');
                // $this->load->view('temp/js');
@@ -1003,6 +1007,50 @@ class Welcome extends CI_Controller {
                // else {
                //  redirect(site_url().'/welcome/add_agenda');
                // }
+          }
+          function add_mom($id){
+               $this->load->view('temp/head');
+               if($this->session->userdata('status') == 'admin') {
+                    $this->load->view('temp/sidebar');
+               } 
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $this->load->view('temp/sidebar_unit');
+               }
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $this->load->view('temp/sidebar_dosen');
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $this->load->view('temp/sidebar_ekspedisi');
+               }
+               $data['id'] = $id;
+               $this->load->view('add_mom',$data);
+               // $this->load->view('index2');
+               // echo $this->session->userd?ata('status');
+               // $this->load->view('temp/js');
+               $this->load->view('temp/footer');
+          }
+          function tmbh_mom($id){
+               $this->load->helper(array('form','url'));
+               $this->load->library('form_validation');
+               $this->form_validation->set_rules('mom', 'MOM', 'required');  
+               if($this->form_validation->run())  
+               {  
+                    //true  
+                    $mom = $this->input->post('mom');
+                    // $this->load->model('main_models');
+                    $this->main_models->tambah_mom($id,$mom);
+                    redirect(site_url().'/welcome/det_agenda/'.$id);
+               }  
+               else  
+               {  
+                    $this->session->set_flashdata('error', 'Please Fill All Field');  
+                    redirect(site_url() . '/welcome/add_mom/'.$id);  
+               }
+               
+               redirect(site_url().'/welcome/det_agenda/'.$id);
           }
           public function downloadSurat($id)
           {

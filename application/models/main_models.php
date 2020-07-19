@@ -40,6 +40,10 @@
         $this->db->where('Nip',$nip);
         return $this->db->get('tbl_pegawai')->result();
       }
+      function tmbh_pegawai_dprt($data)
+      {
+        $this->db->inset('tbl_staff_departement',$data);
+      }
       function find_emails($uname)
       {
         $this->db->from('tbl_account');
@@ -94,6 +98,11 @@
       function tambah_rapat($data)
       {
         $this->db->insert('tbl_rapat',$data);
+      }
+      function tambah_mom($id,$mom){
+        $this->db->set('MOM',$mom);
+        $this->db->where('IdRapat',$id);
+        $this->db->update('tbl_rapat');
       }
       function delete_rapat($id)
       {
