@@ -87,6 +87,17 @@ class Welcome extends CI_Controller {
                $data = json_encode($this->surat->listPegawai(),true);
                echo $data;
           }
+          public function getUsername(){
+               header('Content-Type: application/json');
+               $data = json_encode($this->surat->listUsername(),true);
+               echo $data;
+          }
+          public function getJurusan(){
+               header('Content-Type: application/json');
+               $data = json_encode($this->surat->listJurusan(),true);
+               echo $data;
+          }
+          
           public function LoginApi(){
                header('Content-Type: application/json');
                $username = $_POST['username'];
@@ -147,12 +158,7 @@ class Welcome extends CI_Controller {
                header('Content-Type: application/json');
                $data = json_encode($this->surat->listMatkul(),true);
                echo $data;
-          }
-          public function getjurusan(){
-               header('Content-Type: application/json');
-               $data = json_encode($this->surat->listJurusan(),true);
-               echo $data;
-          }   
+          }  
           public function generateWord($id){
                $Topik = $this->surat->get_properties_surat($id)->Tema;
                $tipe = $this->input->post('jenis');
@@ -167,15 +173,15 @@ class Welcome extends CI_Controller {
                $pdf = "results/pdf/{$unik}{$filename}";
                $x = explode('.',$pdf);
                $pdf = $x[0].'.pdf';
-               $data = array_merge($this->input->post(), $this->surat->getDetailAccount($this->session->userdata('id')));
+               $data = array_merge($this->input->post(), $this->surat->getDetailAccount($this->session->userdata('NIP')));
                try{
                     $data['NipSurat']=$this->surat->getDetailDosen('NamaPegawai',$this->input->post('dosenSurat'))['Nip'];
                }
                catch(Exception $e) {
                     echo 'Message: ' .$e->getMessage();
                   }
-               $NipValidator = $this->surat->getPegawai($this->input->post('validasi'))[0]->Nip;
-               $lokasi = $this->surat->generateWord($template,$hasil,$data,$Parameter,$NoSurat);
+                  $NipValidator = $this->surat->getWhere('tbl_account','Username',$this->input->post('validasi'))->NIP;
+                  $lokasi = $this->surat->generateWord($template,$hasil,$data,$Parameter,$NoSurat);
                $idGdrive=$this->surat->converter($hasil,$pdf);  
                $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat,$lokasi,$NipValidator,$this->session->userdata('NIP'),$pdf,$idGdrive);
                $idSurat = $this->surat->getLast('tbl_surat','IdSurat')->IdSurat;
@@ -939,6 +945,31 @@ class Welcome extends CI_Controller {
                $this->load->model('main_models');
                $this->main_models->delete_rapat($id);
                redirect(site_url().'/welcome/mom');
+          }
+          function lihatSurat($id){
+               $this->load->view('temp/head');
+               if($this->session->userdata('status') == 'admin') {
+                    $this->load->view('temp/sidebar');
+               } 
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $this->load->view('temp/sidebar_unit');
+               }
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $this->load->view('temp/sidebar_dosen');
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $this->load->view('temp/sidebar_ekspedisi');
+               }
+               $this->load->model('main_models');
+               $data['surat']=$this->surat->getWhere('tbl_surat','IdSurat',$id)->FileGdrive;
+               $this->load->view('pdfViewer',$data);
+               // $this->load->view('index2');
+               // echo $this->session->userd?ata('status');
+               // $this->load->view('temp/js');
+               $this->load->view('temp/footer');
           }
           function det_agenda($Id){
                $this->load->model('main_models');
