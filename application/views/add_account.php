@@ -15,12 +15,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>tambah pegawai</h1>
+            <h1>Tambah Account</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Pegawai</li>
+              <li class="breadcrumb-item active">Account</li>
             </ol>
           </div>
         </div>
@@ -36,48 +36,20 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-             <?php echo form_open_multipart('/welcome/tmbh_pegawai')?>
+             <?php echo form_open_multipart('/welcome/tmbh_account')?>
               <!-- <form role="form" method='Post' action="<?php echo site_url()?>/welcome/tmbh_pegawai"> -->
                 <div class="card-body">
                   <div class="form-group">
                     <label >NIP</label>
-                    <input type="text" class="form-control" placeholder="NIP" name="nip">
-                  </div>
-                  <div class="form-group">
-                    <label >Nama</label>
-                    <input type="text" class="form-control" placeholder="Nama" name="nama">
-                  </div>
-                  <div class="form-group">
-                    <label >Tanggal Lahir</label>
-                    <input type="text" class="form-control" placeholder="Tanggal Lahir" name="tgl">
-                  </div>
-                  <div class="form-group">
-                    <label >Tempat Lahir</label>
-                    <input type="text" class="form-control" placeholder="Tempat Lahit" name="tpt">
-                  </div>
-                  <div class="form-group">
-                    <label >Alamat</label>
-                    <input type="text" class="form-control" placeholder="Alamat" name="alamat">
-                  </div>
-                  <div class="form-group">
-                    <label >No HP</label>
-                    <input type="text" class="form-control" placeholder="No HP" name="nope">
-                  </div>
-                  <div class="form-group">
-                    <label >Email</label>
-                    <input type="email" class="form-control" placeholder="Email" name="email">
-                  </div>
-                  <div class="form-group">
-                    <label >Jabatan</label>
-                    <input type="text" class="form-control" placeholder="Jabatan" name="jbt">
-                  </div>
-                  <div class="form-group">
-                    <label >Program Studi</label>
-                    <select type="text" class="form-control" placeholder="Program Studi" name="prodi">
-                      <?php foreach($prodi as $prodi): ?>
-                        <option><?php echo $prodi->NamaDepartement ?>
+                    <select type="text" class="form-control" placeholder="NIP" name="nip">
+                      <?php foreach($pgw as $pgw):?>
+                        <option><?php echo $pgw->Nip;?>
                       <?php endforeach;?>
                     </select>
+                  </div>
+                  <div class="form-group">
+                    <label >Status</label>
+                    <input type="text" class="form-control" placeholder="Status" name="jbt">
                   </div>
                   <div class="form-group">
                     <label >Username</label>
@@ -87,14 +59,6 @@
                     <label >Password</label>
                     <input type="password" class="form-control" placeholder="Password" name="pass">
                   </div>
-                  <div class="form-group">
-                    <label >Digital Signature</label>
-                    <!-- <div class="input-group">
-                      <div class="custom-file"> -->
-                        <input type="file" class="form-control" name="ttd">
-                        <!-- <label class="custom-file-label">Choose file</label>
-                      </div> -->
-                    </div>
                   <!-- </div> -->
                 </div>
                 <!-- /.card-body -->

@@ -96,8 +96,7 @@ class Welcome extends CI_Controller {
                header('Content-Type: application/json');
                $data = json_encode($this->surat->listJurusan(),true);
                echo $data;
-          }
-          
+          }      
           public function LoginApi(){
                header('Content-Type: application/json');
                $username = $_POST['username'];
@@ -779,6 +778,7 @@ class Welcome extends CI_Controller {
                $this->form_validation->set_rules('uname', 'Username', 'required');  
                $this->form_validation->set_rules('pass', 'Password', 'required');  
                $this->form_validation->set_rules('jbt', 'Jabatan', 'required');  
+               $this->form_validation->set_rules('prodi', 'Prodi', 'required');
                $this->form_validation->set_rules('ttd', 'TTD');
                  
                if($this->form_validation->run())  
@@ -815,13 +815,19 @@ class Welcome extends CI_Controller {
                               'NIP'          => $this->input->post('nip'),
                               'Username'     => $this->input->post('uname'),
                               'Password'     => $this->input->post('pass'),
-                              'Status'       => $this->input->post('jbt')
+                              'Status'       => $this->input->post('jbt'),
+                              'AccName'      => $this->input->post('jbt').'-'.$this->input->post('nama')
                          );
                          $this->main_models->tambah_user($account);
-                         $staff = array(
-                              'NIP'          => $this->input->post('nip'),
-                              
-                         );
+                         $dprt = $this->main_models->find_staff($this->input->post('prodi'));
+                         foreach ($dprt as $dprt) :
+                              $staff = array(
+                                   'NIP'          => $this->input->post('nip'),
+                                   'Jabatan'      => $this->input->post('jbt'),
+                                   'idDepartement' => $dprt->idDepartment        
+                              );
+                         endforeach;
+                         $this->main_models->tmbh_pegawi_dprt($staff);
                          $message='Hey '.$pegawai['NamaPegawai'].' Pleas verify your Email to complete regristration';
                          $this->sendmail($pegawai['Email'],site_url().'/welcome/verifikasi/'.$this->encryption->encrypt($pegawai['Nip']),$message);
                          redirect(site_url().'/welcome/pegawai');
@@ -1056,6 +1062,7 @@ class Welcome extends CI_Controller {
                {
                     $this->load->view('temp/sidebar_ekspedisi');
                }
+               $data['agenda'] = $this->main_models->get_rapat($id);
                $data['id'] = $id;
                $this->load->view('add_mom',$data);
                // $this->load->view('index2');
@@ -1083,8 +1090,120 @@ class Welcome extends CI_Controller {
                
                redirect(site_url().'/welcome/det_agenda/'.$id);
           }
-          public function downloadSurat($id)
-          {
+          function add_account(){
+               $this->load->view('temp/head');
+               if($this->session->userdata('status') == 'admin') {
+                    $this->load->view('temp/sidebar');
+               } 
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $data['nama'] = $this->session->userdata('Nama');
+                    $this->load->view('temp/sidebar_unit',$data);
+               }
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $this->load->view('temp/sidebar_dosen');
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $this->load->view('temp/sidebar_ekspedisi');
+               }
+               $this->load->model('main_models');
+               // $data['pgw'] = $this->main_models->daftar_pegawai();
+               $data['pgw'] = $this->main_models->daftar_pegawai();
+               $this->load->view('add_account',$data);
+               // $this->load->view('index2');
+               // echo $this->session->userd?ata('status');
+               // $this->load->view('temp/js');
+               $this->load->view('temp/footer');
+          }
+          function tmbh_account(){
+               $this->load->helper(array('form','url'));
+               $this->load->library('form_validation');
+               $this->form_validation->set_rules('nip', 'NIP', 'required'); 
+               $this->form_validation->set_rules('uname', 'Username', 'required');  
+               $this->form_validation->set_rules('pass', 'Password', 'required');  
+               $this->form_validation->set_rules('jbt', 'Status', 'required');  
+               $pgw = $this->main_models->get_pegawai($this->input->post('nip'));
+               if($this->form_validation->run())  
+               {  
+                    foreach ($pgw as $pgw):
+                         $account = array(
+                              'NIP'          => $this->input->post('nip'),
+                              'Username'     => $this->input->post('uname'),
+                              'Password'     => $this->input->post('pass'),
+                              'Status'       => $this->input->post('jbt'),
+                              'AccName'      => $this->input->post('jbt').'-'.$pgw->NamaPegawai,
+                         );
+                    endforeach;
+                    $this->main_models->tambah_user($account);
+                    $this->load->views('account');
+               }  
+               else  
+               {  
+                    $this->session->set_flashdata('error', 'Please Fill All Field');  
+                    redirect(site_url() . '/welcome/add_account');  
+               }
+          }
+          function edit_account($id){
+               $this->load->view('temp/head');
+               if($this->session->userdata('status') == 'admin') {
+                    $this->load->view('temp/sidebar');
+               } 
+               elseif($this->session->userdata('status') == 'rektor'||'fakultas'||'jurusan'||'lppm') 
+               {
+                    $this->load->view('temp/sidebar_unit');
+               }
+               elseif($this->session->userdata('status') == 'dosen') 
+               {
+                    $this->load->view('temp/sidebar_dosen');
+               }
+               elseif($this->session->userdata('status') == 'ekspedisi') 
+               {
+                    $this->load->view('temp/sidebar_ekspedisi');
+               }
+               $this->load->model('main_models');
+               $data['pgw'] = $this->main_models->daftar_pegawai();
+               $data['acc'] = $this->main_models->get_account($id);
+               $this->load->view('edit_account',$data);
+               // $this->load->view('index2');
+               // echo $this->session->userd?ata('status');
+               // $this->load->view('temp/js');
+               $this->load->view('temp/footer');
+          }
+          function edt_account(){
+               $this->load->helper(array('form','url'));
+               $this->load->library('form_validation');
+               $this->form_validation->set_rules('nip', 'NIP', 'required'); 
+               $this->form_validation->set_rules('uname', 'Username', 'required');  
+               $this->form_validation->set_rules('pass', 'Password', 'required');  
+               $this->form_validation->set_rules('jbt', 'Status', 'required');  
+               $pgw = $this->main_models->get_pegawai($this->input->post('nip'));
+               if($this->form_validation->run())  
+               {  
+                    foreach ($pgw as $pgw):
+                         $account = array(
+                              'NIP'          => $this->input->post('nip'),
+                              'Username'     => $this->input->post('uname'),
+                              'Password'     => $this->input->post('pass'),
+                              'Status'       => $this->input->post('jbt'),
+                              'AccName'      => $this->input->post('jbt').'-'.$pgw->NamaPegawai,
+                         );
+                    endforeach;
+                    $this->main_models->edit_account($account);
+                    $this->load->views('account');
+               }  
+               else  
+               {  
+                    $this->session->set_flashdata('error', 'Please Fill All Field');  
+                    redirect(site_url() . '/welcome/edit_account');  
+               }
+          }
+          function del_account($id){
+               $this->main_models->del_account($id);
+               redirect(site_url().'/welcome/account');
+          }
+          public function downloadSurat($id){
                $file = $this->surat->getWhere('tbl_surat','IdSurat',$id);
                // var_dump($file);
                // die;
@@ -1111,16 +1230,15 @@ class Welcome extends CI_Controller {
                // $kirim = json_encode($send);
                // echo $kirim;
           }
-          public function sendmail($email,$url,$message)
-          {
+          public function sendmail($email,$url,$message){
                $this->load->library('email');
 
                $config['protocol']    = 'smtp';
                $config['smtp_host']    = 'smtp.gmail.com';
                $config['smtp_port']    = '465';
                $config['smtp_timeout'] = '7';
-               $config['smtp_user'] = 'ADMIN@gmail.com';
-               $config['smtp_pass'] = 'password';
+               $config['smtp_user'] = 'rizkimaulana0512@gmail.com';
+               $config['smtp_pass'] = '05desember1998';
                $config['charset']    = 'utf-8';
                $config['newline']    = "\r\n";
                $config['mailtype'] = 'text'; // or html
@@ -1131,7 +1249,8 @@ class Welcome extends CI_Controller {
                $this->email->from('Admin@gmail.com', 'sender_name');
                $this->email->to($email); 
                $this->email->subject('Email Test');
-               $this->email->message($message."<br><br>".$url);  
+               $this->email->message($message."
+               ".$url);  
 
                if ($this->email->send()) {
                     echo 'Your Email has successfully been sent.';

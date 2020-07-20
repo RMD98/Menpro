@@ -28,7 +28,13 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <!-- /.card-header -->
+            <!-- /.card-header -->  
+             <div class="card-header">
+            <!-- <div class="col-6"> -->
+              <a href="<?php echo site_url()?>/welcome/add_account">
+              <button type="submit" class="btn btn-primary float-right">Add</button>
+              </a>  
+            </div>
             <div class="card-body">
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
@@ -45,10 +51,10 @@
                   <td><?php echo $tbl_account->Username?>
                   <td>*****</td>
                   <td><?php echo $tbl_account->Status?></td>
-                  <td><a href="<?php echo site_url()?>/welcome/add_departmen">
+                  <td><a href="<?php echo site_url()?>/welcome/edit_account/<?=$tbl_account->id;?>">
                    <button type="submit" class="btn btn-warning float-right">Edit</button>
                   </a>
-                  <a href="<?php echo site_url()?>/welcome/add_departmen" type="color:red;">
+                  <a href="<?php echo site_url()?>/welcome/del_account/<?=$tbl_account->id;?>" type="color:red;">
                   <button type="submit" class="btn btn-danger float-right" >Delete</button>
                   </a>
                   </td>

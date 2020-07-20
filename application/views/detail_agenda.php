@@ -48,6 +48,9 @@
                 <p> Dimulai pada : <?php echo $agenda->TglMulai;?> <?php echo $agenda->WaktuMulai;?></p>
                 <p> Selesai pada : <?php echo $agenda->TglAkhir;?> <?php echo $agenda->WaktuAkhir;?></p>
                 <p></p>
+                <p></p>
+                <p><?php echo $agenda->Deskripsi;?></p>
+                <p></p>
                 <p>MOM</p>
                 <p><?php echo $agenda->MOM;?></p>
               <!-- /.card-body -->

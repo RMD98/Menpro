@@ -48,7 +48,35 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              
+              <div class="card">
+            <?php foreach ($agenda as $agenda) : ?>
+            <div class="card-header">
+                <div class="col-12" style="text-align: center;">
+                  <a href="<?php echo site_url()?>/welcome/edit_agenda/<?php echo $agenda->IdRapat?>">
+                    <button type="button" class="btn btn-primary float-right">Edit</button>
+                  </a>
+                  <h1> <?php echo $agenda->TopikRapat;?></h1>
+                  <a href="<?php echo site_url()?>/welcome/Add_mom/<?php echo $agenda->IdRapat?>">
+                    <button type="button" class="btn btn-primary float-right">Add MOM</button>
+                  </a>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <p> <?php echo $agenda->Deskripsi;?> </p>
+                <p> Dimulai pada : <?php echo $agenda->TglMulai;?> <?php echo $agenda->WaktuMulai;?></p>
+                <p> Selesai pada : <?php echo $agenda->TglAkhir;?> <?php echo $agenda->WaktuAkhir;?></p>
+                <p></p>
+                <p></p>
+                <p><?php echo $agenda->Deskripsi;?></p>
+                <p></p>
+                <p>MOM</p>
+                <p><?php echo $agenda->MOM;?></p>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+            <!-- /.card-body -->
+            <?php endforeach;?>
               <form role="form" method='post' action="<?php echo site_url()?>/welcome/tmbh_mom/<?php echo $id?>">
                 <div class="card-body">
                 <div class="col-sm-6">

@@ -44,6 +44,11 @@
       {
         $this->db->inset('tbl_staff_departement',$data);
       }
+      function find_staff($nama)
+      {
+        $this->db->where('NamaDepartement',$nama);
+        $this->db->get('tbl_department')->result();
+      }
       function find_emails($uname)
       {
         $this->db->from('tbl_account');
@@ -74,6 +79,16 @@
       {
         $this->db->where('id',$id);
         return $this->db->get('tbl_account')->result();
+      }
+      function edit_account($id,$data)
+      {
+        $this->db->where('id',$id);
+        $this->db->update('tbl_account',$data);
+      }
+      function del_account($id)
+      {
+        $this->db->where('id',$id);
+        $this->db->delete('tbl_account');
       }
       function daftar_rapat()
       {
