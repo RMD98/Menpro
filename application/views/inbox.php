@@ -28,10 +28,10 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header"> 
-            <!-- <div class="col-6"> -->
-             <!-- <a href="<?php echo site_url()?>/welcome/tambahSurat">
+            <div class="col-12"> 
+              <a href="<?php echo site_url()?>/welcome/tambahSurat/26"> 
             <button type="submit" class="btn btn-primary float-right">scan surat</button>
-            </a>   -->
+            </a>  
           </div>
           
 

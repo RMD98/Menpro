@@ -174,6 +174,9 @@
         );
         $this->db->insert('tbl_staff_surat',$data);
     }
+    function insertSuratExternal($data){
+        $this->db->insert('tbl_surat',$data);
+    }
     function getWhere($table,$where,$value){
         $this->db->where($where, $value);
         $query = $this->db->get($table);
