@@ -130,7 +130,8 @@ class Welcome extends CI_Controller {
                $kirim = json_encode($send);
                echo $kirim;
           }
-          public function tambahSurat(){
+          public function tambahSurat($key){
+               $this->surat->setGdrive();
                $this->load->view('temp/head');
                $this->load->view('temp/js');
                if($this->session->userdata('status') == 'admin') {
@@ -152,9 +153,69 @@ class Welcome extends CI_Controller {
                     $data['nama'] = $this->session->userdata('Nama');
                     $this->load->view('temp/sidebar_unit',$data);
                }
-               
-               $this->load->view('tambahSurat');
+               $data['templateSK'] = json_decode($this->surat->get_properties_surat($key)->Input);
+               $data['IdSK'] = $this->surat->get_properties_surat($key)->IdSK;
+               $data['JudulSK'] = $this->surat->get_properties_surat($key)->Tema;
+               $this->load->view('tambahSurat',$data);
                $this->load->view('temp/footer');
+          }
+          public function suratExternal(){
+               
+               $topik =(str_replace(" ","-",$this->input->post('topik')));
+               $config['upload_path']          = './results/';
+               $config['allowed_types']        = 'pdf';
+               $config['file_name']            = $topik.$this->input->post('waktu');
+               $this->load->library('upload', $config);
+               $this->upload->initialize($config);
+               $this->upload->do_upload('file');
+               $config2['upload_path']          = './results/pdf/';
+               $config2['allowed_types']        = 'pdf';
+               $config2['file_name']            = $topik.$this->input->post('waktu');
+               $this->load->library('upload', $config2);
+               $this->upload->initialize($config2);
+               
+               if (!$this->upload->do_upload('file'))
+                    {
+                         $this->session->set_flashdata('error', $this->upload->display_errors());
+                         redirect(site_url().'/welcome/tambahSurat/26');
+                    }
+                    else
+                    {
+                         $idGdrive=$this->surat->uploadGDrive('results/pdf/'.$config['file_name'].'.pdf');
+                         $surat = array(
+                              'Topik'               => $this->input->post('topik'),
+                              'Pembuats'       => $this->session->userdata('NIP'),
+                              'tglDibuat'              => date("Y-m-d"),
+                              'FilePdf'             => 'results/pdf/'.$config['file_name'].'.pdf',
+                              'File'               => 'results/'.$config['file_name'].'.pdf',
+                              'Value'             =>json_encode($this->input->post()),
+                              'Status'            =>'tervalidasi',
+                              'NoSurat'           =>$this->input->post('noSurat'),
+                              'IdSK'              =>'26',
+                              'FileGdrive'        =>$idGdrive
+                         );
+                         
+                         $this->surat->insertSuratExternal($surat);
+                         $idSurat = $this->surat->getLast('tbl_surat','IdSurat')->IdSurat;
+                         $response = $this->notif->sendMessage($this->input->post('topik'),"surat Masuk",'asd');
+                         foreach ($this->input->post() as $val=>$key) {
+                              if(count($val) > 1 or $val == 'dosenSurat' or $val == 'tujuan' or $val =='dosen' or $val =='pimpinan' or $val == 'rekan' 
+                                   or $val =='ketuaDosen' ){
+                                   if(is_array($key)){
+                                        foreach($key as $x ){
+                                             $NIP = $this->surat->getWhere('tbl_pegawai','NamaPegawai',$x)->Nip;
+                                             $this->surat->insertDetailSurat($idSurat,$NIP);  
+                                        }
+                                   }else{
+                                        // die;
+                                        $NIP = $this->surat->getWhere('tbl_pegawai','NamaPegawai',$key)->Nip;
+                                        $this->surat->insertDetailSurat($idSurat,$NIP);
+                                   }
+                              }
+                         }
+                         $this->session->set_flashdata('sukses', 'Surat Tersimpan');
+                         redirect(site_url().'/welcome/tambahSurat/26');
+                    }
           }
           public function getMatkul(){
                header('Content-Type: application/json');
@@ -972,12 +1033,8 @@ class Welcome extends CI_Controller {
                {
                     $this->load->view('temp/sidebar_ekspedisi');
                }
-               $this->load->model('main_models');
                $data['surat']=$this->surat->getWhere('tbl_surat','IdSurat',$id)->FileGdrive;
                $this->load->view('pdfViewer',$data);
-               // $this->load->view('index2');
-               // echo $this->session->userd?ata('status');
-               // $this->load->view('temp/js');
                $this->load->view('temp/footer');
           }
           function det_agenda($Id){

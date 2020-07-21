@@ -205,7 +205,7 @@
     <?php if($this->session->flashdata('statusInsert')=='sukses') :?>
       swal("Sukses", "Data berhasil tersimpan", "success");
     <?php endif ?>
-    $.get( "http://localhost/menpro/index.php/welcome/getPegawai", function( data ) {
+    $.get( "http://localhost/menpro/welcome/getPegawai", function( data ) {
       dataDosen = data;
       // console.log(dataDosen);
       $('.dosen').select2({
@@ -219,14 +219,14 @@
       data : dataUsername
 });
       });
-      $.get( "http://localhost/menpro/index.php/welcome/getJurusan", function( data ) {
+      $.get( "http://localhost/menpro/welcome/getJurusan", function( data ) {
       dataJurusan = data;
       // console.log(dataJurusan);
       $('.jurusan').select2({
       data : dataJurusan
 });
       });
-      $.get( "http://localhost/menpro/index.php/welcome/getMatkul", function( data ) {
+      $.get( "http://localhost/menpro/welcome/getMatkul", function( data ) {
       dataMatkul = data;
       // console.log(dataJurusan);
       $('.matkul').select2({

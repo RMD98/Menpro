@@ -289,7 +289,7 @@ $(document).ready(function() {
     });
     
   }) 
-      $.get( "http://localhost/menpro/index.php/welcome/getPegawai", function( data ) {
+      $.get( "http://localhost/menpro/welcome/getPegawai", function( data ) {
       dataDosen = data;
       console.log(dataDosen);
       $('.dosen').select2({

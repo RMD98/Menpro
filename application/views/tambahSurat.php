@@ -52,15 +52,10 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="POST" action="<?php echo base_url()?>welcome/saveWord">
+              <!-- <form role="form" method="POST" action="<?php echo base_url()?>welcome/suratExternal"> -->
+              <?php echo form_open_multipart('/welcome/suratExternal')?>
                 <div class="card-body">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Jenis</label>
-                    <select type="formcontrol" class="btn btn-primary form-control" name="jenis">
-                  <option> Surat Keputusan </option>
-                  <option> Surat Keterangan </option>
-                </Select> 
-                  </div>         
+                         
               <?php foreach ($templateSK as $key=>$Input):
                 if($Input->type =='text'):?>
                   <div class="form-group">
@@ -87,12 +82,14 @@
                   <label for="exampleInputEmail1"><?=$Input->label?></label>
                     <textarea type="text" class="form-control" rows="3" name="<?=$key?>"></textarea>
                   </div>
+                  <?php elseif ($Input->type =='file'):?>
+                  <div class="form-group">
+                  <label for="exampleInputEmail1"><?=$Input->label?></label>
+                    <input type="file" class="form-control" name="<?=$key?>">
+                  </div>
                   <?php endif?>
               <?php endforeach ?>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Validasi</label>
-                    <select class="username form-control" name="validasi"></select>
-                  </div>
+              
                   <!-- <div class="form-group">
                     <label for="exampleInputPassword1">Tanggal Buat</label>
                     <input type="text" class="form-control">
@@ -104,7 +101,7 @@
                   <input type="text" class="form-control">
                 </div> -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Generate</button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 <!-- <div class="form-group">
                     <label for="exampleInputFile">File input</label>
@@ -205,28 +202,28 @@
     <?php if($this->session->flashdata('statusInsert')=='sukses') :?>
       swal("Sukses", "Data berhasil tersimpan", "success");
     <?php endif ?>
-    $.get( "http://localhost/menpro/index.php/welcome/getPegawai", function( data ) {
+    $.get( "http://localhost/menpro/welcome/getPegawai", function( data ) {
       dataDosen = data;
       // console.log(dataDosen);
       $('.dosen').select2({
       data : dataDosen
 });
       });
-      $.get( "http://localhost/menpro/index.php/welcome/getUsername", function( data ) {
+      $.get( "http://localhost/menpro/welcome/getUsername", function( data ) {
       dataUsername = data;
       console.log(Username);
       $('.username').select2({
       data : dataUsername
 });
       });
-      $.get( "http://localhost/menpro/index.php/welcome/getJurusan", function( data ) {
+      $.get( "http://localhost/menpro/welcome/getJurusan", function( data ) {
       dataJurusan = data;
       // console.log(dataJurusan);
       $('.jurusan').select2({
       data : dataJurusan
 });
       });
-      $.get( "http://localhost/menpro/index.php/welcome/getMatkul", function( data ) {
+      $.get( "http://localhost/menpro/welcome/getMatkul", function( data ) {
       dataMatkul = data;
       // console.log(dataJurusan);
       $('.matkul').select2({

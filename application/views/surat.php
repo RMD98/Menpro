@@ -40,7 +40,7 @@
             <?php foreach ($listSK as $key=>$listSK): 
               if (($key % 3 == 0)):
               ?>
-              <a href="<?php echo base_url()?>index.php/welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
+              <a href="<?php echo base_url()?>welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
           <!-- <div class="col-lg-3 col-6 ml-3 mt-3"> -->
             <!-- small box -->
             <div class="small-box bg-info">
@@ -67,7 +67,7 @@
           <!-- ./col -->
           <!-- <div class="col-lg-3 col-6 ml-3 mt-3"> -->
             <!-- small box -->
-            <a href="<?php echo base_url()?>index.php/welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
+            <a href="<?php echo base_url()?>welcome/add_surat/<?=$listSK->IdSK?>" class="col-md-2 ml-3 mt-3 ">
             <div class="small-box bg-danger">
               <div class="inner" style="height:220;">
                 <h5 style ='text-align: center;  margin-top:33%;margin-botom:33%;'><?=$listSK->Tema?></sup></h5>
