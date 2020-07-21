@@ -30,9 +30,12 @@ class Welcome extends CI_Controller {
           public function index(){
                // parent::__construct();
                // $this->load->library('session');
+               $this->load->view('temp/head');
                if($this->session->userdata('id') == '') 
                {
                     $this->load->view('login');
+                    $this->load->view('temp/footer');
+                    $this->load->view('temp/js');
                     //$data = $this->session->all_userdata();
                     // echo($this->session->userdata());
                }
@@ -268,8 +271,7 @@ class Welcome extends CI_Controller {
                $this->session->set_flashdata('status','sukses' );
                redirect(site_url()."welcome/validation");
           }
-          public function pegawai()
-          {
+          public function pegawai(){
                $data['tbl_pegawai'] = $this->main_models->daftar_pegawai();
                $this->load->view('temp/head');
                $this->load->view('temp/sidebar');
@@ -762,7 +764,8 @@ class Welcome extends CI_Controller {
                     redirect(site_url().'/welcome/agenda');
                }
                else {
-                redirect(site_url().'/welcome/add_agenda');
+                    $this->session->set_flashdata('error', 'Please Fill All Field');  
+                    redirect(site_url().'/welcome/add_agenda');
                }
           }
           function tmbh_pegawai(){
