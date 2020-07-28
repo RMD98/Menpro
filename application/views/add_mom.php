@@ -52,13 +52,9 @@
             <?php foreach ($agenda as $agenda) : ?>
             <div class="card-header">
                 <div class="col-12" style="text-align: center;">
-                  <a href="<?php echo site_url()?>/welcome/edit_agenda/<?php echo $agenda->IdRapat?>">
-                    <button type="button" class="btn btn-primary float-right">Edit</button>
-                  </a>
+                  
                   <h1> <?php echo $agenda->TopikRapat;?></h1>
-                  <a href="<?php echo site_url()?>/welcome/Add_mom/<?php echo $agenda->IdRapat?>">
-                    <button type="button" class="btn btn-primary float-right">Add MOM</button>
-                  </a>
+                  
               </div>
             </div>
             <!-- /.card-header -->
@@ -70,8 +66,8 @@
                 <p></p>
                 <p><?php echo $agenda->Deskripsi;?></p>
                 <p></p>
-                <p>MOM</p>
-                <p><?php echo $agenda->MOM;?></p>
+                
+                <p>MOM : <?php echo $agenda->MOM;?></p>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->

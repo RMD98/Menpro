@@ -51,8 +51,7 @@
                 <p></p>
                 <p><?php echo $agenda->Deskripsi;?></p>
                 <p></p>
-                <p>MOM</p>
-                <p><?php echo $agenda->MOM;?></p>
+                <p>MOM : <?php echo $agenda->MOM;?></p>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->

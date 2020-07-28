@@ -795,8 +795,9 @@ class Welcome extends CI_Controller {
                }
           }  
           function add_rapat(){
-               $this->load->library('form_validation');
                // $this->load->library('form_validation');
+               // $bypass=True;
+               $this->load->library('form_validation');
                $this->form_validation->set_rules('nip', 'NIP','required');  
                $this->form_validation->set_rules('topik', 'TopikRapat', 'required');  
                $this->form_validation->set_rules('tgl_awal', 'TglMulai', 'required');  
@@ -812,11 +813,11 @@ class Welcome extends CI_Controller {
                          'WaktuMulai'    => $this->input->post('wkt_mulai'),
                          'TglAkhir'      => $this->input->post('tgl_akhir'),
                          'WaktuAkhir'    => $this->input->post('wkt_akhir'),
-                         'MOM'           => $this->input->post('mom')
+                         'Deskripsi'           => $this->input->post('mom')
                     );
                     $this->load->model('main_models');
-                    $idRapat = $this->surat->getLast('tbl_rapat','IdRapat')->IdRapat;
                     $this->main_models->tambah_rapat($agenda);
+                    $idRapat = $this->surat->getLast('tbl_rapat','IdRapat')->IdRapat;
                     foreach ($this->input->post('tujuan') as $val=>$key) {
                          $NIP = $this->surat->getWhere('tbl_pegawai','NamaPegawai',$key)->Nip;
                          $this->main_models->insert_anak($idRapat,$NIP);

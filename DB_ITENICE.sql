@@ -11,7 +11,7 @@
  Target Server Version : 50719
  File Encoding         : 65001
 
- Date: 20/07/2020 22:45:57
+ Date: 28/07/2020 17:25:32
 */
 
 SET NAMES utf8mb4;
@@ -140,31 +140,33 @@ CREATE TABLE `tbl_rapat`  (
   `WaktuAkhir` time(0) NULL DEFAULT NULL COMMENT 'waktu selesai rapat',
   `MOM` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL COMMENT 'MOM rapat',
   `IdSurat` int(11) NULL DEFAULT NULL,
+  `Deskripsi` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   PRIMARY KEY (`IdRapat`) USING BTREE,
   INDEX `FK_tbl_rapat_tbl_pegawai`(`NIP`) USING BTREE,
   INDEX `FK`(`IdSurat`) USING BTREE,
   CONSTRAINT `FK` FOREIGN KEY (`IdSurat`) REFERENCES `tbl_staff_surat` (`IdSurat`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_tbl_rapat_tbl_pegawai` FOREIGN KEY (`NIP`) REFERENCES `tbl_pegawai` (`Nip`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data rapat digunakan menyimpan data rapat' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data rapat digunakan menyimpan data rapat' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tbl_rapat
 -- ----------------------------
-INSERT INTO `tbl_rapat` VALUES (1, '1', 'test rapat', '2020-06-16', '2020-06-16', '11:30:00', '11:35:00', '-', NULL);
-INSERT INTO `tbl_rapat` VALUES (2, '1', 'pembentukan divisi pembasmian ', '2020-06-23', '2020-06-24', '02:25:00', '02:30:00', 'diharapkan hadir 10 menit sebelum mulai', NULL);
-INSERT INTO `tbl_rapat` VALUES (3, '1', 'test rapat', '2020-06-26', '2020-06-27', '11:35:00', '03:35:00', '', NULL);
-INSERT INTO `tbl_rapat` VALUES (4, '1', 'test ', '2020-06-16', '2020-06-16', '11:35:00', '11:35:00', 'asd', NULL);
-INSERT INTO `tbl_rapat` VALUES (5, '2', 'asd', '2020-06-30', '2020-06-30', '03:24:00', '03:35:00', 'asd', NULL);
-INSERT INTO `tbl_rapat` VALUES (6, '1', '', '2020-06-30', '2020-06-30', '00:00:00', '00:00:00', '', NULL);
-INSERT INTO `tbl_rapat` VALUES (7, '1', '', '2020-06-30', '2020-06-30', '00:00:00', '00:00:00', '', NULL);
-INSERT INTO `tbl_rapat` VALUES (8, '1', '', '2020-06-30', '2020-06-30', '00:00:00', '00:00:00', '', NULL);
-INSERT INTO `tbl_rapat` VALUES (9, '1', 'test rapat', '2020-06-30', '2020-06-30', '11:35:00', '08:35:00', 'test', NULL);
-INSERT INTO `tbl_rapat` VALUES (10, '1', 'Rapat koordinasi Keweirausahaan', '2020-07-18', '2020-07-18', '08:30:00', '12:00:00', 'Rapat Kordinasi Kewirausahaan', NULL);
-INSERT INTO `tbl_rapat` VALUES (11, '1', '', '2020-07-17', '2020-07-17', '00:00:00', '00:00:00', '', NULL);
-INSERT INTO `tbl_rapat` VALUES (12, '1', '', '2020-07-17', '2020-07-17', '00:00:00', '00:00:00', '', NULL);
-INSERT INTO `tbl_rapat` VALUES (13, '3', 'asd', '2020-07-18', '2020-07-18', '06:03:00', '06:09:00', 'asdadadas', NULL);
-INSERT INTO `tbl_rapat` VALUES (14, '3', 'asdadadads', '2020-07-18', '2020-07-18', '06:06:00', '06:08:00', 'asdadada', NULL);
-INSERT INTO `tbl_rapat` VALUES (15, '3', 'adadadad', '2020-07-18', '2020-07-18', '06:10:00', '07:11:00', 'adsasdasdas', NULL);
+INSERT INTO `tbl_rapat` VALUES (1, '1', 'test rapat', '2020-06-16', '2020-06-16', '11:30:00', '11:35:00', '-', NULL, NULL);
+INSERT INTO `tbl_rapat` VALUES (2, '1', 'pembentukan divisi pembasmian ', '2020-06-23', '2020-06-24', '02:25:00', '02:30:00', 'diharapkan hadir 10 menit sebelum mulai', NULL, NULL);
+INSERT INTO `tbl_rapat` VALUES (3, '1', 'test rapat', '2020-06-26', '2020-06-27', '11:35:00', '03:35:00', '', NULL, NULL);
+INSERT INTO `tbl_rapat` VALUES (4, '1', 'test ', '2020-06-16', '2020-06-16', '11:35:00', '11:35:00', 'asd', NULL, NULL);
+INSERT INTO `tbl_rapat` VALUES (5, '2', 'asd', '2020-06-30', '2020-06-30', '03:24:00', '03:35:00', 'asd', NULL, NULL);
+INSERT INTO `tbl_rapat` VALUES (6, '1', '', '2020-06-30', '2020-06-30', '00:00:00', '00:00:00', '', NULL, NULL);
+INSERT INTO `tbl_rapat` VALUES (7, '1', '', '2020-06-30', '2020-06-30', '00:00:00', '00:00:00', '', NULL, NULL);
+INSERT INTO `tbl_rapat` VALUES (8, '1', '', '2020-06-30', '2020-06-30', '00:00:00', '00:00:00', '', NULL, NULL);
+INSERT INTO `tbl_rapat` VALUES (9, '1', 'test rapat', '2020-06-30', '2020-06-30', '11:35:00', '08:35:00', 'test', NULL, NULL);
+INSERT INTO `tbl_rapat` VALUES (10, '1', 'Rapat koordinasi Keweirausahaan', '2020-07-18', '2020-07-18', '08:30:00', '12:00:00', 'Rapat Kordinasi Kewirausahaan', NULL, NULL);
+INSERT INTO `tbl_rapat` VALUES (11, '1', '', '2020-07-17', '2020-07-17', '00:00:00', '00:00:00', '', NULL, NULL);
+INSERT INTO `tbl_rapat` VALUES (12, '1', '', '2020-07-17', '2020-07-17', '00:00:00', '00:00:00', '', NULL, NULL);
+INSERT INTO `tbl_rapat` VALUES (13, '3', 'penyuluhan manusia', '2020-07-18', '2020-07-18', '06:03:00', '06:09:00', 'sosialisasi diadakan lewat online', NULL, 'Pemberdayaan manusia agar menyerupai manusia pada umumnya');
+INSERT INTO `tbl_rapat` VALUES (14, '3', 'asdadadads', '2020-07-18', '2020-07-18', '06:06:00', '06:08:00', 'asdadada', NULL, NULL);
+INSERT INTO `tbl_rapat` VALUES (15, '3', 'adadadad', '2020-07-18', '2020-07-18', '06:10:00', '07:11:00', 'adsasdasdas', NULL, NULL);
+INSERT INTO `tbl_rapat` VALUES (16, '3', 'pemberdayaan manusia', '2020-07-28', '2020-07-28', '02:23:00', '04:23:00', 'sosialisasi memanusiakan manusia', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tbl_sk
@@ -248,7 +250,7 @@ CREATE TABLE `tbl_staff_rapat`  (
   INDEX `FK_tbl_staff_surat_tbl_surat`(`IdRapat`) USING BTREE,
   CONSTRAINT `tbl_staff_rapat_ibfk_1` FOREIGN KEY (`NIP`) REFERENCES `tbl_pegawai` (`Nip`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tbl_staff_rapat_ibfk_2` FOREIGN KEY (`IdRapat`) REFERENCES `tbl_rapat` (`IdRapat`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 63 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data tujuan surat digunakan untuk detail surat' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 65 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data tujuan surat digunakan untuk detail surat' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tbl_staff_rapat
@@ -267,12 +269,14 @@ INSERT INTO `tbl_staff_rapat` VALUES (53, 11, '3', 'N');
 INSERT INTO `tbl_staff_rapat` VALUES (54, 12, '1', 'N');
 INSERT INTO `tbl_staff_rapat` VALUES (55, 12, '2', 'N');
 INSERT INTO `tbl_staff_rapat` VALUES (56, 12, '3', 'N');
-INSERT INTO `tbl_staff_rapat` VALUES (57, 14, '1', 'N');
-INSERT INTO `tbl_staff_rapat` VALUES (58, 14, '2', 'N');
+INSERT INTO `tbl_staff_rapat` VALUES (57, 13, '1', 'N');
+INSERT INTO `tbl_staff_rapat` VALUES (58, 13, '2', 'N');
 INSERT INTO `tbl_staff_rapat` VALUES (59, 14, '3', 'N');
 INSERT INTO `tbl_staff_rapat` VALUES (60, 15, '1', 'N');
 INSERT INTO `tbl_staff_rapat` VALUES (61, 15, '2', 'N');
 INSERT INTO `tbl_staff_rapat` VALUES (62, 15, '3', 'N');
+INSERT INTO `tbl_staff_rapat` VALUES (63, 15, '1', 'N');
+INSERT INTO `tbl_staff_rapat` VALUES (64, 15, '2', 'N');
 
 -- ----------------------------
 -- Table structure for tbl_staff_surat
@@ -288,7 +292,7 @@ CREATE TABLE `tbl_staff_surat`  (
   INDEX `FK_tbl_staff_surat_tbl_surat`(`IdSurat`) USING BTREE,
   CONSTRAINT `FK_tbl_staff_surat_tbl_pegawai` FOREIGN KEY (`NIP`) REFERENCES `tbl_pegawai` (`Nip`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_tbl_staff_surat_tbl_surat` FOREIGN KEY (`IdSurat`) REFERENCES `tbl_surat` (`IdSurat`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 82 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data tujuan surat digunakan untuk detail surat' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 83 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data tujuan surat digunakan untuk detail surat' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tbl_staff_surat
@@ -374,6 +378,7 @@ INSERT INTO `tbl_staff_surat` VALUES (78, 108, '1', 'N');
 INSERT INTO `tbl_staff_surat` VALUES (79, 108, '3', 'N');
 INSERT INTO `tbl_staff_surat` VALUES (80, 109, '1', 'N');
 INSERT INTO `tbl_staff_surat` VALUES (81, 109, '2', 'N');
+INSERT INTO `tbl_staff_surat` VALUES (82, 110, '1', 'N');
 
 -- ----------------------------
 -- Table structure for tbl_surat
@@ -399,7 +404,7 @@ CREATE TABLE `tbl_surat`  (
   CONSTRAINT `FK_tbl_surat_tbl_sk` FOREIGN KEY (`IdSK`) REFERENCES `tbl_sk` (`IdSK`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_valid` FOREIGN KEY (`Validator`) REFERENCES `tbl_account` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `tbl_surat_ibfk_1` FOREIGN KEY (`Pembuats`) REFERENCES `tbl_pegawai` (`Nip`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 110 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data surat digunakan untuk menyimpan data surat' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 111 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci COMMENT = 'Tabel untuk data surat digunakan untuk menyimpan data surat' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tbl_surat
@@ -506,11 +511,12 @@ INSERT INTO `tbl_surat` VALUES (100, '26', 'xxxxxx', 'kamu sama aku', '2020-07-2
 INSERT INTO `tbl_surat` VALUES (101, '26', 'xzc', 'addada', '2020-07-20', 'result/pdf/addada20-07-2020', NULL, 'results/addada20-07-2020', '{\"topik\":\"addada\",\"tujuan\":[\"ujank\",\"dadang\"],\"noSurat\":\"xzc\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
 INSERT INTO `tbl_surat` VALUES (102, '26', 'xxxxx', '1232131', '2020-07-20', 'result/pdf/123213120-07-2020', NULL, 'results/123213120-07-2020', '{\"topik\":\"1232131\",\"tujuan\":[\"ujank\"],\"noSurat\":\"xxxxx\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
 INSERT INTO `tbl_surat` VALUES (103, '26', 'xxxx', 'asdasd', '2020-07-20', 'results/pdf/asdasd20-07-2020', NULL, 'results/asdasd20-07-2020', '{\"topik\":\"asdasd\",\"tujuan\":[\"ujank\"],\"noSurat\":\"xxxx\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
-INSERT INTO `tbl_surat` VALUES (104, '26', 'xxxxxx', 'test asli ini mah', '2020-07-20', 'results/pdf/test-asli-ini-mah20-07-2020', '1TUQ87CZEm0U9LVhHKU4OFXKT_iQ7lZRm', 'results/test-asli-ini-mah20-07-2020', '{\"topik\":\"test asli ini mah\",\"tujuan\":[\"ujank\",\"fredi\",\"dadang\"],\"noSurat\":\"xxxxxx\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
-INSERT INTO `tbl_surat` VALUES (105, '26', 'xxxxxx', 'test asli ini mah', '2020-07-20', 'results/pdf/test-asli-ini-mah20-07-2020', '1sTGWvUbPdDDkSeT8e-wr6TDjNvkVUbbH', 'results/test-asli-ini-mah20-07-2020', '{\"topik\":\"test asli ini mah\",\"tujuan\":[\"ujank\",\"fredi\",\"dadang\"],\"noSurat\":\"xxxxxx\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
-INSERT INTO `tbl_surat` VALUES (106, '26', 'xxxxxx', 'test asli ini mah', '2020-07-20', 'results/pdf/test-asli-ini-mah20-07-2020', '1ibnvVb8aqqzEXOh01yGKI3oPGMymp0nu', 'results/test-asli-ini-mah20-07-2020', '{\"topik\":\"test asli ini mah\",\"tujuan\":[\"ujank\",\"fredi\"],\"noSurat\":\"xxxxxx\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
-INSERT INTO `tbl_surat` VALUES (107, '26', 'xxxx', 'test yang kesekian kalinya', '2020-07-20', 'results/pdf/test-yang-kesekian-kalinya20-07-2020.pdf', '1AT4LRFKvbJ_U8W4lhjYxFSDQJroF1dR7', 'results/test-yang-kesekian-kalinya20-07-2020.pdf', '{\"topik\":\"test yang kesekian kalinya\",\"tujuan\":[\"ujank\",\"dadang\"],\"noSurat\":\"xxxx\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
-INSERT INTO `tbl_surat` VALUES (108, '26', '', 'test yang baru boss', '2020-07-20', 'results/pdf/test-yang-baru-boss20-07-2020.pdf', '1EKbkuG-VVxmdPqQ1_SjvCrFlpjzKtAqC', 'results/test-yang-baru-boss20-07-2020.pdf', '{\"topik\":\"test yang baru boss\",\"tujuan\":[\"ujank\",\"dadang\"],\"noSurat\":\"\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
-INSERT INTO `tbl_surat` VALUES (109, '26', 'xxxxxx', 'test terakhir aslina', '2020-07-20', 'results/pdf/test-terakhir-aslina20-07-2020.pdf', '1UMFebGY4Gf-6yHASd660a_MciGmdbDCk', 'results/test-terakhir-aslina20-07-2020.pdf', '{\"topik\":\"test terakhir aslina\",\"tujuan\":[\"ujank\",\"fredi\"],\"noSurat\":\"xxxxxx\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
+INSERT INTO `tbl_surat` VALUES (104, '26', 'xxxxxx', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-07-20', 'results/pdf/test-asli-ini-mah20-07-2020', '1TUQ87CZEm0U9LVhHKU4OFXKT_iQ7lZRm', 'results/test-asli-ini-mah20-07-2020', '{\"topik\":\"test asli ini mah\",\"tujuan\":[\"ujank\",\"fredi\",\"dadang\"],\"noSurat\":\"xxxxxx\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
+INSERT INTO `tbl_surat` VALUES (105, '26', 'xxxxxx', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-07-20', 'results/pdf/test-asli-ini-mah20-07-2020', '1sTGWvUbPdDDkSeT8e-wr6TDjNvkVUbbH', 'results/test-asli-ini-mah20-07-2020', '{\"topik\":\"test asli ini mah\",\"tujuan\":[\"ujank\",\"fredi\",\"dadang\"],\"noSurat\":\"xxxxxx\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
+INSERT INTO `tbl_surat` VALUES (106, '26', 'xxxxxx', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-07-20', 'results/pdf/test-asli-ini-mah20-07-2020', '1ibnvVb8aqqzEXOh01yGKI3oPGMymp0nu', 'results/test-asli-ini-mah20-07-2020', '{\"topik\":\"test asli ini mah\",\"tujuan\":[\"ujank\",\"fredi\"],\"noSurat\":\"xxxxxx\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
+INSERT INTO `tbl_surat` VALUES (107, '26', 'xxxx', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-07-20', 'results/pdf/test-yang-kesekian-kalinya20-07-2020.pdf', '1AT4LRFKvbJ_U8W4lhjYxFSDQJroF1dR7', 'results/test-yang-kesekian-kalinya20-07-2020.pdf', '{\"topik\":\"test yang kesekian kalinya\",\"tujuan\":[\"ujank\",\"dadang\"],\"noSurat\":\"xxxx\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
+INSERT INTO `tbl_surat` VALUES (108, '26', '', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-07-20', 'results/pdf/test-yang-baru-boss20-07-2020.pdf', '1EKbkuG-VVxmdPqQ1_SjvCrFlpjzKtAqC', 'results/test-yang-baru-boss20-07-2020.pdf', '{\"topik\":\"test yang baru boss\",\"tujuan\":[\"ujank\",\"dadang\"],\"noSurat\":\"\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
+INSERT INTO `tbl_surat` VALUES (109, '26', 'xxxxxx', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-07-20', 'results/pdf/test-terakhir-aslina20-07-2020.pdf', '1UMFebGY4Gf-6yHASd660a_MciGmdbDCk', 'results/test-terakhir-aslina20-07-2020.pdf', '{\"topik\":\"test terakhir aslina\",\"tujuan\":[\"ujank\",\"fredi\"],\"noSurat\":\"xxxxxx\",\"waktu\":\"20-07-2020\"}', 'tervalidasi', '1', NULL);
+INSERT INTO `tbl_surat` VALUES (110, '21', '110', 'Melakukan Kegiatan Pengabdian Kepada Masyarakat In', '2020-07-26', 'results/pdf/2020-07-27_02-09-25lppkm_pkm.pdf', '1msqYteyEmqo5V3GNjPLRpW0XdZu_9Lwq', 'results/2020-07-27_02-09-25lppkm_pkm.docx', '{\"jenis\":\"Surat Keputusan\",\"dosenSurat\":\"ujank\",\"kegiatan\":\"sosialisasi pentingnya e-office\",\"jabatan\":\"Ketua\",\"lokasi\":\"Garut\",\"waktu\":\"21-07-2020 - 22-07-2020\",\"sumberDana\":\"Itenas\",\"totalDana\":\"500000000\",\"validasi\":\"rektor\"}', 'tervalidasi', '3', 2);
 
 SET FOREIGN_KEY_CHECKS = 1;
