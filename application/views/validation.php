@@ -101,17 +101,6 @@
 <!-- jQuery -->
 <!-- page script -->
 <script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
-  });
   $(document).ready(function() {
     <?php if($this->session->flashdata('status')=='sukses') :?>
       swal("Sukses", "Data berhasil tersimpan", "success");

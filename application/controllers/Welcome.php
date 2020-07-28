@@ -427,7 +427,7 @@ class Welcome extends CI_Controller {
           public function validation(){
                $data['validasi'] = $this->surat->listValidasi($this->session->userdata('NIP'));
                $this->load->view('temp/head');
-               // $this->load->view('temp/js');
+               $this->load->view('temp/js');
                if($this->session->userdata('id') == '') 
                {
                     $this->load->view('login');
