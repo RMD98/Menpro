@@ -278,8 +278,8 @@
         }
         // $tujuan = "results/pdf/2020-07-07_12-04-32lppkm_pkm.pdf";
         
-        $idGdrive=$this->uploadGDrive($tujuan);
-        return $idGdrive;
+        // $idGdrive=$this->uploadGDrive($tujuan);
+        // return $idGdrive;
     }
     function setGdrive(){
         $url_array = explode('?', 'http://'.$_SERVER ['HTTP_HOST'].$_SERVER['REQUEST_URI']);

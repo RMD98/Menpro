@@ -131,7 +131,7 @@ class Welcome extends CI_Controller {
                echo $kirim;
           }
           public function tambahSurat($key){
-               $this->surat->setGdrive();
+               // $this->surat->setGdrive();
                $this->load->view('temp/head');
                $this->load->view('temp/js');
                if($this->session->userdata('status') == 'admin') {
@@ -236,6 +236,7 @@ class Welcome extends CI_Controller {
                $pdf = "results/pdf/{$unik}{$filename}";
                $x = explode('.',$pdf);
                $pdf = $x[0].'.pdf';
+               
                $data = array_merge($this->input->post(), $this->surat->getDetailAccount($this->session->userdata('NIP')));
                try{
                     $data['NipSurat']=$this->surat->getDetailDosen('NamaPegawai',$this->input->post('dosenSurat'))['Nip'];
@@ -245,7 +246,8 @@ class Welcome extends CI_Controller {
                   }
                   $NipValidator = $this->surat->getWhere('tbl_account','Username',$this->input->post('validasi'))->NIP;
                   $lokasi = $this->surat->generateWord($template,$hasil,$data,$Parameter,$NoSurat);
-               $idGdrive=$this->surat->converter($hasil,$pdf);  
+               $this->surat->converter($hasil,$pdf); 
+               $idGdrive = ' '; 
                $this->surat->insertSurat($id,$Temp,$Topik,$NoSurat,$lokasi,$NipValidator,$this->session->userdata('NIP'),$pdf,$idGdrive);
                $idSurat = $this->surat->getLast('tbl_surat','IdSurat')->IdSurat;
                foreach ($this->input->post() as $val=>$key) {
@@ -265,7 +267,7 @@ class Welcome extends CI_Controller {
                }
                $this->session->set_flashdata('statusInsert','sukses' );
                $this->session->set_flashdata('download',$lokasi );
-               force_download($lokasi, NULL);
+               force_download($pdf, NULL);
                redirect("welcome/add_surat/$id");
           }
           public function statusSurat($idSurat){
@@ -515,10 +517,10 @@ class Welcome extends CI_Controller {
           public function surat(){
                $data['listSK'] = $this->surat->get_template_sk($this->session->userdata('status'));
                // print_r($data);
-               $token = $this->surat->setGdrive();
-               $fp = fopen('results.json', 'w');
-               fwrite($fp, json_encode($token));
-               fclose($fp);
+               // $token = $this->surat->setGdrive();
+               // $fp = fopen('results.json', 'w');
+               // fwrite($fp, json_encode($token));
+               // fclose($fp);
                $this->load->view('temp/head');
                if($this->session->userdata('status') == 'admin') {
                     $data['nama'] = $this->session->userdata('Nama');
@@ -791,6 +793,7 @@ class Welcome extends CI_Controller {
                else
                {
                     $this->session->set_flashdata('error', 'Password did not match');  
+                    redirect(site_url() . '/welcome/reset_pass/'.$this->encryption->encrypt($id)); 
                     redirect(site_url() . '/welcome/reset_pass/'.$this->encryption->encrypt($id)); 
                }
           }  
@@ -1267,7 +1270,7 @@ class Welcome extends CI_Controller {
                $file = $this->surat->getWhere('tbl_surat','IdSurat',$id);
                // var_dump($file);
                // die;
-               force_download($file->File, NULL);
+               force_download($file->FilePdf, NULL);
                redirect(site_url().'/welcome/validation');
            }
            public function downloadPdf(){
