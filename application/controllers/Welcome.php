@@ -798,13 +798,12 @@ class Welcome extends CI_Controller {
                // $this->load->library('form_validation');
                // $bypass=True;
                $this->load->library('form_validation');
-               $this->form_validation->set_rules('nip', 'NIP','required');  
-               $this->form_validation->set_rules('topik', 'TopikRapat', 'required');  
-               $this->form_validation->set_rules('tgl_awal', 'TglMulai', 'required');  
-               $this->form_validation->set_rules('wkt_awal', 'WaktuMulai', 'required');  
+               $this->form_validation->set_rules('topik', 'TopikRapat', 'required',array('required'=>'Please Fill All Field'));  
+               $this->form_validation->set_rules('tgl_mulai', 'TglMulai', 'required');  
+               $this->form_validation->set_rules('wkt_mulai', 'WaktuMulai', 'required');  
                $this->form_validation->set_rules('tgl_akhir', 'TglAkhir', 'required');  
                $this->form_validation->set_rules('wkt_akhir', 'WaktuAkhir', 'required');
-               $this->form_validation->set_rules('mom', 'MOM', 'required');
+               // $this->form_validation->set_rules('mom', 'MOM', 'required');
                if($this->form_validation->run()){
                     $agenda = array(
                          'NIP'           => $this->session->userdata('NIP'),
@@ -813,7 +812,7 @@ class Welcome extends CI_Controller {
                          'WaktuMulai'    => $this->input->post('wkt_mulai'),
                          'TglAkhir'      => $this->input->post('tgl_akhir'),
                          'WaktuAkhir'    => $this->input->post('wkt_akhir'),
-                         'Deskripsi'           => $this->input->post('mom')
+                         'Deskripsi'     => $this->input->post('mom')
                     );
                     $this->load->model('main_models');
                     $this->main_models->tambah_rapat($agenda);

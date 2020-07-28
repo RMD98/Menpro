@@ -84,17 +84,10 @@
               <!-- form start -->
               <form role="form" action="<?php echo site_url()?>/welcome/add_rapat" method='post'>
                 <div class="card-body">
-                <!-- <div class="form-group">
-                  <label>NIP</label>
-                  <select class="form-control select" style="width: 100%;" name="nip">
-                    <?php foreach ($pgw as $pgw) :?>  
-                      <option><?php echo $pgw->Nip;?></option>
-                    <?php endforeach;?>
-                  </select>
-                </div> -->
                   <div class="form-group">
                     <label >Topik</label>
                     <input type="text" class="form-control" id="topik" name="topik">
+                    <?php echo '<label class="text-danger">'.$this->session->flashdata("error").'</label>';  ?>
                   </div>
                   <div class="form-group">
                     <label >Tanggal Mulai</label>
@@ -289,7 +282,7 @@ $(document).ready(function() {
     });
     
   }) 
-      $.get( "http://localhost/menpro/welcome/getPegawai", function( data ) {
+      $.get( "http://localhost/menpro/index.php/welcome/getPegawai", function( data ) {
       dataDosen = data;
       console.log(dataDosen);
       $('.dosen').select2({

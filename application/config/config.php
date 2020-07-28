@@ -33,7 +33,7 @@ $config['base_url'] = 'http://localhost/menpro/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
